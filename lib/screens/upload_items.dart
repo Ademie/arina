@@ -14,11 +14,13 @@ class _UploadItemsState extends State<UploadItems> {
   Uint8List? imageFileUint8List;
   bool isUploading = false;
   TextEditingController sellerNameController = TextEditingController();
-  
+  TextEditingController sellerPhoneController = TextEditingController();
+  TextEditingController itemNameController = TextEditingController();
+  TextEditingController itemDescriptionController = TextEditingController();
+  TextEditingController itemPriceController = TextEditingController();
 
   // Upload form
   Widget uploadFormScreen() {
-    
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -30,6 +32,7 @@ class _UploadItemsState extends State<UploadItems> {
             Navigator.pop(context);
           },
         ),
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.cloud_upload))],
       ),
       body: ListView(
         children: [
@@ -58,8 +61,7 @@ class _UploadItemsState extends State<UploadItems> {
             color: Colors.white70,
             thickness: 1,
           ),
-            // FORM
-          // SELLER INFO
+          // SELLER NAME
           ListTile(
             leading: Icon(
               Icons.person_pin_rounded,
@@ -70,9 +72,109 @@ class _UploadItemsState extends State<UploadItems> {
               child: TextField(
                 controller: sellerNameController,
                 style: TextStyle(color: Colors.grey),
+                decoration: InputDecoration(
+                    hintText: 'Seller Name',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: InputBorder.none),
               ),
             ),
-          )
+          ),
+          const Divider(
+            color: Colors.white70,
+            thickness: 1,
+          ),
+
+          // SELLER PHONE
+          ListTile(
+            leading: Icon(
+              Icons.phone,
+              color: Colors.white,
+            ),
+            title: SizedBox(
+              width: 250,
+              child: TextField(
+                controller: sellerPhoneController,
+                style: TextStyle(color: Colors.grey),
+                decoration: InputDecoration(
+                    hintText: 'Seller Phone',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: InputBorder.none),
+              ),
+            ),
+          ),
+          const Divider(
+            color: Colors.white70,
+            thickness: 1,
+          ),
+
+          // ITEM NAME
+          ListTile(
+            leading: Icon(
+              Icons.production_quantity_limits_rounded,
+              color: Colors.white,
+            ),
+            title: SizedBox(
+              width: 250,
+              child: TextField(
+                controller: itemNameController,
+                style: TextStyle(color: Colors.grey),
+                decoration: InputDecoration(
+                    hintText: 'Item Name',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: InputBorder.none),
+              ),
+            ),
+          ),
+          const Divider(
+            color: Colors.white70,
+            thickness: 1,
+          ),
+
+          // ITEM DESCRIPTION
+          ListTile(
+            leading: Icon(
+              Icons.description_outlined,
+              color: Colors.white,
+            ),
+            title: SizedBox(
+              width: 250,
+              child: TextField(
+                controller: itemDescriptionController,
+                style: TextStyle(color: Colors.grey),
+                decoration: InputDecoration(
+                    hintText: 'Item Description',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: InputBorder.none),
+              ),
+            ),
+          ),
+          const Divider(
+            color: Colors.white70,
+            thickness: 1,
+          ),
+
+          // ITEM PRICE
+          ListTile(
+            leading: Icon(
+              Icons.price_change_rounded,
+              color: Colors.white,
+            ),
+            title: SizedBox(
+              width: 250,
+              child: TextField(
+                controller: itemPriceController,
+                style: TextStyle(color: Colors.grey),
+                decoration: InputDecoration(
+                    hintText: 'Item Price',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: InputBorder.none),
+              ),
+            ),
+          ),
+          const Divider(
+            color: Colors.white70,
+            thickness: 1,
+          ),
         ],
       ),
     );
