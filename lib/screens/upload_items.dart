@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:arina/api_consumer.dart';
 import 'package:arina/screens/upload_form.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -90,6 +91,7 @@ class _UploadItemsState extends State<UploadItems> {
   }
 
   captureWithCamera() async {
+    Navigator.pop(context);
     try {
       final pickedImage =
           await ImagePicker().pickImage(source: ImageSource.camera);
@@ -99,6 +101,8 @@ class _UploadItemsState extends State<UploadItems> {
         imageFileUint8List = await pickedImage.readAsBytes();
 
         // remove image background
+
+        imageFileUint8List = await ApiConsumer().removeBgApi(imagePath);
         setState(() {
           imageFileUint8List;
         });
@@ -112,6 +116,7 @@ class _UploadItemsState extends State<UploadItems> {
   }
 
   uploadFromGallery() async {
+    Navigator.pop(context);
     try {
       final pickedImage =
           await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -121,6 +126,8 @@ class _UploadItemsState extends State<UploadItems> {
         imageFileUint8List = await pickedImage.readAsBytes();
 
         // remove image background
+        imageFileUint8List = await ApiConsumer().removeBgApi(imagePath);
+        
         setState(() {
           imageFileUint8List;
         });
