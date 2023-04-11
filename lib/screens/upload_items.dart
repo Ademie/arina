@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:arina/screens/upload_form.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,173 +14,6 @@ class UploadItems extends StatefulWidget {
 class _UploadItemsState extends State<UploadItems> {
   // define image file in bits form
   Uint8List? imageFileUint8List;
-  bool isUploading = false;
-  TextEditingController sellerNameController = TextEditingController();
-  TextEditingController sellerPhoneController = TextEditingController();
-  TextEditingController itemNameController = TextEditingController();
-  TextEditingController itemDescriptionController = TextEditingController();
-  TextEditingController itemPriceController = TextEditingController();
-
-  // Upload form
-  Widget uploadFormScreen() {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text('Upload new item'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.cloud_upload))],
-      ),
-      body: ListView(
-        children: [
-          isUploading == true
-              ? const LinearProgressIndicator(
-                  color: Colors.blue,
-                )
-              : Container(),
-          // DISPLAY IMAGE
-          SizedBox(
-            height: 230,
-            width: 700,
-            child: Center(
-              child: imageFileUint8List != null
-                  ? Image.memory(
-                      imageFileUint8List!,
-                    )
-                  : const Icon(
-                      Icons.image_not_supported,
-                      color: Colors.grey,
-                    ),
-            ),
-          ),
-          // SEPARATOR
-          const Divider(
-            color: Colors.white70,
-            thickness: 1,
-          ),
-          // SELLER NAME
-          ListTile(
-            leading: Icon(
-              Icons.person_pin_rounded,
-              color: Colors.white,
-            ),
-            title: SizedBox(
-              width: 250,
-              child: TextField(
-                controller: sellerNameController,
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
-                    hintText: 'Seller Name',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: InputBorder.none),
-              ),
-            ),
-          ),
-          const Divider(
-            color: Colors.white70,
-            thickness: 1,
-          ),
-
-          // SELLER PHONE
-          ListTile(
-            leading: Icon(
-              Icons.phone,
-              color: Colors.white,
-            ),
-            title: SizedBox(
-              width: 250,
-              child: TextField(
-                controller: sellerPhoneController,
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
-                    hintText: 'Seller Phone',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: InputBorder.none),
-              ),
-            ),
-          ),
-          const Divider(
-            color: Colors.white70,
-            thickness: 1,
-          ),
-
-          // ITEM NAME
-          ListTile(
-            leading: Icon(
-              Icons.production_quantity_limits_rounded,
-              color: Colors.white,
-            ),
-            title: SizedBox(
-              width: 250,
-              child: TextField(
-                controller: itemNameController,
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
-                    hintText: 'Item Name',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: InputBorder.none),
-              ),
-            ),
-          ),
-          const Divider(
-            color: Colors.white70,
-            thickness: 1,
-          ),
-
-          // ITEM DESCRIPTION
-          ListTile(
-            leading: Icon(
-              Icons.description_outlined,
-              color: Colors.white,
-            ),
-            title: SizedBox(
-              width: 250,
-              child: TextField(
-                controller: itemDescriptionController,
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
-                    hintText: 'Item Description',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: InputBorder.none),
-              ),
-            ),
-          ),
-          const Divider(
-            color: Colors.white70,
-            thickness: 1,
-          ),
-
-          // ITEM PRICE
-          ListTile(
-            leading: Icon(
-              Icons.price_change_rounded,
-              color: Colors.white,
-            ),
-            title: SizedBox(
-              width: 250,
-              child: TextField(
-                controller: itemPriceController,
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
-                    hintText: 'Item Price',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: InputBorder.none),
-              ),
-            ),
-          ),
-          const Divider(
-            color: Colors.white70,
-            thickness: 1,
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget defaultScreen() {
     return Scaffold(
@@ -301,7 +135,10 @@ class _UploadItemsState extends State<UploadItems> {
 
   @override
   Widget build(BuildContext context) {
-    return imageFileUint8List == null ? defaultScreen() : uploadFormScreen();
-    // defaultScreen();
+    return imageFileUint8List == null
+        ? defaultScreen()
+        : UploadForm(
+            imageFileUint8List: imageFileUint8List,
+          );
   }
 }
