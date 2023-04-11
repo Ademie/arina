@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UploadItems extends StatefulWidget {
   const UploadItems({super.key});
@@ -254,10 +255,53 @@ class _UploadItemsState extends State<UploadItems> {
         });
   }
 
-  captureWithCamera() {}
-  uploadFromGallery() {}
+  captureWithCamera() async {
+    try {
+      final pickedImage =
+          await ImagePicker().pickImage(source: ImageSource.camera);
+      if (pickedImage != null) {
+        String imagePath = pickedImage.path;
+        //  convert image to bytes
+        imageFileUint8List = await pickedImage.readAsBytes();
+
+        // remove image background
+        setState(() {
+          imageFileUint8List;
+        });
+      }
+    } catch (e) {
+      print(e.toString());
+      setState(() {
+        imageFileUint8List = null;
+      });
+    }
+  }
+
+  uploadFromGallery() async {
+    try {
+      final pickedImage =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedImage != null) {
+        String imagePath = pickedImage.path;
+        //  convert image to bytes
+        imageFileUint8List = await pickedImage.readAsBytes();
+
+        // remove image background
+        setState(() {
+          imageFileUint8List;
+        });
+      }
+    } catch (e) {
+      print(e.toString());
+      setState(() {
+        imageFileUint8List = null;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return defaultScreen();
+    return imageFileUint8List == null ? defaultScreen() : uploadFormScreen();
+    // defaultScreen();
   }
 }
