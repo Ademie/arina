@@ -180,8 +180,84 @@ class _UploadItemsState extends State<UploadItems> {
     );
   }
 
+  Widget defaultScreen() {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text('Upload New Item'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.add_a_photo_outlined,
+              color: Colors.white,
+              size: 200,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                showDialogBox();
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.black54),
+              child: Text('Add New Item'),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  showDialogBox() {
+    return showDialog(
+        context: context,
+        builder: (c) {
+          return SimpleDialog(
+            backgroundColor: Colors.black,
+            title: Text(
+              'Item Image',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            children: [
+              SimpleDialogOption(
+                onPressed: () {
+                  captureWithCamera();
+                },
+                child: Text(
+                  'Capture Image with Camera',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  uploadFromGallery();
+                },
+                child: Text(
+                  'Upload from Gallery',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  captureWithCamera() {}
+  uploadFromGallery() {}
   @override
   Widget build(BuildContext context) {
-    return uploadFormScreen();
+    return defaultScreen();
   }
 }
