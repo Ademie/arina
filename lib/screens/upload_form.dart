@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:firebase_storage/firebase_storage.dart' as fStorage;
+import 'package:firebase_storage/firebase_storage.dart' as fstorage;
 
 class UploadForm extends StatefulWidget {
   UploadForm({super.key, this.imageFileUint8List});
@@ -37,24 +37,23 @@ class _UploadFormState extends State<UploadForm> {
 
           // upload image firestore
           String imageID = DateTime.now().microsecondsSinceEpoch.toString();
-          fStorage.Reference firebaseStorageRef = fStorage
+          fstorage.Reference firebaseStorageRef = fstorage
               .FirebaseStorage.instance
               .ref()
               .child('items images')
               .child(imageID);
 
           // used .putData instead of .putFile becasue our image is in bytes.
-          fStorage.UploadTask uploadTaskImage =
+          fstorage.UploadTask uploadTaskImage =
               firebaseStorageRef.putData(widget.imageFileUint8List!);
 
           // get the download url after successful upload
-          fStorage.TaskSnapshot taskSnapshot =
+          fstorage.TaskSnapshot taskSnapshot =
               await uploadTaskImage.whenComplete(() {});
 
           await taskSnapshot.ref.getDownloadURL().then((imageDownloadUrl) {
             fireImageDownloadUrl = imageDownloadUrl;
           });
-
           saveToCloudStorage();
         } else {
           Fluttertoast.showToast(msg: "Please complete all fields");

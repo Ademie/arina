@@ -11,7 +11,7 @@ class ApiConsumer {
     requestAPI.files
         .add(await http.MultipartFile.fromPath("image_file", imagePath));
 
-    requestAPI.headers.addAll({"X-API-Key": ApiKeyRemoveBg});
+    requestAPI.headers.addAll({"X-API-Key": apiKeyRemoveBg});
 
     // SEND REQUEST AND RECEIVE RESPONSE
     final response = await requestAPI.send();
@@ -21,7 +21,7 @@ class ApiConsumer {
           await http.Response.fromStream(response);
       return getTransparentImageFromResponse.bodyBytes;
     } else {
-      throw Exception("Error Occured::" + response.statusCode.toString());
+      throw Exception("Error Occured::${response.statusCode}");
     }
   }
 }
