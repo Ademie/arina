@@ -5,14 +5,14 @@ import 'package:arina/screens/upload_form.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class UploadItems extends StatefulWidget {
-  const UploadItems({super.key});
+class UploadProducts extends StatefulWidget {
+  const UploadProducts({super.key});
 
   @override
-  State<UploadItems> createState() => _UploadItemsState();
+  State<UploadProducts> createState() => _UploadProductsState();
 }
 
-class _UploadItemsState extends State<UploadItems> {
+class _UploadProductsState extends State<UploadProducts> {
   // define image file in bits form
   Uint8List? imageFileUint8List;
 
@@ -21,7 +21,7 @@ class _UploadItemsState extends State<UploadItems> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('Upload New Item'),
+        title: Text('Upload New product'),
         centerTitle: true,
       ),
       body: Center(
@@ -38,7 +38,7 @@ class _UploadItemsState extends State<UploadItems> {
                 showDialogBox();
               },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.black54),
-              child: Text('Add New Item'),
+              child: Text('Add New product'),
             )
           ],
         ),
@@ -53,7 +53,7 @@ class _UploadItemsState extends State<UploadItems> {
           return SimpleDialog(
             backgroundColor: Colors.black,
             title: Text(
-              'Item Image',
+              'product Image',
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
@@ -127,7 +127,7 @@ class _UploadItemsState extends State<UploadItems> {
 
         // remove image background
         imageFileUint8List = await ApiConsumer().removeBgApi(imagePath);
-        
+
         setState(() {
           imageFileUint8List;
         });

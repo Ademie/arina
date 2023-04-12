@@ -1,4 +1,4 @@
-import 'package:arina/screens/upload_items.dart';
+import 'package:arina/screens/upload_products.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
           IconButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const UploadItems();
+                  return const UploadProducts();
                 }));
               },
               icon: const Icon(Icons.add))

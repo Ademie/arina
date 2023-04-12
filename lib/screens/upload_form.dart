@@ -18,9 +18,9 @@ class _UploadFormState extends State<UploadForm> {
   String fireImageDownloadUrl = "";
   TextEditingController sellerNameController = TextEditingController();
   TextEditingController sellerPhoneController = TextEditingController();
-  TextEditingController itemNameController = TextEditingController();
-  TextEditingController itemDescriptionController = TextEditingController();
-  TextEditingController itemPriceController = TextEditingController();
+  TextEditingController productNameController = TextEditingController();
+  TextEditingController productDescriptionController = TextEditingController();
+  TextEditingController productPriceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +28,9 @@ class _UploadFormState extends State<UploadForm> {
       if (widget.imageFileUint8List != null) {
         if (sellerNameController.text.isNotEmpty &&
             sellerPhoneController.text.isNotEmpty &&
-            itemNameController.text.isNotEmpty &&
-            itemDescriptionController.text.isNotEmpty &&
-            itemPriceController.text.isNotEmpty) {
+            productNameController.text.isNotEmpty &&
+            productDescriptionController.text.isNotEmpty &&
+            productPriceController.text.isNotEmpty) {
           setState(() {
             isUploading = true;
           });
@@ -40,7 +40,7 @@ class _UploadFormState extends State<UploadForm> {
           fstorage.Reference firebaseStorageRef = fstorage
               .FirebaseStorage.instance
               .ref()
-              .child('items images')
+              .child('products images')
               .child(imageID);
 
           // used .putData instead of .putFile becasue our image is in bytes.
@@ -67,7 +67,7 @@ class _UploadFormState extends State<UploadForm> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('Upload new item'),
+        title: const Text('Upload new product'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -159,7 +159,7 @@ class _UploadFormState extends State<UploadForm> {
             thickness: 1,
           ),
 
-          // ITEM NAME
+          // product NAME
           ListTile(
             leading: Icon(
               Icons.production_quantity_limits_rounded,
@@ -168,10 +168,10 @@ class _UploadFormState extends State<UploadForm> {
             title: SizedBox(
               width: 250,
               child: TextField(
-                controller: itemNameController,
+                controller: productNameController,
                 style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
-                    hintText: 'Item Name',
+                    hintText: 'product Name',
                     hintStyle: TextStyle(color: Colors.grey),
                     border: InputBorder.none),
               ),
@@ -182,7 +182,7 @@ class _UploadFormState extends State<UploadForm> {
             thickness: 1,
           ),
 
-          // ITEM DESCRIPTION
+          // product DESCRIPTION
           ListTile(
             leading: Icon(
               Icons.description_outlined,
@@ -191,10 +191,10 @@ class _UploadFormState extends State<UploadForm> {
             title: SizedBox(
               width: 250,
               child: TextField(
-                controller: itemDescriptionController,
+                controller: productDescriptionController,
                 style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
-                    hintText: 'Item Description',
+                    hintText: 'product Description',
                     hintStyle: TextStyle(color: Colors.grey),
                     border: InputBorder.none),
               ),
@@ -205,7 +205,7 @@ class _UploadFormState extends State<UploadForm> {
             thickness: 1,
           ),
 
-          // ITEM PRICE
+          // product PRICE
           ListTile(
             leading: Icon(
               Icons.price_change_rounded,
@@ -214,10 +214,10 @@ class _UploadFormState extends State<UploadForm> {
             title: SizedBox(
               width: 250,
               child: TextField(
-                controller: itemPriceController,
+                controller: productPriceController,
                 style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
-                    hintText: 'Item Price',
+                    hintText: 'product Price',
                     hintStyle: TextStyle(color: Colors.grey),
                     border: InputBorder.none),
               ),
@@ -233,21 +233,21 @@ class _UploadFormState extends State<UploadForm> {
   }
 
   saveToCloudStorage() {
-    String itemID = DateTime.now().microsecondsSinceEpoch.toString();
+    String productID = DateTime.now().microsecondsSinceEpoch.toString();
     // save everything to cloud firestore
-    FirebaseFirestore.instance.collection("items").doc(itemID).set({
-      "itemID": itemID,
-      "itemName": itemNameController.text,
-      "itemDescription": itemDescriptionController.text,
-      "itemImage": fireImageDownloadUrl,
-      "itemPrice": itemPriceController.text,
+    FirebaseFirestore.instance.collection("products").doc(productID).set({
+      "productID": productID,
+      "productName": productNameController.text,
+      "productDescription": productDescriptionController.text,
+      "productImage": fireImageDownloadUrl,
+      "productPrice": productPriceController.text,
       "sellerName": sellerNameController.text,
       "sellerPhone": sellerPhoneController.text,
       "publishedDate": DateTime.now(),
       "status": "available",
     });
 
-    Fluttertoast.showToast(msg: "Item added successfully");
+    Fluttertoast.showToast(msg: "product added successfully");
     setState(() {
       isUploading = false;
       widget.imageFileUint8List = null;
