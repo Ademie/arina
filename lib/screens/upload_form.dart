@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_storage/firebase_storage.dart' as fStorage;
 
 class UploadForm extends StatefulWidget {
   const UploadForm({super.key, this.imageFileUint8List});
@@ -11,16 +13,55 @@ class UploadForm extends StatefulWidget {
 
 class _UploadFormState extends State<UploadForm> {
   bool isUploading = false;
+  String fireImageDownloadUrl = "";
   TextEditingController sellerNameController = TextEditingController();
   TextEditingController sellerPhoneController = TextEditingController();
   TextEditingController itemNameController = TextEditingController();
   TextEditingController itemDescriptionController = TextEditingController();
   TextEditingController itemPriceController = TextEditingController();
-  
-
 
   @override
   Widget build(BuildContext context) {
+    validateUploadForm() async {
+      if (widget.imageFileUint8List != null) {
+        if (sellerNameController.text.isNotEmpty &&
+            sellerPhoneController.text.isNotEmpty &&
+            itemNameController.text.isNotEmpty &&
+            itemDescriptionController.text.isNotEmpty &&
+            itemPriceController.text.isNotEmpty) {
+          setState(() {
+            isUploading = true;
+          });
+
+          // upload image firestore
+          String imageID = DateTime.now().microsecondsSinceEpoch.toString();
+          fStorage.Reference firebaseStorageRef = fStorage
+              .FirebaseStorage.instance
+              .ref()
+              .child('items images')
+              .child(imageID);
+
+          // used .putData instead of .putFile becasue our image is in bytes.
+          fStorage.UploadTask uploadTaskImage =
+              firebaseStorageRef.putData(widget.imageFileUint8List!);
+
+          // get the download url after successful upload
+          fStorage.TaskSnapshot taskSnapshot =
+              await uploadTaskImage.whenComplete(() {});
+
+          await taskSnapshot.ref.getDownloadURL().then((imageDownloadUrl) {
+            fireImageDownloadUrl = imageDownloadUrl;
+          });
+
+          // save everything to cloud firestore
+        } else {
+          Fluttertoast.showToast(msg: "Please complete all fields");
+        }
+      } else {
+        Fluttertoast.showToast(msg: "Please select a valid image");
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -32,7 +73,17 @@ class _UploadFormState extends State<UploadForm> {
             Navigator.pop(context);
           },
         ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.cloud_upload))],
+        actions: [
+          IconButton(
+            onPressed: () {
+              // VALIDATE
+              if (isUploading != true) {
+                validateUploadForm();
+              }
+            },
+            icon: Icon(Icons.cloud_upload),
+          ),
+        ],
       ),
       body: ListView(
         children: [
