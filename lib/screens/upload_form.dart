@@ -1,11 +1,13 @@
+import 'package:arina/screens/home.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fStorage;
 
 class UploadForm extends StatefulWidget {
-  const UploadForm({super.key, this.imageFileUint8List});
-  final Uint8List? imageFileUint8List;
+  UploadForm({super.key, this.imageFileUint8List});
+  Uint8List? imageFileUint8List;
 
   @override
   State<UploadForm> createState() => _UploadFormState();
@@ -53,7 +55,7 @@ class _UploadFormState extends State<UploadForm> {
             fireImageDownloadUrl = imageDownloadUrl;
           });
 
-          // save everything to cloud firestore
+          saveToCloudStorage();
         } else {
           Fluttertoast.showToast(msg: "Please complete all fields");
         }
@@ -229,5 +231,30 @@ class _UploadFormState extends State<UploadForm> {
         ],
       ),
     );
+  }
+
+  saveToCloudStorage() {
+    String itemID = DateTime.now().microsecondsSinceEpoch.toString();
+    // save everything to cloud firestore
+    FirebaseFirestore.instance.collection("items").doc(itemID).set({
+      "itemID": itemID,
+      "itemName": itemNameController.text,
+      "itemDescription": itemDescriptionController.text,
+      "itemImage": fireImageDownloadUrl,
+      "itemPrice": itemPriceController.text,
+      "sellerName": sellerNameController.text,
+      "sellerPhone": sellerPhoneController.text,
+      "publishedDate": DateTime.now(),
+      "status": "available",
+    });
+
+    Fluttertoast.showToast(msg: "Item added successfully");
+    setState(() {
+      isUploading = false;
+      widget.imageFileUint8List = null;
+    });
+
+    // ignore: use_build_context_synchronously
+    Navigator.push(context, MaterialPageRoute(builder: (c) => Home()));
   }
 }
