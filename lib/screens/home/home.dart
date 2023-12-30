@@ -4,11 +4,30 @@ import 'package:arina/widgets/products_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
   Widget build(BuildContext context) {
+    int _selectedIndex = 0;
+
+    // List<Widget> pages = [
+    //   Container(),
+    //   Container(),
+    //   Container(),
+    // ];
+
+    void _onItemTapped(int index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -73,7 +92,6 @@ class Home extends StatelessWidget {
               ),
             ),
             // PRODUCTS LIST
-
             Container(
               height: 600,
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -82,6 +100,46 @@ class Home extends StatelessWidget {
           ],
         ),
       )),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/svg/home.svg',
+              height: 24.0,
+              width: 24.0,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/svg/search.svg',
+              height: 24.0,
+              width: 24.0,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/svg/marker.svg',
+              height: 24.0,
+              width: 24.0,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/svg/profile.svg',
+              height: 24.0,
+              width: 24.0,
+            ),
+            label: '',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+      ),
     );
   }
 }

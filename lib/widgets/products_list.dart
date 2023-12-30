@@ -1,5 +1,6 @@
 import 'package:arina/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ProductGridView extends StatelessWidget {
   final List<ProductModel> products;
@@ -23,6 +24,22 @@ class ProductGridView extends StatelessWidget {
               child: Image.network(
                 products[index].imageUrl.toString(),
                 fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+              right: 20,
+              bottom: 60,
+              child: InkWell(
+                onTap: () {},
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: ShapeDecoration(
+                    color: const Color(0x665F5F5F),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6)),
+                  ),
+                  child: SvgPicture.asset('assets/svg/shopping_bag.svg'),
+                ),
               ),
             ),
             Positioned(
