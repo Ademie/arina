@@ -1,5 +1,5 @@
 import 'package:arina/screens/home/home.dart';
-import 'package:arina/screens/onboarding/sign_up.dart';
+import 'package:arina/widgets/arina_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -168,7 +168,8 @@ class LoginIn extends StatelessWidget {
                             height: 40,
                           ),
                           // BUTTON
-                          ElevatedButton(
+                          ArinaButton(
+                            text: 'Log in',
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -176,56 +177,48 @@ class LoginIn extends StatelessWidget {
                                     builder: (context) => const Home()),
                               );
                             },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF232323),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              shadowColor: const Color(0x3F303030),
-                              elevation: 10,
-                            ),
-                            child: const SizedBox(
-                                width: 260,
-                                height: 50,
-                                child: Center(
-                                    child: Text(
-                                  'Log in',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontFamily: 'Nunito Sans',
-                                    fontWeight: FontWeight.w600,
-                                    height: 0,
-                                  ),
-                                ))),
                           ),
 
                           const SizedBox(
                             height: 30,
                           ),
-                          Center(
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const SignUp()),
-                                );
-                              },
-                              child: const Text(
-                                'SIGN UP',
-                                textAlign: TextAlign.center,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Don\'t have an account? ',
                                 style: TextStyle(
-                                  color: Color(0xFF303030),
-                                  fontSize: 18,
+                                  color: Color(0xFF808080),
+                                  fontSize: 14,
                                   fontFamily: 'Nunito Sans',
                                   fontWeight: FontWeight.w600,
                                   height: 0,
                                 ),
                               ),
-                            ),
-                          )
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginIn()),
+                                    );
+                                  },
+                                  child: const Text(
+                                    'SIGN UP',
+                                    style: TextStyle(
+                                      color: Color(0xFF303030),
+                                      fontSize: 14,
+                                      fontFamily: 'Nunito Sans',
+                                      fontWeight: FontWeight.w700,
+                                      height: 0,
+                                    ),
+                                  )),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 37,
+                          ),
                         ],
                       ),
                     ),

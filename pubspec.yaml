@@ -20,11 +20,12 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/
     - assets/images/
     - assets/images/products/
+    - assets/images/thumbnails/
     - assets/svg/
     - assets/svg/Group.svg
-  # example:
   fonts:
     - family: Merriweather
       fonts:

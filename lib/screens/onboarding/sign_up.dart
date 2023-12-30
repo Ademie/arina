@@ -1,7 +1,7 @@
 import 'package:arina/screens/onboarding/login.dart';
+import 'package:arina/widgets/arina_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -191,33 +191,10 @@ class SignUp extends StatelessWidget {
                           ),
 
                           // BUTTON
-                          ElevatedButton(
+                          ArinaButton(
+                            text: 'Sign Up',
                             onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF232323),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              shadowColor: const Color(0x3F303030),
-                              elevation: 10,
-                            ),
-                            child: const SizedBox(
-                                width: 260,
-                                height: 50,
-                                child: Center(
-                                    child: Text(
-                                  'Sign Up',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontFamily: 'Nunito Sans',
-                                    fontWeight: FontWeight.w600,
-                                    height: 0,
-                                  ),
-                                ))),
                           ),
-
                           const SizedBox(
                             height: 30,
                           ),
@@ -239,7 +216,8 @@ class SignUp extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const LoginIn()),
+                                          builder: (context) =>
+                                              const LoginIn()),
                                     );
                                   },
                                   child: const Text(
