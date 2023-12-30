@@ -21,7 +21,7 @@ class ProductGridView extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image.network(
+              child: Image.asset(
                 products[index].imageUrl.toString(),
                 fit: BoxFit.cover,
               ),

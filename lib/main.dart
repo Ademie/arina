@@ -1,4 +1,3 @@
-import 'package:arina/screens/home/home.dart';
 import 'package:arina/screens/onboarding/sign_up.dart';
 import 'package:flutter/material.dart';
 
