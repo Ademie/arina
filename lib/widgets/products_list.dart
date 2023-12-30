@@ -1,49 +1,60 @@
+import 'package:arina/models/product_model.dart';
 import 'package:flutter/material.dart';
 
-class ProductsList extends StatelessWidget {
-  final List<String> items = List.generate(20, (index) => 'Item $index');
+class ProductGridView extends StatelessWidget {
+  final List<ProductModel> products;
 
-  ProductsList({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverGrid(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-          ),
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return GridItem(item: items[index]);
-            },
-            childCount: items.length,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class GridItem extends StatelessWidget {
-  final String item;
-
-  const GridItem({Key? key, required this.item}) : super(key: key);
+  const ProductGridView({Key? key, required this.products}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 350,
-      decoration:  const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        image: DecorationImage(
-          image: AssetImage('assets/images/products/desk.png'),
-          fit: BoxFit.fill,
-        ),
-      ),
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 0.0,
+          mainAxisSpacing: 20.0,
+          childAspectRatio: 0.7),
+      itemCount: products.length,
+      itemBuilder: (context, index) {
+        return Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Image.network(
+                products[index].imageUrl.toString(),
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+                bottom: 0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      products[index].name,
+                      style: const TextStyle(
+                        color: Color(0xFF5F5F5F),
+                        fontSize: 14,
+                        fontFamily: 'Nunito Sans',
+                        fontWeight: FontWeight.w400,
+                        height: 0,
+                      ),
+                    ),
+                    Text(
+                      '\$${products[index].price.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        color: Color(0xFF303030),
+                        fontSize: 14,
+                        fontFamily: 'Nunito Sans',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
+                      ),
+                    ),
+                  ],
+                )),
+          ],
+        );
+      },
     );
   }
 }

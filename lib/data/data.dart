@@ -2,13 +2,53 @@ import 'package:arina/models/product_model.dart';
 
 final List<ProductModel> products = [
   ProductModel(
-    name: 'Product 1',
-    price: 30,
-    imageUrl: 'https://example.com/image1.jpg',
+    name: 'Black Simple Lamp',
+    price: 12.00,
+    imageUrl: 'assets/images/products/lamp.png',
   ),
   ProductModel(
-    name: 'Product 2',
-    price: 40,
-    imageUrl: 'https://example.com/image2.jpg',
+    name: 'Minimal Stand',
+    price: 25.00,
+    imageUrl: 'assets/images/products/stand.png',
+  ),
+  ProductModel(
+    name: 'Coffee Chair',
+    price: 20.00,
+    imageUrl: 'assets/images/products/chair.png',
+  ),
+  ProductModel(
+    name: 'Simple Desk',
+    price: 50.00,
+    imageUrl: 'assets/images/products/desk.png',
+  ),
+  ProductModel(
+    name: 'Coffee Chair',
+    price: 20.00,
+    imageUrl: 'assets/images/products/chair.png',
+  ),
+  ProductModel(
+    name: 'Simple Desk',
+    price: 50.00,
+    imageUrl: 'assets/images/products/stand.png',
+  ),
+  ProductModel(
+    name: 'Coffee Chair',
+    price: 20.00,
+    imageUrl: 'assets/images/products/chair.png',
+  ),
+  ProductModel(
+    name: 'Simple Desk',
+    price: 50.00,
+    imageUrl: 'assets/images/products/stand.png',
+  ),
+  ProductModel(
+    name: 'Coffee Chair',
+    price: 20.00,
+    imageUrl: 'assets/images/products/chair.png',
+  ),
+  ProductModel(
+    name: 'Simple Desk',
+    price: 50.00,
+    imageUrl: 'assets/images/products/stand.png',
   ),
 ];

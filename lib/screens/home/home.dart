@@ -1,3 +1,4 @@
+import 'package:arina/data/data.dart';
 import 'package:arina/widgets/category_items.dart';
 import 'package:arina/widgets/products_list.dart';
 import 'package:flutter/material.dart';
@@ -72,10 +73,11 @@ class Home extends StatelessWidget {
               ),
             ),
             // PRODUCTS LIST
+
             Container(
               height: 600,
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ProductsList(),
+              child: ProductGridView(products: products),
             )
           ],
         ),
