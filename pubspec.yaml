@@ -1,0 +1,37 @@
+name: arina
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.1.2 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.0.9
+  provider: ^6.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/products/
+    - assets/svg/
+    - assets/svg/Group.svg
+  # example:
+  fonts:
+    - family: Merriweather
+      fonts:
+        - asset: assets/fonts/Merriweather-Regular.ttf
+    - family: Nunito Sans
+      fonts:
+        - asset: assets/fonts/NunitoSans_7pt-Regular.ttf
+    - family: Gelasio
+      fonts:
+        - asset: assets/fonts/Gelasio-Regular.ttf
