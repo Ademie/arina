@@ -1,3 +1,4 @@
+import 'package:arina/screens/arview/arview.dart';
 import 'package:arina/screens/products/product_details.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProductDetails(),
+      // home: ProductDetails(),
+      home: ArView(),
     );
   }
 }
