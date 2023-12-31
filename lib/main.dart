@@ -1,5 +1,4 @@
 import 'package:arina/screens/arview/arview.dart';
-import 'package:arina/screens/products/product_details.dart';
 import 'package:flutter/material.dart';
 
 void main() {
