@@ -1,4 +1,4 @@
-package com.example.arina
+package ademie.arina
 
 import io.flutter.embedding.android.FlutterActivity
 

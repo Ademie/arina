@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:arkit_plugin/arkit_plugin.dart';
-import 'package:vector_math/vector_math_64.dart';
+import 'package:vector_math/vector_math_64.dart' as vector;
 
 class ArView extends StatefulWidget {
   const ArView({super.key});
@@ -20,6 +20,7 @@ class ArCoreState extends State<ArView> {
 
 class ArKitState extends State<ArView> {
   late ARKitController arkitController;
+  ARKitReferenceNode? node;
 
   @override
   void dispose() {
@@ -29,13 +30,6 @@ class ArKitState extends State<ArView> {
 
   @override
   Widget build(BuildContext context) {
-    void onARKitViewCreated(ARKitController arkitController) {
-      this.arkitController = arkitController;
-      final node = ARKitNode(
-          geometry: ARKitSphere(radius: 0.1), position: Vector3(0, 0, -0.5));
-      this.arkitController.add(node);
-    }
-
     return Scaffold(
         appBar: AppBar(title: const Text('ARKit in Flutter')),
         body: ARKitSceneView(
@@ -44,6 +38,31 @@ class ArKitState extends State<ArView> {
           enablePinchRecognizer: true,
           enablePanRecognizer: true,
           enableRotationRecognizer: true,
+          showFeaturePoints: true,
+          planeDetection: ARPlaneDetection.horizontal,
         ));
+  }
+
+  void onARKitViewCreated(ARKitController arkitController) {
+    this.arkitController = arkitController;
+    arkitController.addCoachingOverlay(CoachingOverlayGoal.horizontalPlane);
+    arkitController.onAddNodeForAnchor = _handleAddAnchor;
+  }
+
+  void _handleAddAnchor(ARKitAnchor anchor) {
+    if (anchor is ARKitPlaneAnchor) {
+      _addPlane(arkitController, anchor);
+    }
+  }
+
+  void _addPlane(ARKitController controller, ARKitPlaneAnchor anchor) {
+    if (node != null) {
+      controller.remove(node!.name);
+    }
+    node = ARKitReferenceNode(
+      url: 'models.scnassets/stairs.dae',
+      scale: vector.Vector3.all(0.3),
+    );
+    controller.add(node!, parentNodeName: anchor.nodeName);
   }
 }
