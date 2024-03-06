@@ -32,13 +32,11 @@ flutter:
   assets:
     - assets/
     - assets/3ds/
-    - assets/3ds/stairs.dae
-    - assets/3ds/biker.gltf
-    - assets/3ds/agent.glb
     - assets/images/
     - assets/images/products/
     - assets/images/thumbnails/
     - assets/svg/
+    - assets/png/
     - assets/svg/Group.svg
   fonts:
     - family: Merriweather

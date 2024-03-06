@@ -10,6 +10,7 @@ class ProductShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // MAIN IMAGE
         Container(
           width: 449,
           height: 455,
@@ -19,7 +20,7 @@ class ProductShowcase extends StatelessWidget {
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
             image: DecorationImage(
-              image: AssetImage('assets/images/products/product-stand.png'),
+              image: AssetImage('assets/images/products/house.jpg'),
               fit: BoxFit.fill,
             ),
           ),
@@ -130,7 +131,100 @@ class ProductShowcase extends StatelessWidget {
                   ),
                 ),
               ),
-            ))
+            )),
+        // BOTTOM OVERLAY
+        Positioned(
+            left: 52,
+            bottom: 0,
+            child: Container(
+              height: 80,
+              width: 449,
+              decoration: const BoxDecoration(
+                borderRadius:
+                    BorderRadius.only(bottomLeft: Radius.circular(50)),
+                color: Color.fromARGB(51, 82, 88, 92),
+              ),
+            )),
+        // BOTTOM INFO
+        Positioned(
+          left: 90,
+          bottom: 20,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: SizedBox(
+              width: 300,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 37,
+                        height: 37,
+                        margin: const EdgeInsets.only(right: 10),
+                        padding: const EdgeInsets.all(10),
+                        decoration: ShapeDecoration(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6)),
+                          shadows: const [
+                            BoxShadow(
+                              color: Color(0x338A959E),
+                              blurRadius: 40,
+                              offset: Offset(0, 4),
+                              spreadRadius: 0,
+                            )
+                          ],
+                        ),
+                        child: SvgPicture.asset('assets/svg/bedd.svg'),
+                      ),
+                      const Text(
+                        '6 Bedroom',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 37,
+                        height: 37,
+                        margin: const EdgeInsets.only(right: 10),
+                        padding: const EdgeInsets.all(10),
+                        decoration: ShapeDecoration(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6)),
+                          shadows: const [
+                            BoxShadow(
+                              color: Color(0x338A959E),
+                              blurRadius: 40,
+                              offset: Offset(0, 4),
+                              spreadRadius: 0,
+                            )
+                          ],
+                        ),
+                        child: SvgPicture.asset('assets/svg/bathroom.svg'),
+                      ),
+                      const Text(
+                        '3 Bathroom',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
