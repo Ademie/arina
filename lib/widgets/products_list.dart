@@ -1,4 +1,5 @@
 import 'package:arina/models/product_model.dart';
+import 'package:arina/screens/products/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,11 +20,20 @@ class ProductGridView extends StatelessWidget {
       itemBuilder: (context, index) {
         return Stack(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: Image.asset(
-                products[index].imageUrl.toString(),
-                fit: BoxFit.cover,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ProductDetails()),
+                );
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Image.asset(
+                  products[index].imageUrl.toString(),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Positioned(
