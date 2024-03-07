@@ -1,6 +1,104 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+List<String> images = [
+  'assets/images/products/house.jpg',
+  'assets/images/products/house.jpg',
+  'assets/images/products/house.jpg',
+  'assets/images/products/house.jpg'
+];
+
+
+
+class ImageDialog extends StatefulWidget {
+  const ImageDialog({super.key});
+
+  @override
+  State<ImageDialog> createState() => _ImageDialogState();
+}
+
+int index = 1;
+
+class _ImageDialogState extends State<ImageDialog> {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog.fullscreen(
+        backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Expanded(child: Container()),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    setState(() {
+                      index = 1;
+                    });
+                  },
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    margin: const EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.all(10),
+                    decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      shadows: const [
+                        BoxShadow(
+                          color: Color(0x338A959E),
+                          blurRadius: 40,
+                          offset: Offset(0, 4),
+                          spreadRadius: 0,
+                        )
+                      ],
+                    ),
+                    child: SvgPicture.asset('assets/svg/cancel.svg'),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 450,
+              child: PageView.builder(
+                  itemCount: images.length,
+                  onPageChanged: (value) {
+                    setState(() {
+                      index = value + 1;
+                    });
+                  },
+                  pageSnapping: true,
+                  itemBuilder: (context, position) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: AssetImage(
+                                images[position],
+                              ),
+                              fit: BoxFit.cover)),
+                    );
+                  }),
+            ),
+            Container(
+              padding: const EdgeInsets.all(7),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10), color: Colors.white),
+              child: Text(
+                '$index/${images.length}',
+                style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.black),
+              ),
+            )
+          ],
+        ));
+  }
+}
+
 class ProductShowcase extends StatelessWidget {
   const ProductShowcase({
     super.key,
@@ -11,17 +109,25 @@ class ProductShowcase extends StatelessWidget {
     return Stack(
       children: [
         // MAIN IMAGE
-        Container(
-          width: 449,
-          height: 455,
-          margin: const EdgeInsets.only(
-            left: 52,
-          ),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
-            image: DecorationImage(
-              image: AssetImage('assets/images/products/house.jpg'),
-              fit: BoxFit.fill,
+        GestureDetector(
+          onTap: () async {
+            await showDialog(
+              context: context,
+              builder: (_) => const ImageDialog(),
+            );
+          },
+          child: Container(
+            width: 449,
+            height: 410,
+            margin: const EdgeInsets.only(
+              left: 52,
+            ),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
+              image: DecorationImage(
+                image: AssetImage('assets/images/products/house.jpg'),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
         ),
@@ -52,10 +158,10 @@ class ProductShowcase extends StatelessWidget {
                 child: SvgPicture.asset('assets/svg/back-arrow.svg')),
           ),
         ),
-        // ROUND RECTANGLE
+        // ROUND RECTANGLE AR
         Positioned(
             left: 22,
-            top: 149,
+            top: 120,
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -65,7 +171,7 @@ class ProductShowcase extends StatelessWidget {
               },
               child: Container(
                 width: 64,
-                height: 192,
+                height: 120,
                 decoration: ShapeDecoration(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
@@ -87,7 +193,7 @@ class ProductShowcase extends StatelessWidget {
                     children: [
                       Positioned(
                         left: 15,
-                        top: 50,
+                        top: 20,
                         child: Container(
                           width: 34,
                           height: 34,
@@ -99,14 +205,14 @@ class ProductShowcase extends StatelessWidget {
                       ),
                       Positioned(
                         left: 20,
-                        top: 55,
+                        top: 25,
                         child: SvgPicture.asset("assets/svg/ar.svg"),
                       ),
                       Positioned(
                         left: 32,
-                        top: 85,
+                        top: 55,
                         child: Container(
-                          height: 70,
+                          height: 35,
                           width: 1,
                           decoration: ShapeDecoration(
                             color: const Color(0xFFBDBDBD),
@@ -117,7 +223,7 @@ class ProductShowcase extends StatelessWidget {
                       ),
                       const Positioned(
                         left: 22,
-                        top: 155,
+                        top: 90,
                         child: Text(
                           'A R',
                           style: TextStyle(

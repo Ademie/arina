@@ -1,7 +1,11 @@
+import 'package:arina/models/amenities_model.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:arina/widgets/product_showcase.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:readmore/readmore.dart';
 
 class ProductDetails extends StatelessWidget {
   const ProductDetails({super.key});
@@ -9,148 +13,505 @@ class ProductDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
-      extendBodyBehindAppBar: true,
-        body: ListView(
-          padding: const EdgeInsets.all(0),
-          children: [
-            // PRODUCT IMAGE
-            const ProductShowcase(),
-            Padding(
-              padding: const EdgeInsets.all(25),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          const SliverAppBar(
+            automaticallyImplyLeading: false,
+            expandedHeight: 350,
+            flexibleSpace: FlexibleSpaceBar(
+              background: ProductShowcase(),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(25),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
-                    children: [
-                      Text(
-                        'Minimal Stand',
-                        style: TextStyle(
-                          color: Color(0xFF303030),
-                          fontSize: 24,
-                          fontFamily: 'Gelasio',
-                          fontWeight: FontWeight.w500,
-                          height: 0,
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        '\$ 50',
-                        style: TextStyle(
-                          color: Color(0xFF303030),
-                          fontSize: 30,
-                          fontFamily: 'Nunito Sans',
-                          fontWeight: FontWeight.w700,
-                          height: 0,
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SvgPicture.asset('assets/svg/plus.svg'),
-                          const SizedBox(width: 15),
-                          const Text(
-                            '01',
-                            style: TextStyle(
-                              color: Color(0xFF232323),
-                              fontSize: 18,
-                              fontFamily: 'Nunito Sans',
-                              fontWeight: FontWeight.w600,
-                              height: 0,
-                              letterSpacing: 0.90,
-                            ),
-                          ),
-                          const SizedBox(width: 15),
-                          SvgPicture.asset('assets/svg/minus.svg'),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  // RATINGS
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SvgPicture.asset('assets/svg/rating.svg'),
-                      const SizedBox(
-                        width: 150,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '4.5',
-                              style: TextStyle(
-                                color: Color(0xFF303030),
-                                fontSize: 18,
-                                fontFamily: 'Nunito Sans',
-                                fontWeight: FontWeight.w700,
-                                height: 0,
-                              ),
-                            ),
-                            Text(
-                              '(50 reviews)',
-                              style: TextStyle(
-                                color: Color(0xFF808080),
-                                fontSize: 14,
-                                fontFamily: 'Nunito Sans',
-                                fontWeight: FontWeight.w600,
-                                height: 0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(child: Container())
-                    ],
-                  ),
-                  // PRODUCT DESCRIPTION
-                  Container(
-                    margin: const EdgeInsets.only(top: 14, bottom: 20),
-                    child: const Text(
-                      'Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home. ',
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        color: Color(0xFF5F5F5F),
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w300,
-                        height: 0,
-                      ),
+                  Text(
+                    'James Villa',
+                    style: TextStyle(
+                      color: Color(0xFF303030),
+                      fontSize: 26,
+                      fontFamily: 'Gelasio',
+                      fontWeight: FontWeight.w500,
+                      height: 0,
                     ),
                   ),
-        
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: 60,
-                        height: 60,
-                        padding: const EdgeInsets.all(18),
-                        decoration: ShapeDecoration(
-                          color: const Color(0xFFF0F0F0),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                        child: SvgPicture.asset("assets/svg/marker.svg"),
-                      ),
-                      ArinaButton(
-                        text: 'Add to cart',
-                        onPressed: () {},
-                        width: 220,
-                        height: 60,
-                      )
-                    ],
+                  Text(
+                    '14, James Kowope Street, Akure Ondo, Nigeria',
+                    style: TextStyle(
+                      color: Color.fromARGB(197, 48, 48, 48),
+                      fontSize: 14,
+                      fontFamily: 'Gelasio',
+                      height: 0,
+                    ),
                   ),
                 ],
               ),
             ),
+          ),
+          SliverList.list(
+            children: [
+              // PRODUCT DESCRIPTION
+              Container(
+                padding: const EdgeInsets.only(left: 25, right: 25, bottom: 25),
+                child: const ReadMoreText(
+                  "Cozy and modern 6-bedroom apartment available for rent in prime location. Fully furnished with stylish decor and amenities including a spacious living area, fully equipped kitchen, and balcony with city views. Perfect for professionals or couples seeking comfort and convenience. Don't miss out on this opportunity to call it home!",
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                    color: Color(0xFF5F5F5F),
+                    fontSize: 14,
+                    fontFamily: 'Nunito Sans',
+                    fontWeight: FontWeight.w300,
+                    height: 0,
+                  ),
+                  trimLines: 2,
+                  colorClickableText: Colors.pink,
+                  trimMode: TrimMode.Line,
+                  trimCollapsedText: 'Show more',
+                  trimExpandedText: ' Show less',
+                  moreStyle:
+                      TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                ),
+              ),
+              // OWNER DETAILS
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const CircleAvatar(
+                      radius: 30.0,
+                      backgroundImage:
+                          AssetImage('assets/images/person/man2.jpg'),
+                    ),
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'James Rodriguez',
+                          style: TextStyle(
+                            color: Color(0xFF232323),
+                            fontSize: 18,
+                            fontFamily: 'Nunito Sans',
+                            fontWeight: FontWeight.w600,
+                            height: 0,
+                          ),
+                        ),
+                        Text(
+                          'Owner',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 76, 76, 76),
+                            fontFamily: 'Nunito Sans',
+                            height: 0,
+                            letterSpacing: 0.90,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                                color: Colors.black,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5))),
+                            child: SvgPicture.asset('assets/svg/call.svg'),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                                color: Colors.black,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5))),
+                            child: SvgPicture.asset('assets/svg/message.svg'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              // LOCATION
+              Stack(
+                children: [
+                  Container(
+                    width: 600,
+                    height: 400,
+                    padding: const EdgeInsets.all(25),
+                    child: FlutterMap(
+                      options: const MapOptions(
+                        initialCenter:
+                            LatLng(7.30295288579095, 5.13890892669223),
+                        initialZoom: 12.0,
+                      ),
+                      children: [
+                        TileLayer(
+                          urlTemplate:
+                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                          userAgentPackageName: 'com.example.app',
+                        ),
+                        const MarkerLayer(markers: [
+                          Marker(
+                            point: LatLng(7.30295288579095, 5.13890892669223),
+                            child: Icon(
+                              Icons.location_on,
+                              color: Colors.red,
+                              size: 50.0,
+                            ),
+                          )
+                        ])
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                      top: 0,
+                      bottom: 0,
+                      child: GestureDetector(
+                        onTap: () async {
+                          await showDialog(
+                            context: context,
+                            builder: (_) => const MapDialog(),
+                          );
+                        },
+                        child: Container(
+                          color: const Color.fromARGB(0, 33, 149, 243),
+                          width: 600,
+                          height: 200,
+                        ),
+                      ))
+                ],
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              const Divider(
+                color: Color.fromARGB(19, 104, 104, 104),
+              ),
+              // PRICE
+              const Padding(
+                padding: EdgeInsets.all(25),
+                child: Text(
+                  'PRICING & LEASE',
+                  style: TextStyle(
+                    color: Color(0xFF303030),
+                    fontSize: 24,
+                    fontFamily: 'Gelasio',
+                    fontWeight: FontWeight.w500,
+                    height: 0,
+                  ),
+                ),
+              ),
+              // LEASE BREAKDOWN
+              const Padding(
+                padding: EdgeInsets.only(right: 25, left: 10),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 3,
+                          child: ListTile(
+                            title: Text('Duration'),
+                          ),
+                        ),
+                        Flexible(flex: 1, child: Text("12 months"))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 3,
+                          child: ListTile(
+                            title: Text('Rent'),
+                          ),
+                        ),
+                        Flexible(flex: 1, child: Text("₦300000"))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 3,
+                          child: ListTile(
+                            title: Text('Security'),
+                          ),
+                        ),
+                        Flexible(flex: 1, child: Text("₦20000"))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 3,
+                          child: ListTile(
+                            title: Text('Service Charge'),
+                          ),
+                        ),
+                        Flexible(flex: 1, child: Text("₦10000"))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 3,
+                          child: ListTile(
+                            title: Text('Total Package'),
+                          ),
+                        ),
+                        Flexible(flex: 1, child: Text("₦330000"))
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(
+                     color: Color.fromARGB(19, 104, 104, 104),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              // AMENITIES TITLE
+              const Padding(
+                padding: EdgeInsets.all(25),
+                child: Text(
+                  'AMENITIES',
+                  style: TextStyle(
+                    color: Color(0xFF303030),
+                    fontSize: 24,
+                    fontFamily: 'Gelasio',
+                    fontWeight: FontWeight.w500,
+                    height: 0,
+                  ),
+                ),
+              ),
+              // AMENITIES BODY
+              Padding(
+                padding: const EdgeInsets.only(bottom: 150, right: 25, left: 5),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 7,
+                          child: ListTile(
+                            minLeadingWidth: 5,
+                            leading: SvgPicture.asset(
+                              'assets/svg/rectangle.svg',
+                              height: 20,
+                            ),
+                            title: const Text('Ceiling'),
+                          ),
+                        ),
+                        const Flexible(flex: 1, child: Text("POP"))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 7,
+                          child: ListTile(
+                            minLeadingWidth: 5,
+                            leading: SvgPicture.asset(
+                              'assets/svg/tiled.svg',
+                              height: 20,
+                            ),
+                            title: const Text('Flooring'),
+                          ),
+                        ),
+                        const Flexible(flex: 1, child: Text("Tiled"))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 7,
+                          child: ListTile(
+                            minLeadingWidth: 5,
+                            leading: SvgPicture.asset(
+                              'assets/svg/road.svg',
+                              height: 20,
+                            ),
+                            title: const Text('Road Network'),
+                          ),
+                        ),
+                        const Flexible(
+                          flex: 1,
+                          child: Text("Good"),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 7,
+                          child: ListTile(
+                            minLeadingWidth: 5,
+                            leading: SvgPicture.asset(
+                              'assets/svg/swimming.svg',
+                              height: 20,
+                            ),
+                            title: const Text('Pool'),
+                          ),
+                        ),
+                        const Flexible(flex: 1, child: Text("True"))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 7,
+                          child: ListTile(
+                            minLeadingWidth: 5,
+                            leading: SvgPicture.asset(
+                              'assets/svg/fence.svg',
+                              height: 20,
+                            ),
+                            title: const Text('Fencing'),
+                          ),
+                        ),
+                        const Flexible(flex: 1, child: Text("True"))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 7,
+                          child: ListTile(
+                            minLeadingWidth: 5,
+                            leading: SvgPicture.asset(
+                              'assets/svg/security.svg',
+                              height: 20,
+                            ),
+                            title: const Text('Security'),
+                          ),
+                        ),
+                        const Flexible(flex: 1, child: Text("True"))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 7,
+                          child: ListTile(
+                            minLeadingWidth: 5,
+                            leading: SvgPicture.asset(
+                              'assets/svg/fire.svg',
+                              height: 20,
+                            ),
+                            title: const Text('Fire Alarm'),
+                          ),
+                        ),
+                        const Flexible(flex: 1, child: Text("True"))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 7,
+                          child: ListTile(
+                            minLeadingWidth: 5,
+                            leading: SvgPicture.asset(
+                              'assets/svg/sofa.svg',
+                              height: 20,
+                            ),
+                            title: const Text('Furnished'),
+                          ),
+                        ),
+                        const Flexible(flex: 1, child: Text("True"))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 7,
+                          child: ListTile(
+                            minLeadingWidth: 5,
+                            leading: SvgPicture.asset(
+                              'assets/svg/ac.svg',
+                              height: 20,
+                            ),
+                            title: const Text('Air Conditioning'),
+                          ),
+                        ),
+                        const Flexible(flex: 1, child: Text("True"))
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+      bottomSheet: Container(
+        height: 150,
+        color: Colors.white,
+        padding: const EdgeInsets.all(25),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: 60,
+              height: 60,
+              padding: const EdgeInsets.all(18),
+              decoration: ShapeDecoration(
+                color: const Color(0xFFF0F0F0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+              ),
+              child: SvgPicture.asset("assets/svg/marker.svg"),
+            ),
+            ArinaButton(
+              text: 'Book Inspection',
+              onPressed: () {},
+              width: 220,
+              height: 60,
+            )
           ],
-        ));
+        ),
+      ),
+    );
+  }
+}
+
+class MapDialog extends StatelessWidget {
+  const MapDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog.fullscreen(
+      child: FlutterMap(
+        options: const MapOptions(
+          initialCenter: LatLng(7.30295288579095, 5.13890892669223),
+        ),
+        children: [
+          TileLayer(
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            userAgentPackageName: 'com.example.app',
+          ),
+          const MarkerLayer(markers: [
+            Marker(
+              point: LatLng(7.30295288579095, 5.13890892669223),
+              child: Icon(
+                Icons.location_on,
+                color: Colors.red,
+                size: 50.0,
+              ),
+            )
+          ])
+        ],
+      ),
+    );
   }
 }
