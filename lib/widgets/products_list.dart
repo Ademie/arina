@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 class ProductGridView extends StatelessWidget {
   final List<ProductModel> products;
 
-  const ProductGridView({Key? key, required this.products}) : super(key: key);
+  const ProductGridView({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {

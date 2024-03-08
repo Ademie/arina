@@ -45,79 +45,7 @@ class _InspectionState extends State<Inspection> {
       body: CustomScrollView(
         slivers: <Widget>[
           // SUMMARY CARD
-          SliverToBoxAdapter(
-              child: Card(
-            margin: const EdgeInsets.all(25),
-            color: Colors.white,
-            child: SizedBox(
-              height: 150,
-              child: Row(
-                children: [
-                  // SUMMARY IMAGE
-                  Container(
-                    height: 400,
-                    width: 170,
-                    margin: const EdgeInsets.only(right: 20),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                      ),
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/products/house.jpg"),
-                          fit: BoxFit.cover),
-                    ),
-                  ),
-                  // SUMMARY TEXT
-                  const SizedBox(
-                    height: 400,
-                    width: 150,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'James Villa',
-                          softWrap: true,
-                          maxLines: 3,
-                          style: TextStyle(
-                            color: Color(0xFF303030),
-                            fontSize: 18,
-                            fontFamily: 'Gelasio',
-                            fontWeight: FontWeight.w600,
-                            height: 0,
-                          ),
-                        ),
-                        Text(
-                          '14, James Kowope Street, Akure Ondo, Nigeria',
-                          softWrap: true,
-                          maxLines: 3,
-                          style: TextStyle(
-                            color: Color.fromARGB(197, 48, 48, 48),
-                            fontSize: 12,
-                            fontFamily: 'Nunito Sans',
-                            height: 0,
-                          ),
-                        ),
-                        Text(
-                          '₦300000/Year',
-                          softWrap: true,
-                          maxLines: 3,
-                          style: TextStyle(
-                            color: Color(0xFF303030),
-                            fontSize: 14,
-                            fontFamily: 'Gelasio',
-                            fontWeight: FontWeight.bold,
-                            height: 0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )),
+          const SliverToBoxAdapter(child: SummaryCard()),
           // AVAILABILITY-DATE
           SliverToBoxAdapter(
             child: Padding(
@@ -281,6 +209,96 @@ class _InspectionState extends State<Inspection> {
             shadowColor: const Color(0x3F303030),
             elevation: 10,
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class SummaryCard extends StatelessWidget {
+  const SummaryCard({
+    super.key,
+    this.title,
+    this.imageURL,
+    this.address,
+    this.pricing,
+  });
+  final String? title;
+  final String? imageURL;
+  final String? address;
+  final String? pricing;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(25),
+      color: Colors.white,
+      child: SizedBox(
+        height: 150,
+        child: Row(
+          children: [
+            // SUMMARY IMAGE
+            Container(
+              height: 400,
+              width: 170,
+              margin: const EdgeInsets.only(right: 20),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                ),
+                image: DecorationImage(
+                    image: AssetImage(
+                        imageURL ?? "assets/images/products/house.jpg"),
+                    fit: BoxFit.cover),
+              ),
+            ),
+            // SUMMARY TEXT
+            SizedBox(
+              height: 400,
+              width: 150,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title ?? 'James Villa',
+                    softWrap: true,
+                    maxLines: 3,
+                    style: const TextStyle(
+                      color: Color(0xFF303030),
+                      fontSize: 18,
+                      fontFamily: 'Gelasio',
+                      fontWeight: FontWeight.w600,
+                      height: 0,
+                    ),
+                  ),
+                  Text(
+                    address ?? '14, James Kowope Street, Akure Ondo, Nigeria',
+                    softWrap: true,
+                    maxLines: 3,
+                    style: const TextStyle(
+                      color: Color.fromARGB(197, 48, 48, 48),
+                      fontSize: 12,
+                      fontFamily: 'Nunito Sans',
+                      height: 0,
+                    ),
+                  ),
+                  Text(
+                    pricing ?? "₦300000/Year",
+                    softWrap: true,
+                    maxLines: 3,
+                    style: const TextStyle(
+                      color: Color(0xFF303030),
+                      fontSize: 14,
+                      fontFamily: 'Gelasio',
+                      fontWeight: FontWeight.bold,
+                      height: 0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

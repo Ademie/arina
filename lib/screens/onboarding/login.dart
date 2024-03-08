@@ -1,4 +1,4 @@
-import 'package:arina/screens/home/home.dart';
+import 'package:arina/screens/entry.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -174,7 +174,7 @@ class LoginIn extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Home()),
+                                    builder: (context) => const Entry()),
                               );
                             },
                           ),
