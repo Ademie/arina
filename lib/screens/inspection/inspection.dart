@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:arina/widgets/arina_button.dart';
+import 'package:arina/screens/chat/chat.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
@@ -38,11 +38,12 @@ class _InspectionState extends State<Inspection> {
   Widget build(BuildContext context) {
     BuildContext _context = context;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Book Inspection'),
+        scrolledUnderElevation: 0,
+      ),
       body: CustomScrollView(
         slivers: <Widget>[
-          const SliverAppBar(
-            title: Text('Book Inspection'),
-          ),
           // SUMMARY CARD
           SliverToBoxAdapter(
               child: Card(
@@ -252,7 +253,10 @@ class _InspectionState extends State<Inspection> {
         color: Colors.white,
         padding: const EdgeInsets.only(bottom: 30, right: 25, left: 25),
         child: ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => const Chat()));
+          },
           icon: const Icon(
             Ionicons.book,
             color: Colors.white,

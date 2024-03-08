@@ -15,10 +15,13 @@ dependencies:
   flutter_archive: ^6.0.0
   flutter_map: ^6.1.0
   flutter_svg: ^2.0.9
+  image_picker: ^1.0.7
   ionicons: ^0.2.2
+  open_filex: ^4.4.0
   path_provider: ^2.1.1
   provider: ^6.1.1
   readmore: ^2.2.0
+  uuid: ^4.3.3
 
 dev_dependencies:
   flutter_test:

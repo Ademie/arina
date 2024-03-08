@@ -218,6 +218,7 @@ class ProductDetails extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
                           flex: 3,
@@ -225,51 +226,51 @@ class ProductDetails extends StatelessWidget {
                             title: Text('Duration'),
                           ),
                         ),
-                        Flexible(flex: 1, child: Text("12 months"))
+                        Text("12 months")
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 3,
                           child: ListTile(
                             title: Text('Rent'),
                           ),
                         ),
-                        Flexible(flex: 1, child: Text("₦300000"))
+                        Text("₦300000")
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 3,
                           child: ListTile(
                             title: Text('Security'),
                           ),
                         ),
-                        Flexible(flex: 1, child: Text("₦20000"))
+                        Text("₦20000")
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 3,
                           child: ListTile(
                             title: Text('Service Charge'),
                           ),
                         ),
-                        Flexible(flex: 1, child: Text("₦10000"))
+                        Text("₦10000")
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 3,
                           child: ListTile(
                             title: Text('Total Package'),
                           ),
                         ),
-                        Flexible(flex: 1, child: Text("₦330000"))
+                        Text("₦330000")
                       ],
                     ),
                   ],
@@ -297,13 +298,13 @@ class ProductDetails extends StatelessWidget {
               ),
               // AMENITIES BODY
               Padding(
-                padding: const EdgeInsets.only(bottom: 150, right: 25, left: 5),
+                padding: const EdgeInsets.only(bottom: 150, right: 30, left: 5),
                 child: Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 7,
                           child: ListTile(
                             minLeadingWidth: 5,
                             leading: SvgPicture.asset(
@@ -313,13 +314,13 @@ class ProductDetails extends StatelessWidget {
                             title: const Text('Ceiling'),
                           ),
                         ),
-                        const Flexible(flex: 1, child: Text("POP"))
+                        const Text("POP")
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 7,
                           child: ListTile(
                             minLeadingWidth: 5,
                             leading: SvgPicture.asset(
@@ -329,13 +330,13 @@ class ProductDetails extends StatelessWidget {
                             title: const Text('Flooring'),
                           ),
                         ),
-                        const Flexible(flex: 1, child: Text("Tiled"))
+                        const Text("Tiled")
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 7,
                           child: ListTile(
                             minLeadingWidth: 5,
                             leading: SvgPicture.asset(
@@ -346,15 +347,14 @@ class ProductDetails extends StatelessWidget {
                           ),
                         ),
                         const Flexible(
-                          flex: 1,
                           child: Text("Good"),
                         )
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 7,
                           child: ListTile(
                             minLeadingWidth: 5,
                             leading: SvgPicture.asset(
@@ -364,13 +364,13 @@ class ProductDetails extends StatelessWidget {
                             title: const Text('Pool'),
                           ),
                         ),
-                        const Flexible(flex: 1, child: Text("True"))
+                        const Text("True")
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 7,
                           child: ListTile(
                             minLeadingWidth: 5,
                             leading: SvgPicture.asset(
@@ -380,13 +380,13 @@ class ProductDetails extends StatelessWidget {
                             title: const Text('Fencing'),
                           ),
                         ),
-                        const Flexible(flex: 1, child: Text("True"))
+                        const Flexible(child: Text("True"))
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 7,
                           child: ListTile(
                             minLeadingWidth: 5,
                             leading: SvgPicture.asset(
@@ -396,13 +396,13 @@ class ProductDetails extends StatelessWidget {
                             title: const Text('Security'),
                           ),
                         ),
-                        const Flexible(flex: 1, child: Text("True"))
+                        const Text("True")
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 7,
                           child: ListTile(
                             minLeadingWidth: 5,
                             leading: SvgPicture.asset(
@@ -412,13 +412,13 @@ class ProductDetails extends StatelessWidget {
                             title: const Text('Fire Alarm'),
                           ),
                         ),
-                        const Flexible(flex: 1, child: Text("True"))
+                        const Text("True")
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 7,
                           child: ListTile(
                             minLeadingWidth: 5,
                             leading: SvgPicture.asset(
@@ -428,13 +428,13 @@ class ProductDetails extends StatelessWidget {
                             title: const Text('Furnished'),
                           ),
                         ),
-                        const Flexible(flex: 1, child: Text("True"))
+                        const Text("True")
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 7,
                           child: ListTile(
                             minLeadingWidth: 5,
                             leading: SvgPicture.asset(
@@ -444,7 +444,7 @@ class ProductDetails extends StatelessWidget {
                             title: const Text('Air Conditioning'),
                           ),
                         ),
-                        const Flexible(flex: 1, child: Text("True"))
+                        const Text("True")
                       ],
                     ),
                   ],
