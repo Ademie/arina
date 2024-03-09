@@ -1,7 +1,7 @@
 import 'package:arina/models/product_model.dart';
 import 'package:arina/screens/products/product_details.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:ionicons/ionicons.dart';
 
 class ProductGridView extends StatelessWidget {
   final List<ProductModel> products;
@@ -13,7 +13,7 @@ class ProductGridView extends StatelessWidget {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 0.0,
+        crossAxisSpacing: 25,
         mainAxisSpacing: 20.0,
         childAspectRatio: 0.7,
       ),
@@ -22,63 +22,80 @@ class ProductGridView extends StatelessWidget {
         return Stack(
           children: [
             GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ProductDetails()),
-                );
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: Image.asset(
-                  products[index].imageUrl.toString(),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Positioned(
-              right: 20,
-              bottom: 60,
-              child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProductDetails()),
+                  );
+                },
                 child: Container(
-                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                          image: AssetImage(
+                            products[index].imageUrl.toString(),
+                          ),
+                          fit: BoxFit.cover)),
+                )),
+            Positioned(
+              right: 10,
+              top: 10,
+              child: Container(
+                  height: 40,
+                  width: 40,
                   decoration: ShapeDecoration(
                     color: const Color(0x665F5F5F),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6)),
                   ),
-                  child: SvgPicture.asset('assets/svg/shopping_bag.svg'),
-                ),
-              ),
+                  child: IconButton(
+                      onPressed: () {
+                        print('clicked me');
+                      },
+                      icon: const Icon(
+                        Ionicons.bookmark_outline,
+                        color: Colors.white,
+                      ))),
             ),
             Positioned(
                 bottom: 0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      products[index].name,
-                      style: const TextStyle(
-                        color: Color(0xFF5F5F5F),
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w400,
-                        height: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 70,
+                  padding: const EdgeInsets.only(left: 5),
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(121, 95, 95, 95),
+                    borderRadius:
+                        BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        products[index].name,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 253, 253, 253),
+                          fontSize: 16,
+                          fontFamily: 'Nunito Sans',
+                          fontWeight: FontWeight.w700,
+                          height: 0,
+                        ),
                       ),
-                    ),
-                    Text(
-                      '\$${products[index].price.toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        color: Color(0xFF303030),
-                        fontSize: 14,
-                        fontFamily: 'Nunito Sans',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
+                      Text(
+                        '\N${products[index].price.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 250, 250, 250),
+                          fontSize: 14,
+                          fontFamily: 'Nunito Sans',
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 )),
           ],
         );

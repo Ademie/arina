@@ -1,5 +1,3 @@
-
-
 import 'package:arina/data/data.dart';
 import 'package:arina/screens/search/search.dart';
 import 'package:arina/widgets/category_items.dart';
@@ -88,18 +86,18 @@ class _HomeState extends State<Home> {
                   labelColor: Color(0xFF232323),
                   containerColor: Color(0xFF303030),
                 ),
-                CategoryItem(svgAsset: 'chair', label: 'Chair'),
-                CategoryItem(svgAsset: 'table', label: 'Table'),
-                CategoryItem(svgAsset: 'sofa', label: 'ArmChair'),
-                CategoryItem(svgAsset: 'bed', label: 'Bed'),
-                CategoryItem(svgAsset: 'sofa', label: 'ArmChair'),
+                CategoryItem(svgAsset: 'sofa', label: 'New'),
+                CategoryItem(svgAsset: 'chair', label: 'Rent'),
+                CategoryItem(svgAsset: 'table', label: 'For Sale'),
+                CategoryItem(svgAsset: 'sofa', label: 'Shortlets'),
+                CategoryItem(svgAsset: 'bed', label: 'Resorts'),
               ],
             ),
           ),
           // PRODUCTS LIST
           Container(
             height: 600,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
             child: ProductGridView(products: products),
           )
         ],

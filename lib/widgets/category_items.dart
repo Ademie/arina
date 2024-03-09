@@ -19,7 +19,7 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: () {},
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -27,6 +27,7 @@ class CategoryItem extends StatelessWidget {
           Container(
             width: 44,
             height: 44,
+           
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.symmetric(horizontal: 12.5),
             decoration: ShapeDecoration(
