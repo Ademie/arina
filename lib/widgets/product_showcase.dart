@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 List<String> images = [
-  'assets/images/products/house.jpg',
-  'assets/images/products/house.jpg',
-  'assets/images/products/house.jpg',
-  'assets/images/products/house.jpg'
+  'assets/images/products/blue_house/blue_house1.jpeg',
+  'assets/images/products/blue_house/blue_house2.jpeg',
+  'assets/images/products/blue_house/blue_house3.jpeg'
 ];
-
-
 
 class ImageDialog extends StatefulWidget {
   const ImageDialog({super.key});
@@ -125,7 +122,7 @@ class ProductShowcase extends StatelessWidget {
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
               image: DecorationImage(
-                image: AssetImage('assets/images/products/house.jpg'),
+                image: AssetImage('assets/images/thumbnails/blue_house.jpeg'),
                 fit: BoxFit.fill,
               ),
             ),

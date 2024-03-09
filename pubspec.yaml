@@ -33,13 +33,18 @@ flutter:
   assets:
     - assets/
     - assets/3ds/
+    - assets/png/
+    - assets/svg/
+    - assets/svg/Group.svg
     - assets/images/
-    - assets/images/products/
     - assets/images/person/
     - assets/images/thumbnails/
-    - assets/svg/
-    - assets/png/
-    - assets/svg/Group.svg
+    - assets/images/products/
+    - assets/images/products/blue_house/
+    - assets/images/products/palm_house/
+    - assets/images/products/white_house/
+    - assets/images/products/cabin_house/
+    - assets/images/products/pool_house/
   fonts:
     - family: Merriweather
       fonts:
