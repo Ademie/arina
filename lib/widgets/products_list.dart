@@ -50,9 +50,7 @@ class ProductGridView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(6)),
                   ),
                   child: IconButton(
-                      onPressed: () {
-                        print('clicked me');
-                      },
+                      onPressed: () {},
                       icon: const Icon(
                         Ionicons.bookmark_outline,
                         color: Colors.white,
@@ -67,8 +65,9 @@ class ProductGridView extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 5),
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(121, 95, 95, 95),
-                    borderRadius:
-                        BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +84,7 @@ class ProductGridView extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '\N${products[index].price.toStringAsFixed(2)}',
+                        '₦${products[index].price.toStringAsFixed(2)}',
                         style: const TextStyle(
                           color: Color.fromARGB(255, 250, 250, 250),
                           fontSize: 14,

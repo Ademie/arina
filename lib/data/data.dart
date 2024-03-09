@@ -1,6 +1,6 @@
 import 'package:arina/models/product_model.dart';
 
-final List<ProductModel> products = [
+final List<ProductModel> productData = [
   ProductModel(
     name: 'James Villa',
     price: 120000.00,

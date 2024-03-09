@@ -9,12 +9,12 @@ class CategoryItem extends StatelessWidget {
   final Color labelColor;
 
   const CategoryItem({
-    Key? key,
+    super.key,
     required this.svgAsset,
     required this.label,
     this.containerColor = const Color(0xFFF5F5F5),
     this.labelColor = const Color(0xFF999999),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

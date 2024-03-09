@@ -1,11 +1,39 @@
+import 'package:arina/data/data.dart';
 import 'package:arina/models/product_model.dart';
 import 'package:arina/screens/inspection/inspection.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-class Search extends StatelessWidget {
+class Search extends StatefulWidget {
   const Search({super.key, required this.products});
   final List<ProductModel> products;
+
+  @override
+  State<Search> createState() => _SearchState();
+}
+
+class _SearchState extends State<Search> {
+  String query = "";
+
+  List<ProductModel> searchResults = [];
+
+  void onQueryChanged(String query) {
+    setState(() {
+      if (query.isNotEmpty) {
+        searchResults = productData
+            .where((element) =>
+                element.name.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+        searchResults.sort((a, b) => a.name
+            .toLowerCase()
+            .indexOf(query.toLowerCase())
+            .compareTo(b.name.toLowerCase().indexOf(query.toLowerCase())));
+        // https://chat.openai.com/c/01848815-c99b-44b8-a334-393ee98df2e0#:~:text=Sure%2C%20let%27s%20break%20down%20the%20code%3A
+      } else {
+        searchResults = [];
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,18 +63,19 @@ class Search extends StatelessWidget {
                     )
                   ],
                 ),
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Ionicons.search_outline,
                       color: Color.fromARGB(177, 63, 63, 63),
                     ),
                     Flexible(
                       child: TextField(
-                        style: TextStyle(
+                        onChanged: onQueryChanged,
+                        style: const TextStyle(
                             fontFamily: "Nunito Sans", color: Colors.black),
                         cursorColor: Colors.black,
-                        decoration: InputDecoration.collapsed(
+                        decoration: const InputDecoration.collapsed(
                           hintText: 'City, Neighborhood',
                           hintStyle:
                               TextStyle(color: Color.fromARGB(177, 51, 51, 51)),
@@ -68,12 +97,13 @@ class Search extends StatelessWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverList.builder(
-              itemCount: products.length,
+              itemCount: searchResults.length,
               itemBuilder: (context, index) {
                 return SummaryCard(
-                  title: products[index].name,
-                  imageURL: products[index].imageUrl.toString(),
-                  pricing: '₦${products[index].price.toStringAsFixed(2)}/year',
+                  title: searchResults[index].name,
+                  imageURL: searchResults[index].imageUrl.toString(),
+                  pricing:
+                      '₦${searchResults[index].price.toStringAsFixed(2)}/year',
                 );
               })
         ],

@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
                           context,
                           MaterialPageRoute(
                               builder: (_) => Search(
-                                    products: products,
+                                    products: productData,
                                   )));
                     },
                     icon: const Icon(Ionicons.search_outline)),
@@ -98,7 +98,7 @@ class _HomeState extends State<Home> {
           Container(
             height: 600,
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
-            child: ProductGridView(products: products),
+            child: ProductGridView(products: productData),
           )
         ],
       ),
