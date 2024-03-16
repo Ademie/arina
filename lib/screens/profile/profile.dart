@@ -58,7 +58,7 @@ class Profile extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverPadding(
-            padding: const EdgeInsets.only(left: 20, top: 25),
+            padding: const EdgeInsets.only(left: 20, top: 25, bottom: 25),
             sliver: SliverToBoxAdapter(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -101,17 +101,13 @@ class Profile extends StatelessWidget {
                   child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 5, vertical: 15),
-                      margin: const EdgeInsets.all(25),
+                      margin: const EdgeInsets.symmetric(vertical:15, horizontal: 25),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         boxShadow: const [boxshadow],
                         color: Colors.white,
                       ),
-                      // Contact
-                      // Address
-                      // Password
                       child: ListTile(
-                          //  Text('Contact', style: nlargeText),
                           leading: settingsTab[index]["leading"],
                           title: settingsTab[index]["title"],
                           subtitle: settingsTab[index]["subtitle"],
@@ -128,7 +124,7 @@ List settingsTab = [
   {
     "leading": const Icon(Ionicons.person),
     "title": const Text('About', style: nlargeText),
-    "subtitle": const Text('Name, email, profile picture', style: smallText),
+    "subtitle": const Text('Name, email, password', style: smallText),
     "trailing": const Icon(Ionicons.chevron_forward),
   },
   {
