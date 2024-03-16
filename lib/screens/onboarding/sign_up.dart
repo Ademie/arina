@@ -1,3 +1,4 @@
+import 'package:arina/constants/constants.dart';
 import 'package:arina/screens/onboarding/login.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:flutter/material.dart';
@@ -76,14 +77,7 @@ class SignUp extends StatelessWidget {
                     width: 345,
                     decoration: const BoxDecoration(
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x338A959E),
-                          blurRadius: 30,
-                          offset: Offset(0, 7),
-                          spreadRadius: 0,
-                        )
-                      ],
+                      boxShadow: [boxshadow],
                     ),
                     child: Padding(
                       padding: const EdgeInsets.only(

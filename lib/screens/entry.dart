@@ -1,5 +1,6 @@
 import 'package:arina/data/data.dart';
 import 'package:arina/screens/home/home.dart';
+import 'package:arina/screens/profile/profile.dart';
 import 'package:arina/screens/saved/saved.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,7 +21,7 @@ class _EntryState extends State<Entry> {
       const Home(),
       const Text('Switch Role'),
       Saved(products: productData),
-      const Text('Profile'),
+      const Profile()
     
     ];
 

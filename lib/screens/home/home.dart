@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,28 +39,15 @@ class _HomeState extends State<Home> {
                                   )));
                     },
                     icon: const Icon(Ionicons.search_outline)),
-                const Column(
-                  children: [
-                    Text(
-                      'Best Home Rentals\n',
-                      style: TextStyle(
-                          color: Color(0xFF909090),
-                          fontSize: 18,
-                          fontFamily: 'Gelasio',
-                          fontWeight: FontWeight.w400,
-                          height: 1),
-                    ),
-                    Text(
-                      'EXPERIENCE',
-                      style: TextStyle(
-                        color: Color(0xFF232323),
-                        fontSize: 18,
-                        fontFamily: 'Gelasio',
-                        fontWeight: FontWeight.w700,
-                        height: 0.08,
-                      ),
-                    ),
-                  ],
+                const Text(
+                  'ARINA',
+                  style: TextStyle(
+                    color: Color(0xFF232323),
+                    fontSize: 22,
+                    fontFamily: 'Gelasio',
+                    fontWeight: FontWeight.w700,
+                    height: 0.08,
+                  ),
                 ),
                 IconButton(
                     iconSize: 30,

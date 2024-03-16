@@ -252,7 +252,7 @@ class SummaryCard extends StatelessWidget {
                   ),
                   image: DecorationImage(
                       image: AssetImage(
-                          imageURL ?? "assets/images/products/house.jpg"),
+                          imageURL ?? "assets/images/thumbnails/blue_house.jpeg"),
                       fit: BoxFit.cover),
                 ),
               ),

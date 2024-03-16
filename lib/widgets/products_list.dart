@@ -1,7 +1,9 @@
 import 'package:arina/models/product_model.dart';
+import 'package:arina/providers/saved_provider.dart';
 import 'package:arina/screens/products/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 
 class ProductGridView extends StatelessWidget {
   final List<ProductModel> products;
@@ -49,12 +51,17 @@ class ProductGridView extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6)),
                   ),
-                  child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Ionicons.bookmark_outline,
-                        color: Colors.white,
-                      ))),
+                  child:
+                      Consumer<SavedProvider>(builder: (context, saveHouse, _) {
+                    return IconButton(
+                        onPressed: () {
+                          saveHouse.add(products[index]);
+                        },
+                        icon: const Icon(
+                          Ionicons.bookmark_outline,
+                          color: Colors.white,
+                        ));
+                  })),
             ),
             Positioned(
                 bottom: 0,

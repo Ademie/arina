@@ -1,4 +1,4 @@
-package ademie.arina
+package morningstar.arina
 
 import io.flutter.embedding.android.FlutterActivity
 
