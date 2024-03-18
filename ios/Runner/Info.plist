@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Arina wants to open Gallery</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Arina wants to open Camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Arina wants to use Microphone</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

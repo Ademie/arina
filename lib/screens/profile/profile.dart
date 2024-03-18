@@ -1,60 +1,15 @@
 import 'package:arina/constants/constants.dart';
-import 'package:arina/screens/search/search.dart';
+import 'package:arina/shared/app_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:arina/data/data.dart';
+
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 21),
-          child: IconButton(
-              iconSize: 30,
-              color: Colors.grey,
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => Search(
-                              products: productData,
-                            )));
-              },
-              icon: const Icon(Ionicons.search_outline)),
-        ),
-        title: const Text(
-          'Profile',
-          style: TextStyle(
-            color: Color(0xFF232323),
-            fontSize: 22,
-            fontFamily: 'Gelasio',
-            fontWeight: FontWeight.w700,
-            height: 0.08,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 21),
-            child: IconButton(
-                iconSize: 30,
-                color: Colors.grey,
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => Search(
-                                products: productData,
-                              )));
-                },
-                icon: const Icon(Ionicons.log_out_outline)),
-          ),
-        ],
-      ),
+    return AppScaffold(
       body: CustomScrollView(
         slivers: [
           SliverPadding(
@@ -101,7 +56,8 @@ class Profile extends StatelessWidget {
                   child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 5, vertical: 15),
-                      margin: const EdgeInsets.symmetric(vertical:15, horizontal: 25),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 25),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         boxShadow: const [boxshadow],
@@ -119,6 +75,8 @@ class Profile extends StatelessWidget {
     );
   }
 }
+
+
 
 List settingsTab = [
   {

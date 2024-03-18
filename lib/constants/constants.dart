@@ -19,7 +19,6 @@ const smallText = TextStyle(
   fontFamily: 'Gelasio',
   height: 0,
 );
-
 const nlargeText = TextStyle(
   color: Color(0xFF303030),
   fontSize: 26,
@@ -27,12 +26,20 @@ const nlargeText = TextStyle(
   fontWeight: FontWeight.w600,
   height: 0,
   letterSpacing: 0.1,
-  
 );
 const nsmallText = TextStyle(
   color: Color.fromARGB(197, 48, 48, 48),
   fontSize: 14,
   fontFamily: "Nunito Sans",
+  height: 0,
+  letterSpacing: 0.1,
+);
+// List property form
+const flargeText = TextStyle(
+  color: Color(0xFF303030),
+  fontSize: 24,
+  fontFamily: "Nunito Sans",
+  fontWeight: FontWeight.w600,
   height: 0,
   letterSpacing: 0.1,
 );

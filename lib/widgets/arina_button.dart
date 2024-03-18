@@ -29,7 +29,7 @@ class ArinaButton extends StatelessWidget {
           height: height ?? 50,
           child: Center(
               child: Text(
-            text!,
+            text ?? "Button",
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.white,

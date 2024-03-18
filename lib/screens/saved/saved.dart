@@ -1,6 +1,7 @@
 import 'package:arina/models/product_model.dart';
 import 'package:arina/providers/saved_provider.dart';
 import 'package:arina/screens/inspection/inspection.dart';
+import 'package:arina/shared/app_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,21 +16,8 @@ class Saved extends StatefulWidget {
 class _SavedState extends State<Saved> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // Saved
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        title: const Text(
-          'Saved',
-          style: TextStyle(
-            color: Color(0xFF232323),
-            fontSize: 18,
-            fontFamily: 'Gelasio',
-            fontWeight: FontWeight.w700,
-            height: 0.08,
-          ),
-        ),
-      ),
+    return AppScaffold(
+      title: "Saved",
       body: CustomScrollView(
         slivers: <Widget>[
           Consumer<SavedProvider>(builder: (context, savedHouse, _) {

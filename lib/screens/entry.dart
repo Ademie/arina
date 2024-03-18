@@ -2,6 +2,7 @@ import 'package:arina/data/data.dart';
 import 'package:arina/screens/home/home.dart';
 import 'package:arina/screens/profile/profile.dart';
 import 'package:arina/screens/saved/saved.dart';
+import 'package:arina/screens/upload/upload.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,7 +20,7 @@ class _EntryState extends State<Entry> {
   Widget build(BuildContext context) {
     List<Widget> screens = <Widget>[
       const Home(),
-      const Text('Switch Role'),
+      Upload(),
       Saved(products: productData),
       const Profile()
     

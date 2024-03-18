@@ -156,19 +156,20 @@ class _InspectionState extends State<Inspection> {
                           signed: true, decimal: false),
                       controller: TextEditingController(text: ''),
                       decoration: const InputDecoration(
-                          hintText: '0810000100',
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                            color: Color(0xFF303030),
-                            width: 0.02,
-                          )),
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                            color: Color(0xFF303030),
-                            width: 0.02,
-                          )),
-                          suffixIconColor: Color.fromARGB(255, 61, 24, 24),
-                          suffixIcon: Icon(Ionicons.chevron_down)),
+                        hintText: '0810000100',
+                        // enabledBorder: UnderlineInputBorder(
+                        //     borderSide: BorderSide(
+                        //   color: Color(0xFF303030),
+                        //   width: 0.02,
+                        // )),
+                        // border: UnderlineInputBorder(
+                        //     borderSide: BorderSide(
+                        //   color: Color(0xFF303030),
+                        //   width: 0.02,
+                        // )),
+                        // suffixIconColor: Color.fromARGB(255, 61, 24, 24),
+                        suffixIcon: Icon(Ionicons.chevron_down),
+                      ),
                     ),
                   ],
                 )),
@@ -251,8 +252,8 @@ class SummaryCard extends StatelessWidget {
                     bottomLeft: Radius.circular(10),
                   ),
                   image: DecorationImage(
-                      image: AssetImage(
-                          imageURL ?? "assets/images/thumbnails/blue_house.jpeg"),
+                      image: AssetImage(imageURL ??
+                          "assets/images/thumbnails/blue_house.jpeg"),
                       fit: BoxFit.cover),
                 ),
               ),
