@@ -1,4 +1,4 @@
-import 'package:arina/screens/inspection/inspection.dart';
+import 'package:arina/screens/inspection/inspect_screen.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:arina/widgets/product_showcase.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -478,7 +478,7 @@ class ProductDetails extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Inspection()));
+                        builder: (context) => const InspectScreen()));
               },
               width: 220,
               height: 60,

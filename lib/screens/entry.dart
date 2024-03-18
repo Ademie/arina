@@ -1,8 +1,8 @@
 import 'package:arina/data/data.dart';
-import 'package:arina/screens/home/home.dart';
-import 'package:arina/screens/profile/profile.dart';
-import 'package:arina/screens/saved/saved.dart';
-import 'package:arina/screens/upload/upload.dart';
+import 'package:arina/screens/home/home_screen.dart';
+import 'package:arina/screens/profile/profile_screen.dart';
+import 'package:arina/screens/saved/saved_screen.dart';
+import 'package:arina/screens/upload/upload_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,17 +19,15 @@ class _EntryState extends State<Entry> {
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = <Widget>[
-      const Home(),
-      Upload(),
-      Saved(products: productData),
-      const Profile()
-    
+      const HomeScreen(),
+      const UploadScreen(),
+      SavedScreen(products: productData),
+      const ProfileScreen()
     ];
 
     void onItemTapped(int index) {
       setState(() {
         selectedIndex = index;
-       
       });
     }
 

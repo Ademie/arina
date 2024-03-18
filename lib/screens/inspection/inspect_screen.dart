@@ -1,22 +1,22 @@
 import 'dart:developer';
-import 'package:arina/screens/chat/chat.dart';
+import 'package:arina/screens/chat/chat_screen.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:ionicons/ionicons.dart';
 
-class Inspection extends StatefulWidget {
-  const Inspection({super.key});
+class InspectScreen extends StatefulWidget {
+  const InspectScreen({super.key});
 
   @override
-  State<Inspection> createState() => _InspectionState();
+  State<InspectScreen> createState() => _InspectScreenState();
 }
 
 final EasyInfiniteDateTimelineController _controller =
     EasyInfiniteDateTimelineController();
 DateTime? _focusDate;
 
-class _InspectionState extends State<Inspection> {
+class _InspectScreenState extends State<InspectScreen> {
   String formatTimeOfDay(TimeOfDay timeOfDay) {
     final hour = timeOfDay.hourOfPeriod;
     final minute = timeOfDay.minute.toString().padLeft(2, '0');
@@ -184,7 +184,7 @@ class _InspectionState extends State<Inspection> {
         child: ElevatedButton.icon(
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const Chat()));
+                context, MaterialPageRoute(builder: (context) => const ChatScreen()));
           },
           icon: const Icon(
             Ionicons.book,

@@ -1,5 +1,5 @@
 import 'package:arina/data/data.dart';
-import 'package:arina/screens/search/search.dart';
+import 'package:arina/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -27,7 +27,7 @@ class AppScaffold extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => Search(
+                          builder: (_) => SearchScreen(
                                 products: productData,
                               )));
                 },
@@ -53,7 +53,7 @@ class AppScaffold extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => Search(
+                          builder: (_) => SearchScreen(
                                 products: productData,
                               )));
                 },

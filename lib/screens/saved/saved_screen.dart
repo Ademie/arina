@@ -1,19 +1,19 @@
 import 'package:arina/models/product_model.dart';
 import 'package:arina/providers/saved_provider.dart';
-import 'package:arina/screens/inspection/inspection.dart';
+import 'package:arina/screens/inspection/inspect_screen.dart';
 import 'package:arina/shared/app_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Saved extends StatefulWidget {
-  const Saved({super.key, required this.products});
+class SavedScreen extends StatefulWidget {
+  const SavedScreen({super.key, required this.products});
   final List<ProductModel> products;
 
   @override
-  State<Saved> createState() => _SavedState();
+  State<SavedScreen> createState() => _SavedScreenState();
 }
 
-class _SavedState extends State<Saved> {
+class _SavedScreenState extends State<SavedScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(

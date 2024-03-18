@@ -1,78 +1,8 @@
 import 'package:arina/constants/constants.dart';
-import 'package:arina/shared/app_scaffold.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
-
-class Upload extends StatefulWidget {
-  const Upload({super.key});
-
-  @override
-  State<Upload> createState() => _UploadState();
-}
-
-class _UploadState extends State<Upload> {
-  @override
-  Widget build(BuildContext context) {
-    return AppScaffold(
-      title: "List Property",
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: 800,
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Center(
-                  child: Text(
-                    "You must complete KYC to list a property",
-                    style: nsmallText,
-                  ),
-                ),
-                const Center(
-                  child: Text(
-                    "please do so if you haven't",
-                    style: nsmallText,
-                  ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Center(
-                    child: ArinaButton(
-                  text: 'List Property',
-                  onPressed: () {
-                    showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (_) {
-                          return const ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(40),
-                              topRight: Radius.circular(40),
-                            ),
-                            child: FractionallySizedBox(
-                              heightFactor: 0.9,
-                              child: Scaffold(
-                                body: Padding(
-                                  padding: EdgeInsets.all(25),
-                                  child: UploadForm(),
-                                ),
-                              ),
-                            ),
-                          );
-                        });
-                  },
-                  width: 220,
-                  height: 60,
-                )),
-              ]),
-        ),
-      ),
-    );
-  }
-}
 
 class UploadForm extends StatefulWidget {
   const UploadForm({
@@ -92,7 +22,7 @@ class _UploadFormState extends State<UploadForm> {
     setState(() {
       _uploading = true;
     });
-    print(_uploading);
+    
     final List<XFile> selectedImages = await _imagePicker.pickMultiImage();
     if (selectedImages.isNotEmpty) {
       setState(() {
@@ -103,7 +33,6 @@ class _UploadFormState extends State<UploadForm> {
     setState(() {
       _uploading = false;
     });
-    print(_uploading);
   }
 
   @override

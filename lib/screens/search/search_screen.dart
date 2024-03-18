@@ -1,18 +1,18 @@
 import 'package:arina/data/data.dart';
 import 'package:arina/models/product_model.dart';
-import 'package:arina/screens/inspection/inspection.dart';
+import 'package:arina/screens/inspection/inspect_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-class Search extends StatefulWidget {
-  const Search({super.key, required this.products});
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key, required this.products});
   final List<ProductModel> products;
 
   @override
-  State<Search> createState() => _SearchState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchState extends State<Search> {
+class _SearchScreenState extends State<SearchScreen> {
   String query = "";
 
   List<ProductModel> searchResults = [];
