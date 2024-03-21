@@ -7,6 +7,7 @@ import 'package:arina/screens/onboarding/login.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -21,6 +22,8 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _cpassword = TextEditingController();
+  bool _obscurePassword = true;
+  bool _obscureCPassword = true;
   final _formKey = GlobalKey<FormState>();
 
   Future<void> _register(
@@ -192,7 +195,7 @@ class _SignUpState extends State<SignUp> {
                                     width: 400,
                                     height: 40,
                                     child: TextFormField(
-                                      obscureText: true,
+                                      obscureText: _obscurePassword,
                                       controller: _password,
                                       autocorrect: false,
                                       enableSuggestions: false,
@@ -219,9 +222,14 @@ class _SignUpState extends State<SignUp> {
                                   Positioned(
                                     right: 10,
                                     child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                          Icons.remove_red_eye_outlined),
+                                      onPressed: () {
+                                        setState(() {
+                                          _obscurePassword = !_obscurePassword;
+                                        });
+                                      },
+                                      icon: Icon(_obscurePassword == true
+                                          ? Ionicons.eye
+                                          : Ionicons.eye_off),
                                     ),
                                   )
                                 ],
@@ -248,7 +256,7 @@ class _SignUpState extends State<SignUp> {
                                     width: 400,
                                     height: 40,
                                     child: TextFormField(
-                                      obscureText: true,
+                                      obscureText: _obscureCPassword,
                                       autocorrect: false,
                                       enableSuggestions: false,
                                       controller: _cpassword,
@@ -263,9 +271,15 @@ class _SignUpState extends State<SignUp> {
                                   Positioned(
                                     right: 10,
                                     child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                          Icons.remove_red_eye_outlined),
+                                      onPressed: () {
+                                        setState(() {
+                                          _obscureCPassword =
+                                              !_obscureCPassword;
+                                        });
+                                      },
+                                      icon: Icon(_obscureCPassword == true
+                                          ? Ionicons.eye
+                                          : Ionicons.eye_off),
                                     ),
                                   )
                                 ],

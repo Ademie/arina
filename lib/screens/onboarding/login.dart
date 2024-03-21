@@ -7,6 +7,7 @@ import 'package:arina/screens/onboarding/sign_up.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 
 class LoginIn extends StatefulWidget {
   const LoginIn({super.key});
@@ -20,6 +21,7 @@ class _LoginInState extends State<LoginIn> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _obscurePassword = true;
 
   Future<void> _login({required String email, required String password}) async {
     try {
@@ -150,7 +152,7 @@ class _LoginInState extends State<LoginIn> {
                                     width: 400,
                                     height: 40,
                                     child: TextFormField(
-                                      obscureText: true,
+                                      obscureText: _obscurePassword,
                                       autocorrect: false,
                                       enableSuggestions: false,
                                       controller: _password,
@@ -177,9 +179,14 @@ class _LoginInState extends State<LoginIn> {
                                   Positioned(
                                     right: 10,
                                     child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                          Icons.remove_red_eye_outlined),
+                                      onPressed: () {
+                                        setState(() {
+                                          _obscurePassword = !_obscurePassword;
+                                        });
+                                      },
+                                      icon: Icon(_obscurePassword == true
+                                          ? Ionicons.eye
+                                          : Ionicons.eye_off),
                                     ),
                                   )
                                 ],
