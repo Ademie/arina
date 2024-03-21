@@ -43,3 +43,12 @@ const flargeText = TextStyle(
   height: 0,
   letterSpacing: 0.1,
 );
+
+String? errorMessage = "";
+void showSnack(BuildContext context, content) {
+  var snackbar = SnackBar(
+      content: Center(
+    child: Text(content),
+  ));
+  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+}

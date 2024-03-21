@@ -1,8 +1,10 @@
+import 'package:arina/auth/auth.dart';
 import 'package:arina/constants/constants.dart';
+import 'package:arina/screens/onboarding/login.dart';
 import 'package:arina/shared/app_scaffold.dart';
+
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -69,14 +71,32 @@ class ProfileScreen extends StatelessWidget {
                           subtitle: settingsTab[index]["subtitle"],
                           trailing: settingsTab[index]["trailing"])),
                 );
-              })
+              }),
+          SliverToBoxAdapter(
+              child: TextButton.icon(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: const Color(0xFF232323),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    shadowColor: const Color(0x3F303030),
+                  ),
+                  onPressed: () {
+                    Auth().signOut();
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return const LoginIn();
+                    }));
+                    showSnack(context, "Sign Out Successfully");
+                  },
+                  icon: const Icon(Ionicons.log_out),
+                  label: const Text("Log Out")))
         ],
       ),
     );
   }
 }
-
-
 
 List settingsTab = [
   {

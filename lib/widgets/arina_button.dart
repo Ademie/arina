@@ -7,11 +7,13 @@ class ArinaButton extends StatelessWidget {
     this.onPressed,
     this.width,
     this.height,
+    this.isLoading = false,
   });
   final String? text;
   final Function()? onPressed;
   final double? width;
   final double? height;
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -28,17 +30,21 @@ class ArinaButton extends StatelessWidget {
           width: width ?? 260,
           height: height ?? 50,
           child: Center(
-              child: Text(
-            text ?? "Button",
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontFamily: 'Nunito Sans',
-              fontWeight: FontWeight.w600,
-              height: 0,
-            ),
-          ))),
+              child: isLoading
+                  ? const CircularProgressIndicator(
+                      color: Colors.white,
+                    )
+                  : Text(
+                      text ?? "Button",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: 'Nunito Sans',
+                        fontWeight: FontWeight.w600,
+                        height: 0,
+                      ),
+                    ))),
     );
   }
 }

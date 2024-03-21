@@ -1,11 +1,56 @@
+import 'dart:developer';
+
 import 'package:arina/constants/constants.dart';
 import 'package:arina/screens/entry.dart';
+import 'package:arina/screens/onboarding/sign_up.dart';
 import 'package:arina/widgets/arina_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class LoginIn extends StatelessWidget {
+class LoginIn extends StatefulWidget {
   const LoginIn({super.key});
+
+  @override
+  State<LoginIn> createState() => _LoginInState();
+}
+
+class _LoginInState extends State<LoginIn> {
+  bool _isLoading = false;
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  Future<void> _login({required String email, required String password}) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      setState(() {
+        _isLoading = true;
+      });
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const Entry();
+        }));
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-credential') {
+        errorMessage = "Email or password is incorrect";
+        setState(() {
+          _isLoading = true;
+        });
+        Future.delayed(const Duration(seconds: 2), () {
+          showSnack(context, errorMessage);
+          setState(() {
+            _isLoading = false;
+          });
+        });
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +150,9 @@ class LoginIn extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          TextFormField(),
+                          TextFormField(
+                            controller: _email,
+                          ),
                           const SizedBox(
                             height: 35,
                           ),
@@ -123,11 +170,12 @@ class LoginIn extends StatelessWidget {
                             height: 40,
                             child: Stack(
                               children: [
-                                const SizedBox(
+                                SizedBox(
                                   width: 400,
                                   height: 40,
-                                  child: TextField(
+                                  child: TextFormField(
                                     obscureText: true,
+                                    controller: _password,
                                   ),
                                 ),
                                 Positioned(
@@ -164,12 +212,10 @@ class LoginIn extends StatelessWidget {
                           // BUTTON
                           ArinaButton(
                             text: 'Log in',
+                            isLoading: _isLoading,
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Entry()),
-                              );
+                              _login(
+                                  email: _email.text, password: _password.text);
                             },
                           ),
 
@@ -194,8 +240,7 @@ class LoginIn extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              const LoginIn()),
+                                          builder: (context) => const SignUp()),
                                     );
                                   },
                                   child: const Text(
