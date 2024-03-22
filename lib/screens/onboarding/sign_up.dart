@@ -2,14 +2,15 @@ import 'dart:developer';
 
 import 'package:arina/constants/constants.dart';
 import 'package:arina/models/profile_model.dart';
-import 'package:arina/screens/entry.dart';
+import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/screens/onboarding/components/forms_header.dart';
 import 'package:arina/screens/onboarding/login.dart';
 import 'package:arina/widgets/arina_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -19,7 +20,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  bool _isLoading = false;
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _email = TextEditingController();
@@ -28,51 +28,6 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
 
   final firestore = FirebaseFirestore.instance;
-
-  Future<void> _register(
-      {required String email, required String password}) async {
-    try {
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-      setState(() {
-        _isLoading = true;
-      });
-      Future.delayed(const Duration(seconds: 2), () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const Entry();
-        }));
-        setState(() {
-          _isLoading = false;
-        });
-      });
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        errorMessage = "The password provided is too weak.";
-        setState(() {
-          _isLoading = true;
-        });
-        Future.delayed(const Duration(seconds: 2), () {
-          showSnack(context, errorMessage);
-          setState(() {
-            _isLoading = false;
-          });
-        });
-      } else if (e.code == 'email-already-in-use') {
-        errorMessage = "The account already exists for that email.";
-        setState(() {
-          _isLoading = true;
-        });
-        Future.delayed(const Duration(seconds: 2), () {
-          showSnack(context, errorMessage);
-          setState(() {
-            _isLoading = false;
-          });
-        });
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -267,27 +222,35 @@ class _SignUpState extends State<SignUp> {
                             ),
 
                             // BUTTON
-                            ArinaButton(
-                              text: 'Sign Up',
-                              isLoading: _isLoading,
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  _register(
-                                      email: _email.text,
-                                      password: _password.text);
-                                  try {
-                                    firestore.collection("users").add(
-                                          ProfileModel(
-                                            firstName: _firstName.text,
-                                            lastName: _lastName.text,
-                                            email: _email.text,
-                                            password: _password.text,
-                                          ).toFirestore(),
-                                        );
-                                  } catch (e) {
-                                    log(e.toString());
-                                  }
-                                }
+                            Consumer<FireAuthProvider>(
+                              builder: (BuildContext context, auth, child) {
+                                return ArinaButton(
+                                  text: 'Sign Up',
+                                  isLoading: auth.isLoading,
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      if (await auth.register(
+                                          email: _email.text,
+                                          password: _password.text)) {
+                                        context.go("/home");
+                                      } else {
+                                        showSnack(context, auth.errorMessage);
+                                      }
+                                      try {
+                                        firestore.collection("users").add(
+                                              ProfileModel(
+                                                firstName: _firstName.text,
+                                                lastName: _lastName.text,
+                                                email: _email.text,
+                                                password: _password.text,
+                                              ).toFirestore(),
+                                            );
+                                      } catch (e) {
+                                        log(e.toString());
+                                      }
+                                    }
+                                  },
+                                );
                               },
                             ),
                             const SizedBox(
@@ -312,7 +275,7 @@ class _SignUpState extends State<SignUp> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const LoginIn()),
+                                                const LogIn()),
                                       );
                                     },
                                     child: const Text(

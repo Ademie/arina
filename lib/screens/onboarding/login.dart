@@ -1,60 +1,25 @@
-import 'dart:developer';
-
 import 'package:arina/constants/constants.dart';
-import 'package:arina/screens/entry.dart';
+import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/screens/onboarding/components/forms_header.dart';
 import 'package:arina/screens/onboarding/sign_up.dart';
 import 'package:arina/widgets/arina_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 
-class LoginIn extends StatefulWidget {
-  const LoginIn({super.key});
+class LogIn extends StatefulWidget {
+  const LogIn({super.key});
 
   @override
-  State<LoginIn> createState() => _LoginInState();
+  State<LogIn> createState() => _LogInState();
 }
 
-class _LoginInState extends State<LoginIn> {
-  bool _isLoading = false;
+class _LogInState extends State<LogIn> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _obscurePassword = true;
-
-  Future<void> _login({required String email, required String password}) async {
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      setState(() {
-        _isLoading = true;
-      });
-      Future.delayed(const Duration(seconds: 2), () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const Entry();
-        }));
-        setState(() {
-          _isLoading = false;
-        });
-      });
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-credential') {
-        errorMessage = "Email or password is incorrect";
-        setState(() {
-          _isLoading = true;
-        });
-        Future.delayed(const Duration(seconds: 2), () {
-          showSnack(context, errorMessage);
-          setState(() {
-            _isLoading = false;
-          });
-        });
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -213,17 +178,24 @@ class _LoginInState extends State<LoginIn> {
                               height: 40,
                             ),
                             // BUTTON
-                            ArinaButton(
-                              text: 'Log in',
-                              isLoading: _isLoading,
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  _login(
-                                      email: _email.text,
-                                      password: _password.text);
-                                }
-                              },
-                            ),
+                            Consumer<FireAuthProvider>(
+                                builder: (context, auth, child) {
+                              return ArinaButton(
+                                text: 'Log in',
+                                isLoading: auth.isLoading,
+                                onPressed: () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    if (await auth.login(
+                                        email: _email.text,
+                                        password: _password.text)) {
+                                      context.go("/");
+                                    } else {
+                                      showSnack(context, auth.errorMessage);
+                                    }
+                                  }
+                                },
+                              );
+                            }),
 
                             const SizedBox(
                               height: 30,

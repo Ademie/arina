@@ -1,4 +1,5 @@
 import 'package:arina/data/data.dart';
+import 'package:arina/routes/bottom_nav.dart';
 import 'package:arina/shared/app_scaffold.dart';
 import 'package:arina/widgets/category_items.dart';
 import 'package:arina/widgets/products_list.dart';
@@ -53,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       )),
+      bottomNavigationBar: const BottomNav(index: 0),
     );
   }
 }

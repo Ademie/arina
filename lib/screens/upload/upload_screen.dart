@@ -1,4 +1,5 @@
 import 'package:arina/constants/constants.dart';
+import 'package:arina/routes/bottom_nav.dart';
 import 'package:arina/screens/upload/upload_form.dart';
 import 'package:arina/shared/app_scaffold.dart';
 import 'package:arina/widgets/arina_button.dart';
@@ -69,6 +70,7 @@ class _UploadScreenState extends State<UploadScreen> {
               ]),
         ),
       ),
+      bottomNavigationBar: const BottomNav(index: 1),
     );
   }
 }

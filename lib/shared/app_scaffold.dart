@@ -8,9 +8,11 @@ class AppScaffold extends StatelessWidget {
     super.key,
     this.body,
     this.title,
+    required this.bottomNavigationBar,
   });
 
   final Widget? body;
+  final Widget bottomNavigationBar;
   final String? title;
 
   @override
@@ -68,6 +70,7 @@ class AppScaffold extends StatelessWidget {
             )
           ]),
       body: body,
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 }

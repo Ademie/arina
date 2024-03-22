@@ -1,5 +1,6 @@
 import 'package:arina/models/product_model.dart';
 import 'package:arina/providers/saved_provider.dart';
+import 'package:arina/routes/bottom_nav.dart';
 import 'package:arina/screens/inspection/inspect_screen.dart';
 import 'package:arina/shared/app_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class _SavedScreenState extends State<SavedScreen> {
           })
         ],
       ),
+      bottomNavigationBar: const BottomNav(index: 2),
     );
   }
 }
