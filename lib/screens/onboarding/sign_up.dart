@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:arina/constants/constants.dart';
@@ -27,7 +29,16 @@ class _SignUpState extends State<SignUp> {
   bool _obscurePassword = true;
   final _formKey = GlobalKey<FormState>();
 
-  final firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  @override
+  void dispose() {
+    _firstName.dispose();
+    _lastName.dispose();
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -237,7 +248,10 @@ class _SignUpState extends State<SignUp> {
                                         showSnack(context, auth.errorMessage);
                                       }
                                       try {
-                                        firestore.collection("users").add(
+                                        firestore
+                                            .collection("users")
+                                            .doc(auth.currentUser!.uid)
+                                            .set(
                                               ProfileModel(
                                                 firstName: _firstName.text,
                                                 lastName: _lastName.text,

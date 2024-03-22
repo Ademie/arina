@@ -1,7 +1,6 @@
 import 'package:arina/constants/constants.dart';
 import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/routes/bottom_nav.dart';
-import 'package:arina/screens/onboarding/login.dart';
 import 'package:arina/shared/app_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
