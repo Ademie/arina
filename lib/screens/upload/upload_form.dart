@@ -1,12 +1,17 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:io';
+
 import 'package:arina/constants/constants.dart';
 import 'package:arina/models/upload_model.dart';
 import 'package:arina/providers/auth_provider.dart';
+import 'package:arina/screens/upload/upload_image.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
 class UploadForm extends StatefulWidget {
@@ -31,44 +36,64 @@ class _UploadFormState extends State<UploadForm> {
   final TextEditingController _service = TextEditingController();
   final TextEditingController _total = TextEditingController();
 
+  final userID = FirebaseAuth.instance.currentUser!.uid;
+  bool uploading = false;
+  bool uploadToFire = false;
   final _formKey = GlobalKey<FormState>();
-  final ImagePicker _imagePicker = ImagePicker();
-  final List<XFile> imageFileList = [];
-  bool _uploading = false;
 
-  Future<void> selectImages() async {
-    setState(() {
-      _uploading = true;
-    });
+  List<XFile> imageFiles = [];
+  final picker = ImagePicker();
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
-    final List<XFile> selectedImages = await _imagePicker.pickMultiImage();
-    if (selectedImages.isNotEmpty) {
+  Future<void> _pickImages() async {
+    final pickedFiles = await picker.pickMultiImage();
+    if (pickedFiles.isNotEmpty) {
       setState(() {
-        imageFileList.addAll(selectedImages);
+        imageFiles.addAll(pickedFiles);
       });
     }
+  }
 
-    setState(() {
-      _uploading = false;
-    });
+  Future<void> _uploadImages() async {
+    try {
+      for (int index = 0; index < imageFiles.length; index++) {
+        var imageFile = imageFiles[index];
+        setState(() {
+          uploadToFire = true;
+        });
+        // await _storage
+        //     .ref('properties/${_title.text}/image $index')
+        //     .putFile(File(imageFile.path));
+
+        // Upload the file
+        UploadTask uploadTask = _storage
+            .ref('properties/${_title.text}/image $index')
+            .putFile(File(imageFile.path));
+
+        // Wait for the upload to complete
+        TaskSnapshot snapshot = await uploadTask;
+
+        // Get the download URL
+        String downloadURL = await snapshot.ref.getDownloadURL();
+        print('Download URL for image $index: $downloadURL');
+      }
+      showSnack(context, "Images uploaded successfully");
+      setState(() {
+        uploadToFire = false;
+        imageFiles.clear();
+      });
+    } on FirebaseException catch (e) {
+      showSnack(context, "Failed to upload $e");
+    }
   }
 
   @override
   void initState() {
     super.initState();
+
     _rent.addListener(calculateTotal);
     _security.addListener(calculateTotal);
     _service.addListener(calculateTotal);
-  }
-
-  void calculateTotal() {
-    double rent = double.tryParse(_rent.text) ?? 0;
-    double security = double.tryParse(_security.text) ?? 0;
-    double service = double.tryParse(_service.text) ?? 0;
-
-    double total = rent + security + service;
-
-    _total.text = total.toString();
   }
 
   @override
@@ -94,113 +119,46 @@ class _UploadFormState extends State<UploadForm> {
           buildForm("Title", _title),
           // IMAGES
           const Text('Add Image', style: flargeText),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(vertical: 25),
-            child: Row(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.black,
-                  ),
-                  child: IconButton(
-                    onPressed: selectImages,
-                    icon: const Icon(
-                      Ionicons.add,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                SizedBox(
-                  height: 80,
-                  width: 800,
-                  child: ListView.separated(
-                      separatorBuilder: (context, index) => const SizedBox(
-                            width: 10,
-                          ),
-                      itemCount: imageFileList.length + (_uploading ? 1 : 0),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        if (index == imageFileList.length) {
-                          return _uploading
-                              ? Container(
-                                  width: 80,
-                                  height: 80,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.6),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: const Center(
-                                      child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )),
-                                )
-                              : Container();
-                        } else {
-                          return Container(
-                            width: 80,
-                            height: 80,
-                            decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                      imageFileList[index].path,
-                                    ),
-                                    fit: BoxFit.cover)),
-                          );
-                        }
-                      }),
-                ),
-              ],
-            ),
-          ),
+          uploadImage(_pickImages, imageFiles, uploading),
           buildForm("Address", _address),
-          buildForm("Description", _description),
-          buildForm("Duration", _duration),
-          buildForm("Rent", _rent),
-          buildForm("Security", _security),
-          buildForm("Service Charge", _service),
+          buildForm("Description", _description,
+              keyboardType: TextInputType.multiline),
+          buildForm("Duration", _duration, keyboardType: TextInputType.number),
+          buildForm("Rent", _rent, keyboardType: TextInputType.number),
+          buildForm("Security", _security, keyboardType: TextInputType.number),
+          buildForm("Service Charge", _service,
+              keyboardType: TextInputType.number),
           buildForm("Total", _total, readOnly: true),
           Consumer<FireAuthProvider>(builder: (context, auth, _) {
             return ArinaButton(
               text: "List Property",
-              isLoading: auth.isLoading,
+              // isLoading: auth.isLoading,
+              isLoading: uploadToFire,
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  try {
-                    firestore
-                        .collection("users")
-                        .doc(auth.currentUser!.uid)
-                        .collection("properties")
-                        .add(
-                          UploadModel(
-                            title: _title.text,
-                            propAddress: _address.text,
-                            description: _description.text,
-                            duration: _duration.text,
-                            rent: _rent.text,
-                            security: _security.text,
-                            service: _service.text,
-                            total: _total.text,
-                          ).toFirestore(),
-                        );
-                    auth.isLoading = true;
-                    Future.delayed(const Duration(seconds: 2), () {
-                      showSnack(context, "Property listed successfully");
-                      context.pop();
-                    });
-                  } catch (e) {
-                    showSnack(context, "An error occured $e");
-                  }
+                  _uploadImages().then((value) {
+                    try {
+                      firestore
+                          .collection("users")
+                          .doc(userID)
+                          .collection("properties")
+                          .add(
+                            UploadModel(
+                              title: _title.text,
+                              propAddress: _address.text,
+                              description: _description.text,
+                              duration: _duration.text,
+                              rent: _rent.text,
+                              security: _security.text,
+                              service: _service.text,
+                              total: _total.text,
+                            ).toFirestore(),
+                          );
+                    } catch (e) {
+                      showSnack(context, "An error occured $e");
+                    }
+                  });
                 }
-                // Navigator.of(context).pop();
               },
             );
           })
@@ -208,10 +166,25 @@ class _UploadFormState extends State<UploadForm> {
       )
     ]);
   }
+
+  void calculateTotal() {
+    double rent = double.tryParse(_rent.text) ?? 0;
+    double security = double.tryParse(_security.text) ?? 0;
+    double service = double.tryParse(_service.text) ?? 0;
+
+    double total = rent + security + service;
+
+    _total.text = total.toString();
+  }
 }
 
-Widget buildForm(String label, TextEditingController controller,
-    {bool readOnly = false, onChanged}) {
+Widget buildForm(
+  String label,
+  TextEditingController controller, {
+  bool readOnly = false,
+  onChanged,
+  keyboardType,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -220,6 +193,7 @@ Widget buildForm(String label, TextEditingController controller,
         readOnly: readOnly,
         controller: controller,
         onChanged: onChanged,
+        keyboardType: keyboardType,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "Please enter some text";
