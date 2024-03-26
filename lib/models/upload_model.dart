@@ -9,6 +9,7 @@ class UploadModel {
   String security;
   String service;
   String total;
+  List<String> imagesURL;
 
   UploadModel({
     required this.title,
@@ -19,6 +20,7 @@ class UploadModel {
     required this.security,
     required this.service,
     required this.total,
+    required this.imagesURL,
   });
 
   factory UploadModel.fromFirestore(
@@ -34,7 +36,8 @@ class UploadModel {
       rent: data?["rent"],
       security: data?["security"],
       service: data?["service"],
-      total: data?["total"]
+      total: data?["total"], imagesURL: data?["imagesURL"],
+
     );
   }
 
@@ -48,6 +51,7 @@ class UploadModel {
       if (security.isNotEmpty) "security": security,
       if (service.isNotEmpty) "service": service,
       if (total.isNotEmpty) "total": total,
+      if(imagesURL.isNotEmpty) "imagesURL": imagesURL
     };
   }
 }

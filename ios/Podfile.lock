@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (4.15.8):
+  - cloud_firestore (4.15.9):
     - Firebase/Firestore (= 10.22.0)
     - firebase_core
     - Flutter
@@ -15,14 +15,14 @@ PODS:
   - Firebase/Storage (10.22.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 10.22.0)
-  - firebase_auth (4.17.8):
+  - firebase_auth (4.17.9):
     - Firebase/Auth (= 10.22.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.27.0):
+  - firebase_core (2.27.1):
     - Firebase/CoreOnly (= 10.22.0)
     - Flutter
-  - firebase_storage (11.6.9):
+  - firebase_storage (11.6.10):
     - Firebase/Storage (= 10.22.0)
     - firebase_core
     - Flutter
@@ -181,11 +181,11 @@ CHECKOUT OPTIONS:
     :tag: 10.22.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: 97e80651e196c32554cedcd31858b9615ac8a704
+  cloud_firestore: 9d69182af1d677062f005584ca5470a19e1f68e7
   Firebase: 797fd7297b7e1be954432743a0b3f90038e45a71
-  firebase_auth: 4cf9d126dc9629a77dbcbd23723e903d8277ff5a
-  firebase_core: 100945864b4aedce3cfef0c62ab864858bf013cf
-  firebase_storage: 7add9d0db23f17b7fd798416e6bdb34bbe17658e
+  firebase_auth: 610184b4f624545f81e0416bca60642b6818f27f
+  firebase_core: d6dfb4cb86a9ebd92464bb8736075fe967211c97
+  firebase_storage: 4d91299aefc706729b17bd17c3a1e874a53722df
   FirebaseAppCheckInterop: 58db3e9494751399cf3e7b7e3e705cff71099153
   FirebaseAuth: bbe4c68f958504ba9e54aee181adbdf5b664fbc6
   FirebaseAuthInterop: fa6a29d88cf7d5649cf6f4284918a8b7627e98a9
@@ -201,11 +201,11 @@ SPEC CHECKSUMS:
   FirebaseFirestoreInternalBinary: 5f38434cc9b36a6897a616a14e85d00c890c5634
   FirebaseSharedSwift: 48076404e6e52372290d15a07d2ed1d2f1754023
   FirebaseStorage: bc7bddc743548a89cfb896843a77cf4bdde2c231
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_archive: 1805fdd3a695fd284b43edb53dc35ca843fb761c
   GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
   GTMSessionFetcher: 8a1b34ad97ebe6f909fb8b9b77fba99943007556
-  image_picker_ios: 99dfe1854b4fa34d0364e74a78448a0151025425
+  image_picker_ios: b545a5f16c0fa88e3ecbbce3ed4de45567a8ec18
   leveldb-library: 06a69cc7582d64b29424a63e085e683cc188230a
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   open_filex: 6e26e659846ec990262224a12ef1c528bb4edbe4
@@ -216,4 +216,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 70872a530e78f31345f5a69a67230157bf772ebf
 
-COCOAPODS: 1.15.0
+COCOAPODS: 1.15.2

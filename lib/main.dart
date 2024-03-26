@@ -64,23 +64,3 @@ class _MainAppState extends State<MainApp> {
     );
   }
 }
-
-
-
-
-
-// home: Consumer<FireAuthProvider>(builder: (context, auth, _) {
-      //   return StreamBuilder<User?>(
-      //       stream: auth.authStateChanges,
-      //       builder: (context, snapshot) {
-      //         if (snapshot.connectionState == ConnectionState.waiting) {
-      //           return const Center(
-      //             child: CircularProgressIndicator(),
-      //           );
-      //         } else if (snapshot.hasData) {
-      //           return const HomeScreen();
-      //         } else {
-      //           return const SplashScreen();
-      //         }
-      //       });
-      // }),

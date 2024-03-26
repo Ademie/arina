@@ -11,6 +11,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +40,10 @@ class _UploadFormState extends State<UploadForm> {
   final userID = FirebaseAuth.instance.currentUser!.uid;
   bool uploading = false;
   bool uploadToFire = false;
+  bool noImages = false;
   final _formKey = GlobalKey<FormState>();
+
+  List<String> propImages = [];
 
   List<XFile> imageFiles = [];
   final picker = ImagePicker();
@@ -50,6 +54,7 @@ class _UploadFormState extends State<UploadForm> {
     if (pickedFiles.isNotEmpty) {
       setState(() {
         imageFiles.addAll(pickedFiles);
+        noImages = false;
       });
     }
   }
@@ -61,23 +66,19 @@ class _UploadFormState extends State<UploadForm> {
         setState(() {
           uploadToFire = true;
         });
-        // await _storage
-        //     .ref('properties/${_title.text}/image $index')
-        //     .putFile(File(imageFile.path));
 
-        // Upload the file
         UploadTask uploadTask = _storage
             .ref('properties/${_title.text}/image $index')
             .putFile(File(imageFile.path));
 
-        // Wait for the upload to complete
         TaskSnapshot snapshot = await uploadTask;
 
         // Get the download URL
         String downloadURL = await snapshot.ref.getDownloadURL();
-        print('Download URL for image $index: $downloadURL');
+
+        propImages.addAll([downloadURL]);
       }
-      showSnack(context, "Images uploaded successfully");
+      showSnack(context, "Property listed successfully");
       setState(() {
         uploadToFire = false;
         imageFiles.clear();
@@ -120,6 +121,13 @@ class _UploadFormState extends State<UploadForm> {
           // IMAGES
           const Text('Add Image', style: flargeText),
           uploadImage(_pickImages, imageFiles, uploading),
+          noImages
+              ? const Text(
+                  "Please upload images",
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 199, 39, 27), fontSize: 12),
+                )
+              : const Text(''),
           buildForm("Address", _address),
           buildForm("Description", _description,
               keyboardType: TextInputType.multiline),
@@ -132,32 +140,42 @@ class _UploadFormState extends State<UploadForm> {
           Consumer<FireAuthProvider>(builder: (context, auth, _) {
             return ArinaButton(
               text: "List Property",
-              // isLoading: auth.isLoading,
               isLoading: uploadToFire,
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  _uploadImages().then((value) {
-                    try {
-                      firestore
-                          .collection("users")
-                          .doc(userID)
-                          .collection("properties")
-                          .add(
-                            UploadModel(
-                              title: _title.text,
-                              propAddress: _address.text,
-                              description: _description.text,
-                              duration: _duration.text,
-                              rent: _rent.text,
-                              security: _security.text,
-                              service: _service.text,
-                              total: _total.text,
-                            ).toFirestore(),
-                          );
-                    } catch (e) {
-                      showSnack(context, "An error occured $e");
-                    }
-                  });
+                  if (imageFiles.isEmpty) {
+                    setState(() {
+                      noImages = true;
+                    });
+                  } else if (imageFiles.isNotEmpty) {
+                    setState(() {
+                      noImages = false;
+                    });
+                    _uploadImages().then((value) {
+                      try {
+                        firestore
+                            .collection("users")
+                            .doc(userID)
+                            .collection("properties")
+                            .add(
+                              UploadModel(
+                                title: _title.text,
+                                propAddress: _address.text,
+                                description: _description.text,
+                                duration: _duration.text,
+                                rent: _rent.text,
+                                security: _security.text,
+                                service: _service.text,
+                                total: _total.text,
+                                imagesURL: propImages,
+                              ).toFirestore(),
+                            );
+                        context.pop();
+                      } catch (e) {
+                        showSnack(context, "An error occured $e");
+                      }
+                    });
+                  }
                 }
               },
             );
