@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ProductModel {
   String id;
   String name;
@@ -12,6 +14,20 @@ class ProductModel {
     this.imageUrl,
     this.description,
   });
+
+  factory ProductModel.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
+    return ProductModel(
+      id: data?["id"],
+      name: data?["name"],
+      price: data?["price"],
+      imageUrl: data?["imageUrl"],
+      description: data?["description"],
+    );
+  }
 
   ProductModel.fromJson(this.id, Map<String, dynamic> json)
       : name = json["name"],

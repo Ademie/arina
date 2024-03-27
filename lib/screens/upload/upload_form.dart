@@ -154,8 +154,8 @@ class _UploadFormState extends State<UploadForm> {
                     _uploadImages().then((value) {
                       try {
                         firestore
-                            .collection("users")
-                            .doc(userID)
+                            // .collection("users")
+                            // .doc(userID)
                             .collection("properties")
                             .add(
                               UploadModel(
@@ -168,6 +168,7 @@ class _UploadFormState extends State<UploadForm> {
                                 service: _service.text,
                                 total: _total.text,
                                 imagesURL: propImages,
+                                author: userID,
                               ).toFirestore(),
                             );
                         context.pop();

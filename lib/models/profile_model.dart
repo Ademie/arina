@@ -8,13 +8,14 @@ class ProfileModel {
   String? phone;
   String? address;
 
-  ProfileModel(
-      {required this.firstName,
-      required this.lastName,
-      required this.email,
-      required this.password,
-      this.phone,
-      this.address});
+  ProfileModel({
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.password,
+    this.phone,
+    this.address,
+  });
 
   factory ProfileModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
