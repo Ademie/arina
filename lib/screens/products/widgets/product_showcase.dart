@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-List<String> images = [
-  'assets/images/products/blue_house/blue_house1.jpeg',
-  'assets/images/products/blue_house/blue_house2.jpeg',
-  'assets/images/products/blue_house/blue_house3.jpeg'
-];
-
 class ImageDialog extends StatefulWidget {
-  const ImageDialog({super.key});
+  const ImageDialog({super.key, this.otherImages, this.mainImageURL});
+
+  final List<dynamic>? otherImages;
+  final String? mainImageURL;
 
   @override
   State<ImageDialog> createState() => _ImageDialogState();
@@ -60,7 +57,7 @@ class _ImageDialogState extends State<ImageDialog> {
             SizedBox(
               height: 450,
               child: PageView.builder(
-                  itemCount: images.length,
+                  itemCount: widget.otherImages?.length,
                   onPageChanged: (value) {
                     setState(() {
                       index = value + 1;
@@ -72,9 +69,8 @@ class _ImageDialogState extends State<ImageDialog> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           image: DecorationImage(
-                              image: AssetImage(
-                                images[position],
-                              ),
+                              image:
+                                  NetworkImage(widget.otherImages?[position]),
                               fit: BoxFit.cover)),
                     );
                   }),
@@ -84,7 +80,7 @@ class _ImageDialogState extends State<ImageDialog> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10), color: Colors.white),
               child: Text(
-                '$index/${images.length}',
+                '$index/${widget.otherImages?.length}',
                 style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w800,
@@ -99,7 +95,11 @@ class _ImageDialogState extends State<ImageDialog> {
 class ProductShowcase extends StatelessWidget {
   const ProductShowcase({
     super.key,
+    required this.mainImageURL,
+    this.otherImages,
   });
+  final String mainImageURL;
+  final List<dynamic>? otherImages;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +110,10 @@ class ProductShowcase extends StatelessWidget {
           onTap: () async {
             await showDialog(
               context: context,
-              builder: (_) => const ImageDialog(),
+              builder: (_) => ImageDialog(
+                otherImages: otherImages,
+                mainImageURL: mainImageURL,
+              ),
             );
           },
           child: Container(
@@ -119,10 +122,11 @@ class ProductShowcase extends StatelessWidget {
             margin: const EdgeInsets.only(
               left: 52,
             ),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
+            decoration: BoxDecoration(
+              borderRadius:
+                  const BorderRadius.only(bottomLeft: Radius.circular(50)),
               image: DecorationImage(
-                image: AssetImage('assets/images/thumbnails/blue_house.jpeg'),
+                image: NetworkImage(mainImageURL),
                 fit: BoxFit.fill,
               ),
             ),

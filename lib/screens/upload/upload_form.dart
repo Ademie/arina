@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/v4.dart';
+import 'package:uuid/uuid.dart';
 
 class UploadForm extends StatefulWidget {
   const UploadForm({
@@ -42,6 +44,7 @@ class _UploadFormState extends State<UploadForm> {
   bool uploadToFire = false;
   bool noImages = false;
   final _formKey = GlobalKey<FormState>();
+  Uuid propertyID = Uuid();
 
   List<String> propImages = [];
 
@@ -159,6 +162,7 @@ class _UploadFormState extends State<UploadForm> {
                             .collection("properties")
                             .add(
                               UploadModel(
+                                propertyID: propertyID.v4().toString(),
                                 title: _title.text,
                                 propAddress: _address.text,
                                 description: _description.text,

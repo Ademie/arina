@@ -10,6 +10,7 @@ class UploadModel {
   String service;
   String total;
   String author;
+  String propertyID;
   List<String> imagesURL;
 
   UploadModel({
@@ -23,6 +24,7 @@ class UploadModel {
     required this.total,
     required this.imagesURL,
     required this.author,
+    required this.propertyID,
   });
 
   factory UploadModel.fromFirestore(
@@ -31,17 +33,17 @@ class UploadModel {
   ) {
     final data = snapshot.data();
     return UploadModel(
-      title: data?["title"],
-      propAddress: data?["propAddress"],
-      description: data?["description"],
-      duration: data?["duration"],
-      rent: data?["rent"],
-      security: data?["security"],
-      service: data?["service"],
-      total: data?["total"],
-      imagesURL: data?["imagesURL"],
-      author: data?["author"]
-     );
+        title: data?["title"],
+        propAddress: data?["propAddress"],
+        description: data?["description"],
+        duration: data?["duration"],
+        rent: data?["rent"],
+        security: data?["security"],
+        service: data?["service"],
+        total: data?["total"],
+        imagesURL: data?["imagesURL"],
+        author: data?["author"],
+        propertyID: data?["propertyID"]);
   }
 
   Map<String, dynamic> toFirestore() {
@@ -56,6 +58,7 @@ class UploadModel {
       if (total.isNotEmpty) "total": total,
       if (imagesURL.isNotEmpty) "imagesURL": imagesURL,
       if (author.isNotEmpty) "author": author,
+      if (propertyID.isNotEmpty) "propertyID": propertyID,
     };
   }
 }

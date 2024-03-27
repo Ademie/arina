@@ -14,8 +14,8 @@ class ProductGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final firestore = FirebaseFirestore.instance;
-
     final getProducts = firestore.collection("properties").snapshots();
+    List<String> propertyIDs = [];
 
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>?>(
         stream: getProducts,
@@ -43,7 +43,7 @@ class ProductGridView extends StatelessWidget {
                   snapshot.data!.docs.map((DocumentSnapshot documentSnapshot) {
                 Map<String, dynamic> data =
                     documentSnapshot.data()! as Map<String, dynamic>;
-
+                propertyIDs.add(documentSnapshot.id.toString());
                 return data;
               }).toList();
               return Stack(
@@ -53,7 +53,9 @@ class ProductGridView extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ProductDetails()),
+                              builder: (context) => ProductDetails(
+                                    propertyID: propertyIDs[index],
+                                  )),
                         );
                       },
                       child: Container(
@@ -79,7 +81,7 @@ class ProductGridView extends StatelessWidget {
                             builder: (context, saveHouse, _) {
                           return IconButton(
                               onPressed: () {
-                                saveHouse.add(products[index]);
+                                saveHouse.add(mylist[index]["propertyID"]);
                               },
                               icon: const Icon(
                                 Ionicons.bookmark_outline,
