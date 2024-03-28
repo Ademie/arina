@@ -1,3 +1,4 @@
+import 'package:arina/providers/owner_provider.dart';
 import 'package:arina/screens/inspection/inspect_screen.dart';
 import 'package:arina/screens/products/widgets/amenities.dart';
 import 'package:arina/screens/products/widgets/price_summary.dart';
@@ -7,20 +8,36 @@ import 'package:arina/screens/products/widgets/product_showcase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:readmore/readmore.dart';
 
-class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key, required this.propertyID});
+class ProductDetails extends StatefulWidget {
+  const ProductDetails(
+      {super.key, required this.propertyID, required this.author});
 
   final String propertyID;
+  final String author;
+
+  @override
+  State<ProductDetails> createState() => _ProductDetailsState();
+}
+
+class _ProductDetailsState extends State<ProductDetails> {
+  late OwnerProvider ownerProvider;
+  @override
+  void initState() {
+    ownerProvider = OwnerProvider();
+    ownerProvider.fetchOwner(widget.author);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final firestore = FirebaseFirestore.instance;
-    final properties = firestore.collection("properties").doc(propertyID).get();
+    final properties =
+        firestore.collection("properties").doc(widget.propertyID).get();
 
     return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-        // initialData: Text("Shimmer loading")
         future: properties,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -46,10 +63,8 @@ class ProductDetails extends StatelessWidget {
           final String security = data.get("security");
           final String service = data.get("service");
           final String total = data.get("total");
+
           List<dynamic> otherImages = data.get("imagesURL") as List<dynamic>;
-          for (int i = 0; i < otherImages.length; i++) {
-            print("link ${otherImages[i]} $i");
-          }
 
           return Scaffold(
             body: CustomScrollView(
@@ -127,15 +142,14 @@ class ProductDetails extends StatelessWidget {
                           const CircleAvatar(
                             radius: 30.0,
                             backgroundImage:
-                                // NetworkImage(imageURL),
                                 AssetImage('assets/images/person/man2.jpg'),
                           ),
-                          const Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'James Rodriguez',
-                                style: TextStyle(
+                                "${ownerProvider.firstName} ${ownerProvider.lastName}",
+                                style: const TextStyle(
                                   color: Color(0xFF232323),
                                   fontSize: 18,
                                   fontFamily: 'Nunito Sans',
@@ -143,7 +157,7 @@ class ProductDetails extends StatelessWidget {
                                   height: 0,
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 'Owner',
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 76, 76, 76),

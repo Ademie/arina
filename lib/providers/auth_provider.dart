@@ -19,7 +19,7 @@ class FireAuthProvider extends ChangeNotifier {
       notifyListeners();
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-    
+
       isLoading = false;
       notifyListeners();
       return true;

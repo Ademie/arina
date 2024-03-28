@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/v4.dart';
 import 'package:uuid/uuid.dart';
 
 class UploadForm extends StatefulWidget {
@@ -40,6 +39,7 @@ class _UploadFormState extends State<UploadForm> {
   final TextEditingController _total = TextEditingController();
 
   final userID = FirebaseAuth.instance.currentUser!.uid;
+  
   bool uploading = false;
   bool uploadToFire = false;
   bool noImages = false;
