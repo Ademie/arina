@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:arina/models/profile_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +10,14 @@ class OwnerProvider extends ChangeNotifier {
   String? _email;
   String? _phone;
   String? _address;
+  String? _picture;
 
-  String get firstName => _firstName!;
-  String get lastName => _lastName!;
-  String get email => _email!;
-  String get phone => _phone!;
-  String get address => _address!;
+  String get firstName => _firstName ?? "";
+  String get lastName => _lastName ?? "";
+  String get email => _email ?? "";
+  String get phone => _phone ?? "";
+  String get address => _address ?? "";
+  String get picture => _picture ?? "";
 
   fetchOwner(String author) async {
     final ref = FirebaseFirestore.instance
@@ -31,7 +35,7 @@ class OwnerProvider extends ChangeNotifier {
       _lastName = ownerData.lastName;
       notifyListeners();
     } else {
-      print("No such document.");
+      log("No such document.");
     }
   }
 }

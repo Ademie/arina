@@ -7,6 +7,7 @@ class ProfileModel {
   String password;
   String? phone;
   String? address;
+  String? picture;
 
   ProfileModel({
     required this.firstName,
@@ -15,6 +16,7 @@ class ProfileModel {
     required this.password,
     this.phone,
     this.address,
+    this.picture
   });
 
   factory ProfileModel.fromFirestore(
@@ -29,6 +31,7 @@ class ProfileModel {
       password: data?["password"],
       phone: data?["phone"],
       address: data?["address"],
+      picture: data?["picture"],
     );
   }
 
@@ -40,6 +43,7 @@ class ProfileModel {
       if (password.isNotEmpty) "password": password,
       "phone": phone ?? "",
       "address": address ?? "",
+      "picture": picture ?? ""
     };
   }
 }

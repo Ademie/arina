@@ -1,5 +1,6 @@
 import 'package:arina/constants/constants.dart';
 import 'package:arina/providers/auth_provider.dart';
+import 'package:arina/providers/profile_provider.dart';
 import 'package:arina/routes/bottom_nav.dart';
 import 'package:arina/shared/app_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -12,90 +13,100 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ProfileProvider>(context, listen: false).fetchProfile();
+
     return AppScaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.only(left: 20, top: 25, bottom: 25),
-            sliver: SliverToBoxAdapter(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Flexible(
-                    flex: 1,
-                    child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage:
-                          AssetImage('assets/images/person/man2.jpg'),
+      body: Consumer<ProfileProvider>(builder: (context, profileProvider, _) {
+        return CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.only(left: 20, top: 25, bottom: 25),
+              sliver: SliverToBoxAdapter(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      flex: 1,
+                      child: profileProvider.picture.isEmpty
+                          ? const CircleAvatar(
+                              radius: 50,
+                              backgroundImage:
+                                  AssetImage('assets/images/person/man2.jpg'))
+                          : CircleAvatar(
+                              radius: 50,
+                              backgroundImage:
+                                  NetworkImage(profileProvider.picture)),
                     ),
-                  ),
-                  const Flexible(
-                    flex: 2,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 25.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Ademie Dave", style: largeText),
-                          Text(
-                            "adeisijola7@gmail.com",
-                            style: smallText,
-                          )
-                        ],
+                    Flexible(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 25.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                "${profileProvider.firstName} ${profileProvider.lastName}",
+                                style: largeText),
+                            Text(
+                              profileProvider.email,
+                              style: smallText,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Flexible(flex: 1, child: Container())
-                ],
+                    Flexible(flex: 1, child: Container())
+                  ],
+                ),
               ),
             ),
-          ),
-          SliverList.builder(
-              itemCount: settingsTab.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 15),
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 25),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: const [boxshadow],
-                        color: Colors.white,
-                      ),
-                      child: ListTile(
-                          leading: settingsTab[index]["leading"],
-                          title: settingsTab[index]["title"],
-                          subtitle: settingsTab[index]["subtitle"],
-                          trailing: settingsTab[index]["trailing"])),
-                );
-              }),
-          Consumer<FireAuthProvider>(
-            builder: (context, auth, child) {
-              return SliverToBoxAdapter(
-                  child: TextButton.icon(
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: const Color(0xFF232323),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+            SliverList.builder(
+                itemCount: settingsTab.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 15),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 25),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          boxShadow: const [boxshadow],
+                          color: Colors.white,
                         ),
-                        shadowColor: const Color(0x3F303030),
-                      ),
-                      onPressed: () {
-                        auth.signOut();
-                        context.go("/login");
-                        showSnack(context, "Sign Out Successfully");
-                      },
-                      icon: const Icon(Ionicons.log_out),
-                      label: const Text("Log Out")));
-            },
-          )
-        ],
-      ),
+                        child: ListTile(
+                            leading: settingsTab[index]["leading"],
+                            title: settingsTab[index]["title"],
+                            subtitle: settingsTab[index]["subtitle"],
+                            trailing: settingsTab[index]["trailing"])),
+                  );
+                }),
+            Consumer<FireAuthProvider>(
+              builder: (context, auth, child) {
+                return SliverToBoxAdapter(
+                    child: TextButton.icon(
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: const Color(0xFF232323),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          shadowColor: const Color(0x3F303030),
+                        ),
+                        onPressed: () {
+                          auth.signOut();
+                          context.go("/login");
+                          showSnack(context, "Sign Out Successfully");
+                        },
+                        icon: const Icon(Ionicons.log_out),
+                        label: const Text("Log Out")));
+              },
+            )
+          ],
+        );
+      }),
       bottomNavigationBar: const BottomNav(index: 3),
     );
   }

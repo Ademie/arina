@@ -1,6 +1,7 @@
 import 'package:arina/firebase_options.dart';
 import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/providers/owner_provider.dart';
+import 'package:arina/providers/profile_provider.dart';
 import 'package:arina/providers/route_provider.dart';
 import 'package:arina/providers/saved_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,6 +28,7 @@ class _MainAppState extends State<MainApp> {
   late final FireAuthProvider fireAuthProvider;
   late final SavedProvider savedProvider;
   late final OwnerProvider ownerProvider;
+  late final ProfileProvider profileProvider;
   late final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
 
@@ -35,6 +37,7 @@ class _MainAppState extends State<MainApp> {
     fireAuthProvider = FireAuthProvider();
     savedProvider = SavedProvider();
     ownerProvider = OwnerProvider();
+    profileProvider = ProfileProvider();
     routeProvider = RouteProvider(fireAuthProvider, navigatorKey);
     super.initState();
   }
@@ -56,6 +59,9 @@ class _MainAppState extends State<MainApp> {
         ),
         ChangeNotifierProvider<OwnerProvider>(
           create: (context) => ownerProvider,
+        ),
+        ChangeNotifierProvider<ProfileProvider>(
+          create: (context) => profileProvider,
         ),
         ChangeNotifierProvider<SavedProvider>(
           create: (context) => savedProvider,
