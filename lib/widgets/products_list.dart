@@ -1,4 +1,4 @@
-import 'package:arina/models/product_model.dart';
+// import 'package:arina/models/product_model.dart';
 import 'package:arina/providers/saved_provider.dart';
 import 'package:arina/screens/products/product_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,9 +7,9 @@ import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
 class ProductGridView extends StatelessWidget {
-  final List<ProductModel> products;
-
-  const ProductGridView({super.key, required this.products});
+  const ProductGridView({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +44,7 @@ class ProductGridView extends StatelessWidget {
                   snapshot.data!.docs.map((DocumentSnapshot documentSnapshot) {
                 Map<String, dynamic> data =
                     documentSnapshot.data()! as Map<String, dynamic>;
+
                 propertyIDs.add(documentSnapshot.id.toString());
                 authorIDs.add(documentSnapshot.get("author"));
                 return data;
@@ -81,10 +82,10 @@ class ProductGridView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(6)),
                         ),
                         child: Consumer<SavedProvider>(
-                            builder: (context, saveHouse, _) {
+                            builder: (context, saveHome, _) {
                           return IconButton(
                               onPressed: () {
-                                saveHouse.add(mylist[index]["propertyID"]);
+                                saveHome.add(mylist[index]);
                               },
                               icon: const Icon(
                                 Ionicons.bookmark_outline,

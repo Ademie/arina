@@ -1,6 +1,6 @@
 import 'package:arina/data/data.dart';
 import 'package:arina/models/product_model.dart';
-import 'package:arina/screens/inspection/inspect_screen.dart';
+import 'package:arina/shared/summary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -102,7 +102,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 return SummaryCard(
                   title: searchResults[index].name,
                   imageURL: searchResults[index].imageUrl.toString(),
-                  pricing:
+                  rent:
                       '₦${searchResults[index].price.toStringAsFixed(2)}/year',
                 );
               })

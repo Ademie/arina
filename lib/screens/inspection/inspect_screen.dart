@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:arina/screens/chat/chat_screen.dart';
+import 'package:arina/shared/summary_card.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
@@ -216,97 +217,3 @@ class _InspectScreenState extends State<InspectScreen> {
   }
 }
 
-class SummaryCard extends StatelessWidget {
-  const SummaryCard({
-    super.key,
-    this.title,
-    this.imageURL,
-    this.address,
-    this.pricing,
-    this.goTo,
-  });
-  final String? title;
-  final String? imageURL;
-  final String? address;
-  final String? pricing;
-  final Function()? goTo;
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(25),
-      color: Colors.white,
-      child: GestureDetector(
-        onTap: goTo,
-        child: SizedBox(
-          height: 150,
-          child: Row(
-            children: [
-              // SUMMARY IMAGE
-              Container(
-                height: 400,
-                width: 170,
-                margin: const EdgeInsets.only(right: 20),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                  ),
-                  image: DecorationImage(
-                      image: AssetImage(imageURL ??
-                          "assets/images/thumbnails/blue_house.jpeg"),
-                      fit: BoxFit.cover),
-                ),
-              ),
-              // SUMMARY TEXT
-              SizedBox(
-                height: 400,
-                width: 150,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title ?? 'James Villa',
-                      softWrap: true,
-                      maxLines: 3,
-                      style: const TextStyle(
-                        color: Color(0xFF303030),
-                        fontSize: 18,
-                        fontFamily: 'Gelasio',
-                        fontWeight: FontWeight.w600,
-                        height: 0,
-                      ),
-                    ),
-                    Text(
-                      address ?? '14, James Kowope Street, Akure Ondo, Nigeria',
-                      softWrap: true,
-                      maxLines: 3,
-                      style: const TextStyle(
-                        color: Color.fromARGB(197, 48, 48, 48),
-                        fontSize: 12,
-                        fontFamily: 'Nunito Sans',
-                        height: 0,
-                      ),
-                    ),
-                    Text(
-                      pricing ?? "₦300000/Year",
-                      softWrap: true,
-                      maxLines: 3,
-                      style: const TextStyle(
-                        color: Color(0xFF303030),
-                        fontSize: 14,
-                        fontFamily: 'Gelasio',
-                        fontWeight: FontWeight.bold,
-                        height: 0,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

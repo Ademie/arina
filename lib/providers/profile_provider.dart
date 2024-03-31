@@ -1,9 +1,7 @@
+import 'package:arina/constants/constants.dart';
 import 'package:arina/models/profile_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 class ProfileProvider extends ChangeNotifier {
   String? _firstName;
@@ -24,7 +22,7 @@ class ProfileProvider extends ChangeNotifier {
     try {
       final ref = FirebaseFirestore.instance
           .collection("users")
-          .doc(_firebaseAuth.currentUser!.uid)
+          .doc(currentUserID)
           .withConverter(
             fromFirestore: ProfileModel.fromFirestore,
             toFirestore: (ProfileModel profileModel, _) =>

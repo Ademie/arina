@@ -39,7 +39,7 @@ class _UploadFormState extends State<UploadForm> {
   final TextEditingController _total = TextEditingController();
 
   final userID = FirebaseAuth.instance.currentUser!.uid;
-  
+
   bool uploading = false;
   bool uploadToFire = false;
   bool noImages = false;
@@ -156,11 +156,7 @@ class _UploadFormState extends State<UploadForm> {
                     });
                     _uploadImages().then((value) {
                       try {
-                        firestore
-                            // .collection("users")
-                            // .doc(userID)
-                            .collection("properties")
-                            .add(
+                        firestore.collection("properties").add(
                               UploadModel(
                                 propertyID: propertyID.v4().toString(),
                                 title: _title.text,

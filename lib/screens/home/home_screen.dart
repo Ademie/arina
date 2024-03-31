@@ -1,4 +1,3 @@
-import 'package:arina/data/data.dart';
 import 'package:arina/routes/bottom_nav.dart';
 import 'package:arina/shared/app_scaffold.dart';
 import 'package:arina/widgets/category_items.dart';
@@ -49,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               height: 600,
               padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
-              child: ProductGridView(products: productData),
+              child: const ProductGridView(),
             )
           ],
         ),
