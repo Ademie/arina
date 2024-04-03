@@ -37,7 +37,7 @@ class _InspectScreenState extends State<InspectScreen> {
 
   @override
   Widget build(BuildContext context) {
-    BuildContext _context = context;
+    BuildContext context0 = context;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Book Inspection'),
@@ -95,7 +95,7 @@ class _InspectScreenState extends State<InspectScreen> {
                           TextEditingController(text: formatTimeOfDay(_time)),
                       onTap: () async {
                         await showModalBottomSheet(
-                            context: _context,
+                            context: context0,
                             builder: (context) {
                               return showPicker(
                                   context: context,
@@ -111,7 +111,7 @@ class _InspectScreenState extends State<InspectScreen> {
                                   maxMinute: 0,
                                   is24HrFormat: false,
                                   onCancel: () {
-                                    Navigator.pop(_context);
+                                    Navigator.pop(context0);
                                   });
                             });
                       },

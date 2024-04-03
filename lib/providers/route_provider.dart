@@ -40,7 +40,7 @@ class RouteProvider extends ChangeNotifier {
         ),
         GoRoute(
           path: "/saved",
-          builder: (context, state) => SavedScreen(),
+          builder: (context, state) => const SavedScreen(),
         ),
         GoRoute(
           path: "/profile",

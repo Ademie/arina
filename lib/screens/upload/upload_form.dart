@@ -44,7 +44,7 @@ class _UploadFormState extends State<UploadForm> {
   bool uploadToFire = false;
   bool noImages = false;
   final _formKey = GlobalKey<FormState>();
-  Uuid propertyID = Uuid();
+  Uuid propertyID = const Uuid();
 
   List<String> propImages = [];
 

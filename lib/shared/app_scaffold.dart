@@ -21,18 +21,14 @@ class AppScaffold extends StatelessWidget {
           scrolledUnderElevation: 0,
           leading: Padding(
             padding: const EdgeInsets.only(left: 21),
-            // child: IconButton(
-            //     iconSize: 30,
-            //     color: Colors.grey,
-            //     onPressed: () {
-            //       Navigator.push(
-            //           context,
-            //           MaterialPageRoute(
-            //               builder: (_) => SearchScreen(
-            //                     products: ,
-            //                   )));
-            //     },
-            //     icon: const Icon(Ionicons.search_outline)),
+            child: IconButton(
+                iconSize: 30,
+                color: Colors.grey,
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const SearchScreen()));
+                },
+                icon: const Icon(Ionicons.search_outline)),
           ),
           title: Text(
             title ?? 'Profile',
@@ -51,12 +47,8 @@ class AppScaffold extends StatelessWidget {
                 iconSize: 30,
                 color: Colors.grey,
                 onPressed: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (_) => SearchScreen(
-                  //               products: productData,
-                  //             )));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const SearchScreen()));
                 },
                 icon: IconButton(
                     iconSize: 30,

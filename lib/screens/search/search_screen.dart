@@ -1,32 +1,41 @@
 import 'package:arina/models/upload_model.dart';
 import 'package:arina/shared/summary_card.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key, required this.products});
-  final List<UploadModel> products;
+  const SearchScreen({super.key});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  List products = [];
   String query = "";
 
-  List<UploadModel> searchResults = [];
+  List searchResults = [];
+  final ref = FirebaseFirestore.instance.collection("properties");
+
+  Future<void> loadSavedProducts() async {
+    final snapshot = await ref.get();
+    final productsData = snapshot.docs;
+
+    products = productsData;
+  }
 
   void onQueryChanged(String query) {
     setState(() {
       if (query.isNotEmpty) {
-        // searchResults = productData
-        //     .where((element) =>
-        //         element.title.toLowerCase().contains(query.toLowerCase()))
-        //     .toList();
-        // searchResults.sort((a, b) => a.name
-        //     .toLowerCase()
-        //     .indexOf(query.toLowerCase())
-        //     .compareTo(b.name.toLowerCase().indexOf(query.toLowerCase())));
+        searchResults = products
+            .where((element) =>
+                element["title"].toLowerCase().contains(query.toLowerCase()))
+            .toList();
+        searchResults.sort((a, b) => a["title"]
+            .toLowerCase()
+            .indexOf(query.toLowerCase())
+            .compareTo(b["title"].toLowerCase().indexOf(query.toLowerCase())));
         // https://chat.openai.com/c/01848815-c99b-44b8-a334-393ee98df2e0#:~:text=Sure%2C%20let%27s%20break%20down%20the%20code%3A
       } else {
         searchResults = [];
@@ -36,6 +45,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    loadSavedProducts();
     return Scaffold(
       // SEARCH BAR
       appBar: AppBar(
@@ -99,10 +109,9 @@ class _SearchScreenState extends State<SearchScreen> {
               itemCount: searchResults.length,
               itemBuilder: (context, index) {
                 return SummaryCard(
-                  // title: searchResults[index].name,
-                  // imageURL: searchResults[index].imageUrl.toString(),
-                  // rent:
-                  //     '₦${searchResults[index].price.toStringAsFixed(2)}/year',
+                  title: searchResults[index]["title"],
+                  imageURL: searchResults[index]["imagesURL"][0].toString(),
+                  rent: '₦${searchResults[index]["rent"]}/year',
                 );
               })
         ],

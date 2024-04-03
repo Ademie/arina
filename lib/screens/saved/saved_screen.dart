@@ -1,5 +1,6 @@
 import 'package:arina/providers/saved_provider.dart';
 import 'package:arina/routes/bottom_nav.dart';
+import 'package:arina/screens/products/product_details.dart';
 import 'package:arina/shared/app_scaffold.dart';
 import 'package:arina/shared/summary_card.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,17 @@ class _SavedScreenState extends State<SavedScreen> {
                 itemCount: savedHome.homes.length,
                 itemBuilder: (context, index) {
                   return SummaryCard(
+                    goTo: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProductDetails(
+                                propertyID:
+                                    savedHome.homes[index]["propertyID"] ?? "",
+                                author:
+                                    savedHome.homes[index]["author"] ?? "")),
+                      );
+                    },
                     title: savedHome.homes[index]["title"] ?? "",
                     propAddress: savedHome.homes[index]["propAddress"] ?? "",
                     imageURL:

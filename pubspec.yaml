@@ -28,6 +28,7 @@ dependencies:
   readmore: ^2.2.0
   uuid: ^4.3.3
 
+  latlong2: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

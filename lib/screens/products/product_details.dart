@@ -1,4 +1,5 @@
 import 'package:arina/providers/owner_provider.dart';
+import 'package:arina/providers/saved_provider.dart';
 import 'package:arina/screens/inspection/inspect_screen.dart';
 import 'package:arina/screens/products/widgets/amenities.dart';
 import 'package:arina/screens/products/widgets/price_summary.dart';
@@ -8,6 +9,7 @@ import 'package:arina/screens/products/widgets/product_showcase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import 'package:readmore/readmore.dart';
 
@@ -53,18 +55,18 @@ class _ProductDetailsState extends State<ProductDetails> {
             );
           }
 
-          final data = snapshot.data!;
-          final String title = data.get("title");
-          final String address = data.get("propAddress");
-          final String description = data.get("description");
-          final String imageURL = data.get("imagesURL")[0];
-          final String duration = data.get("duration");
-          final String rent = data.get("rent");
-          final String security = data.get("security");
-          final String service = data.get("service");
-          final String total = data.get("total");
+          final data = snapshot.data!.data();
+          final String title = data?["title"];
+          final String address = data?["propAddress"];
+          final String description = data?["description"];
+          final String imageURL = data?["imagesURL"][0];
+          final String duration = data?["duration"];
+          final String rent = data?["rent"];
+          final String security = data?["security"];
+          final String service = data?["service"];
+          final String total = data?["total"];
 
-          List<dynamic> otherImages = data.get("imagesURL") as List<dynamic>;
+          List<dynamic> otherImages = data?["imagesURL"] as List<dynamic>;
 
           return Scaffold(
             body: CustomScrollView(
@@ -280,38 +282,49 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
               ],
             ),
-            bottomSheet: Container(
-              height: 150,
-              color: Colors.white,
-              padding: const EdgeInsets.all(25),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 60,
-                    height: 60,
-                    padding: const EdgeInsets.all(18),
-                    decoration: ShapeDecoration(
-                      color: const Color(0xFFF0F0F0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
+            bottomSheet:
+                Consumer<SavedProvider>(builder: (context, saveHome, _) {
+              bool isSavedProduct = saveHome.isSaved(data!);
+              return Container(
+                height: 150,
+                color: Colors.white,
+                padding: const EdgeInsets.all(25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        saveHome.add(data);
+                      },
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        padding: const EdgeInsets.all(18),
+                        decoration: ShapeDecoration(
+                          color: const Color(0xFFF0F0F0),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                        child: isSavedProduct
+                            ? SvgPicture.asset("assets/svg/marker-filled.svg")
+                            : SvgPicture.asset("assets/svg/marker.svg"),
+                      ),
                     ),
-                    child: SvgPicture.asset("assets/svg/marker.svg"),
-                  ),
-                  ArinaButton(
-                    text: 'Book Inspection',
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const InspectScreen()));
-                    },
-                    width: 220,
-                    height: 60,
-                  )
-                ],
-              ),
-            ),
+                    ArinaButton(
+                      text: 'Book Inspection',
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const InspectScreen()));
+                      },
+                      width: 220,
+                      height: 60,
+                    )
+                  ],
+                ),
+              );
+            }),
           );
         });
   }
