@@ -316,7 +316,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const InspectScreen()));
+                                builder: (context) => InspectScreen(
+                                      propertyID: widget.propertyID,
+                                    )));
                       },
                       width: 220,
                       height: 60,

@@ -28,17 +28,6 @@ class _SavedScreenState extends State<SavedScreen> {
                 itemCount: savedHome.homes.length,
                 itemBuilder: (context, index) {
                   return SummaryCard(
-                    goTo: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProductDetails(
-                                propertyID:
-                                    savedHome.homes[index]["propertyID"] ?? "",
-                                author:
-                                    savedHome.homes[index]["author"] ?? "")),
-                      );
-                    },
                     title: savedHome.homes[index]["title"] ?? "",
                     propAddress: savedHome.homes[index]["propAddress"] ?? "",
                     imageURL:
@@ -50,16 +39,25 @@ class _SavedScreenState extends State<SavedScreen> {
                         top: 0,
                         right: 0,
                         child: SizedBox(
-                          child: IconButton(
-                            icon: const Icon(
-                              Ionicons.bookmark,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              savedHome.remove(savedHome.homes[index]);
-                            },
-                          ),
-                        )),
+                            child: IconButton(
+                                icon: const Icon(
+                                  Ionicons.bookmark,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {
+                                  savedHome.remove(savedHome.homes[index]);
+                                }))),
+                    goTo: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProductDetails(
+                                propertyID:
+                                    savedHome.homes[index]["propertyID"] ?? "",
+                                author:
+                                    savedHome.homes[index]["author"] ?? "")),
+                      );
+                    },
                   );
                 });
           })

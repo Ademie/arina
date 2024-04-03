@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:arina/constants/constants.dart';
 import 'package:arina/models/profile_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,10 +41,10 @@ class ProfileProvider extends ChangeNotifier {
         _picture = profileData.picture;
         notifyListeners();
       } else {
-        print("No such document.");
+        log("No such document.");
       }
     } catch (error) {
-      print("Error fetching profile: $error");
+      log("Error fetching profile: $error");
     }
   }
 }
