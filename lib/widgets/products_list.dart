@@ -83,14 +83,19 @@ class ProductGridView extends StatelessWidget {
                         ),
                         child: Consumer<SavedProvider>(
                             builder: (context, saveHome, _) {
+                          bool isSavedProduct = saveHome.isSaved(mylist[index]);
+
                           return IconButton(
                               onPressed: () {
                                 saveHome.add(mylist[index]);
                               },
-                              icon: const Icon(
-                                Ionicons.bookmark_outline,
-                                color: Colors.white,
-                              ));
+                              icon: isSavedProduct
+                                  ? const Icon(Ionicons.bookmark,
+                                      color: Colors.black)
+                                  : const Icon(
+                                      Ionicons.bookmark_outline,
+                                      color: Colors.black,
+                                    ));
                         })),
                   ),
                   Positioned(

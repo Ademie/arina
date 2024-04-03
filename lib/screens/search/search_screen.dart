@@ -1,12 +1,11 @@
-import 'package:arina/data/data.dart';
-import 'package:arina/models/product_model.dart';
+import 'package:arina/models/upload_model.dart';
 import 'package:arina/shared/summary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key, required this.products});
-  final List<ProductModel> products;
+  final List<UploadModel> products;
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -15,19 +14,19 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   String query = "";
 
-  List<ProductModel> searchResults = [];
+  List<UploadModel> searchResults = [];
 
   void onQueryChanged(String query) {
     setState(() {
       if (query.isNotEmpty) {
-        searchResults = productData
-            .where((element) =>
-                element.name.toLowerCase().contains(query.toLowerCase()))
-            .toList();
-        searchResults.sort((a, b) => a.name
-            .toLowerCase()
-            .indexOf(query.toLowerCase())
-            .compareTo(b.name.toLowerCase().indexOf(query.toLowerCase())));
+        // searchResults = productData
+        //     .where((element) =>
+        //         element.title.toLowerCase().contains(query.toLowerCase()))
+        //     .toList();
+        // searchResults.sort((a, b) => a.name
+        //     .toLowerCase()
+        //     .indexOf(query.toLowerCase())
+        //     .compareTo(b.name.toLowerCase().indexOf(query.toLowerCase())));
         // https://chat.openai.com/c/01848815-c99b-44b8-a334-393ee98df2e0#:~:text=Sure%2C%20let%27s%20break%20down%20the%20code%3A
       } else {
         searchResults = [];
@@ -100,10 +99,10 @@ class _SearchScreenState extends State<SearchScreen> {
               itemCount: searchResults.length,
               itemBuilder: (context, index) {
                 return SummaryCard(
-                  title: searchResults[index].name,
-                  imageURL: searchResults[index].imageUrl.toString(),
-                  rent:
-                      '₦${searchResults[index].price.toStringAsFixed(2)}/year',
+                  // title: searchResults[index].name,
+                  // imageURL: searchResults[index].imageUrl.toString(),
+                  // rent:
+                  //     '₦${searchResults[index].price.toStringAsFixed(2)}/year',
                 );
               })
         ],

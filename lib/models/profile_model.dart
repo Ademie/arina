@@ -1,4 +1,3 @@
-import 'package:arina/models/product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfileModel {
@@ -9,7 +8,9 @@ class ProfileModel {
   String? phone;
   String? address;
   String? picture;
+  // List<Map<String, dynamic>>? saved;
   // List<ProductModel>? saved;
+  List<dynamic>? saved;
 
   ProfileModel({
     required this.firstName,
@@ -19,7 +20,7 @@ class ProfileModel {
     this.phone,
     this.address,
     this.picture,
-    // this.saved,
+    this.saved,
   });
 
   factory ProfileModel.fromFirestore(
@@ -35,7 +36,7 @@ class ProfileModel {
       phone: data?["phone"],
       address: data?["address"],
       picture: data?["picture"],
-      // saved: data?["saved"],
+      saved: data?["saved"],
     );
   }
 
@@ -48,7 +49,8 @@ class ProfileModel {
       "phone": phone ?? "",
       "address": address ?? "",
       "picture": picture ?? "",
-      // "saved": saved ?? []
+      "saved": saved ?? []
     };
   }
+
 }

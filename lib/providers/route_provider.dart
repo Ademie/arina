@@ -1,4 +1,3 @@
-import 'package:arina/data/data.dart';
 import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/screens/home/home_screen.dart';
 import 'package:arina/screens/onboarding/login.dart';
@@ -41,7 +40,7 @@ class RouteProvider extends ChangeNotifier {
         ),
         GoRoute(
           path: "/saved",
-          builder: (context, state) => SavedScreen(products: productData),
+          builder: (context, state) => SavedScreen(),
         ),
         GoRoute(
           path: "/profile",
