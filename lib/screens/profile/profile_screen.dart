@@ -8,8 +8,15 @@ import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  
 
   @override
   Widget build(BuildContext context) {
@@ -121,10 +128,10 @@ List settingsTab = [
     "route": "/profile/about",
     "leading": const Icon(Ionicons.person),
     "title": const Text('About', style: nlargeText),
-    "subtitle": const Text('Name, email', style: smallText),
+    "subtitle": const Text('Name, email, picture', style: smallText),
     "trailing": const Icon(Ionicons.chevron_forward),
   },
-  { 
+  {
     "route": "/profile/contact",
     "leading": const Icon(Ionicons.call),
     "title": const Text('Contact', style: nlargeText),
@@ -135,7 +142,8 @@ List settingsTab = [
     "route": "/profile/terms",
     "leading": const Icon(Icons.policy),
     "title": const Text('Terms & Policy', style: nlargeText),
-    "subtitle": const Text('Terms, policy, license & agreement', style: smallText),
+    "subtitle":
+        const Text('Terms, policy, license & agreement', style: smallText),
     "trailing": const Icon(Ionicons.chevron_forward),
   },
 ];

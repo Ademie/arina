@@ -1,14 +1,14 @@
+
+
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
-
 import 'package:arina/constants/constants.dart';
 import 'package:arina/models/upload_model.dart';
 import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/screens/upload/upload_image.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -38,7 +38,7 @@ class _UploadFormState extends State<UploadForm> {
   final TextEditingController _service = TextEditingController();
   final TextEditingController _total = TextEditingController();
 
-  final userID = FirebaseAuth.instance.currentUser!.uid;
+  
 
   bool uploading = false;
   bool uploadToFire = false;
@@ -168,7 +168,7 @@ class _UploadFormState extends State<UploadForm> {
                                 service: _service.text,
                                 total: _total.text,
                                 imagesURL: propImages,
-                                author: userID,
+                                author: currentUserID,
                               ).toFirestore(),
                             );
                         context.pop();
