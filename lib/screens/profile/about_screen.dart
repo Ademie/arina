@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:arina/constants/constants.dart';
 import 'package:arina/models/profile_model.dart';
 import 'package:arina/widgets/arina_button.dart';
