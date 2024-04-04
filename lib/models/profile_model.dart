@@ -4,22 +4,22 @@ class ProfileModel {
   String firstName;
   String lastName;
   String email;
-  String password;
   String? phone;
   String? address;
   String? picture;
-  // List<Map<String, dynamic>>? saved;
-  // List<ProductModel>? saved;
+  String? adEmail;
+  String? homePhone;
   List<dynamic>? saved;
 
   ProfileModel({
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.password,
     this.phone,
     this.address,
     this.picture,
+    this.adEmail,
+    this.homePhone,
     this.saved,
   });
 
@@ -32,10 +32,11 @@ class ProfileModel {
       firstName: data?["firstName"],
       lastName: data?["lastName"],
       email: data?["email"],
-      password: data?["password"],
       phone: data?["phone"],
       address: data?["address"],
       picture: data?["picture"],
+      adEmail: data?["adEmail"],
+      homePhone: data?["homePhone"],
       saved: data?["saved"],
     );
   }
@@ -45,12 +46,12 @@ class ProfileModel {
       if (firstName.isNotEmpty) "firstName": firstName,
       if (lastName.isNotEmpty) "lastName": lastName,
       if (email.isNotEmpty) "email": email,
-      if (password.isNotEmpty) "password": password,
       "phone": phone ?? "",
       "address": address ?? "",
       "picture": picture ?? "",
+      "adEmail": adEmail ?? "",
+      "homePhone": homePhone ?? "",
       "saved": saved ?? []
     };
   }
-
 }

@@ -5,6 +5,7 @@ import 'package:arina/screens/onboarding/sign_up.dart';
 import 'package:arina/screens/profile/about_screen.dart';
 import 'package:arina/screens/profile/contact_screen.dart';
 import 'package:arina/screens/profile/profile_screen.dart';
+import 'package:arina/screens/profile/terms_screen.dart';
 import 'package:arina/screens/saved/saved_screen.dart';
 import 'package:arina/screens/splash/splash_screen.dart';
 import 'package:arina/screens/upload/upload_screen.dart';
@@ -59,6 +60,11 @@ class RouteProvider extends ChangeNotifier {
                 name: "contact",
                 path: "contact",
                 builder: (context, state) => const ContactScreen(),
+              ),
+              GoRoute(
+                name: "terms",
+                path: "terms",
+                builder: (context, state) => const TermsScreen(),
               ),
             ]),
         GoRoute(

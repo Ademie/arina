@@ -256,7 +256,6 @@ class _SignUpState extends State<SignUp> {
                                                 firstName: _firstName.text,
                                                 lastName: _lastName.text,
                                                 email: _email.text,
-                                                password: _password.text,
                                               ).toFirestore(),
                                             );
                                       } catch (e) {

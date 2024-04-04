@@ -10,6 +10,8 @@ class ContactScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        scrolledUnderElevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(
             onPressed: () {
@@ -34,7 +36,7 @@ class ContactScreen extends StatelessWidget {
                   TextFormField(
                     // controller: _email,
                     decoration: InputDecoration(
-                      hintText: "First Name",
+                      hintText: "Phone Number(mobile)",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -46,7 +48,7 @@ class ContactScreen extends StatelessWidget {
                   TextFormField(
                     // controller: _email,
                     decoration: InputDecoration(
-                      hintText: "Last Name",
+                      hintText: "Phone Number(home)",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -59,26 +61,11 @@ class ContactScreen extends StatelessWidget {
                     // controller: _email,
 
                     decoration: InputDecoration(
-                      hintText: "Email Address",
+                      hintText: "Residential Address",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    // controller: _email,
-                    decoration: InputDecoration(
-                      hintText: "Additional Email",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
                   ),
                 ],
               ),

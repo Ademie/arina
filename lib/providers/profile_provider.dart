@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:arina/constants/constants.dart';
@@ -20,6 +21,12 @@ class ProfileProvider extends ChangeNotifier {
   String get address => _address ?? "";
   String get picture => _picture ?? "";
 
+  StreamSubscription<DocumentSnapshot<ProfileModel>>? _subscription;
+
+  ProfileProvider() {
+    fetchProfile();
+  }
+
   Future<void> fetchProfile() async {
     try {
       final ref = FirebaseFirestore.instance
@@ -30,21 +37,29 @@ class ProfileProvider extends ChangeNotifier {
             toFirestore: (ProfileModel profileModel, _) =>
                 profileModel.toFirestore(),
           );
-      final docSnap = await ref.get();
-      final profileData = docSnap.data();
-      if (profileData != null) {
-        _firstName = profileData.firstName;
-        _lastName = profileData.lastName;
-        _email = profileData.email;
-        _phone = profileData.phone;
-        _address = profileData.address;
-        _picture = profileData.picture;
-        notifyListeners();
-      } else {
-        log("No such document.");
-      }
+
+      _subscription = ref.snapshots().listen((snapshot) {
+        final profileData = snapshot.data();
+        if (profileData != null) {
+          _firstName = profileData.firstName;
+          _lastName = profileData.lastName;
+          _email = profileData.email;
+          _phone = profileData.phone;
+          _address = profileData.address;
+          _picture = profileData.picture;
+          notifyListeners();
+        } else {
+          log("No such document.");
+        }
+      });
     } catch (error) {
       log("Error fetching profile: $error");
     }
+  }
+
+  @override
+  void dispose() {
+    _subscription!.cancel();
+    super.dispose();
   }
 }
