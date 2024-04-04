@@ -69,8 +69,10 @@ class _MainAppState extends State<MainApp> {
       ],
       builder: (context, child) {
         return MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            routerConfig: routeProvider.routerConfig);
+          debugShowCheckedModeBanner: false,
+          routerConfig: routeProvider.routerConfig,
+          
+        );
       },
     );
   }

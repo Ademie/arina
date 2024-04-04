@@ -17,95 +17,99 @@ class ProfileScreen extends StatelessWidget {
 
     return AppScaffold(
       body: Consumer<ProfileProvider>(builder: (context, profileProvider, _) {
-        return CustomScrollView(
-          slivers: [
-            SliverPadding(
+        return SingleChildScrollView(
+            child: Column(
+          children: [
+            Padding(
               padding: const EdgeInsets.only(left: 20, top: 25, bottom: 25),
-              sliver: SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: profileProvider.picture.isEmpty
-                          ? const CircleAvatar(
-                              radius: 50,
-                              backgroundImage:
-                                  AssetImage('assets/images/person/man2.jpg'))
-                          : CircleAvatar(
-                              radius: 50,
-                              backgroundImage:
-                                  NetworkImage(profileProvider.picture)),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 25.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                                "${profileProvider.firstName} ${profileProvider.lastName}",
-                                style: largeText),
-                            Text(
-                              profileProvider.email,
-                              style: smallText,
-                            )
-                          ],
-                        ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: profileProvider.picture.isEmpty
+                        ? const CircleAvatar(
+                            radius: 50,
+                            backgroundImage:
+                                AssetImage('assets/images/person/man2.jpg'))
+                        : CircleAvatar(
+                            radius: 50,
+                            backgroundImage:
+                                NetworkImage(profileProvider.picture)),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 25.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              "${profileProvider.firstName} ${profileProvider.lastName}",
+                              style: largeText),
+                          Text(
+                            profileProvider.email,
+                            style: smallText,
+                          )
+                        ],
                       ),
                     ),
-                    Flexible(flex: 1, child: Container())
-                  ],
-                ),
+                  ),
+                  Flexible(flex: 1, child: Container())
+                ],
               ),
             ),
-            SliverList.builder(
-                itemCount: settingsTab.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 15),
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 25),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          boxShadow: const [boxshadow],
-                          color: Colors.white,
-                        ),
-                        child: ListTile(
-                            leading: settingsTab[index]["leading"],
-                            title: settingsTab[index]["title"],
-                            subtitle: settingsTab[index]["subtitle"],
-                            trailing: settingsTab[index]["trailing"])),
-                  );
-                }),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: ListView.builder(
+                  itemCount: settingsTab.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        context.go(settingsTab[index]["route"]);
+                      },
+                      child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 15),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 25),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            boxShadow: const [boxshadow],
+                            color: Colors.white,
+                          ),
+                          child: ListTile(
+                              leading: settingsTab[index]["leading"],
+                              title: settingsTab[index]["title"],
+                              subtitle: settingsTab[index]["subtitle"],
+                              trailing: settingsTab[index]["trailing"])),
+                    );
+                  }),
+            ),
             Consumer<FireAuthProvider>(
               builder: (context, auth, child) {
-                return SliverToBoxAdapter(
-                    child: TextButton.icon(
-                        style: TextButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: const Color(0xFF232323),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          shadowColor: const Color(0x3F303030),
-                        ),
-                        onPressed: () {
-                          auth.signOut();
-                          context.go("/login");
-                          showSnack(context, "Sign Out Successfully");
-                        },
-                        icon: const Icon(Ionicons.log_out),
-                        label: const Text("Log Out")));
+                return TextButton.icon(
+                    style: TextButton.styleFrom(
+                      fixedSize: const Size(200, 50),
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color(0xFF232323),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      shadowColor: const Color(0x3F303030),
+                    ),
+                    onPressed: () {
+                      auth.signOut();
+                      context.go("/login");
+                      showSnack(context, "Sign Out Successfully");
+                    },
+                    icon: const Icon(Ionicons.log_out),
+                    label: const Text("Log Out"));
               },
             )
           ],
-        );
+        ));
       }),
       bottomNavigationBar: const BottomNav(index: 3),
     );
@@ -114,12 +118,14 @@ class ProfileScreen extends StatelessWidget {
 
 List settingsTab = [
   {
+    "route": "/profile/about",
     "leading": const Icon(Ionicons.person),
     "title": const Text('About', style: nlargeText),
     "subtitle": const Text('Name, email, password', style: smallText),
     "trailing": const Icon(Ionicons.chevron_forward),
   },
-  {
+  { 
+    "route": "/profile/contact",
     "leading": const Icon(Ionicons.call),
     "title": const Text('Contact', style: nlargeText),
     "subtitle": const Text('Phone number(s)', style: smallText),

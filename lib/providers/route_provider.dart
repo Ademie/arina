@@ -2,6 +2,8 @@ import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/screens/home/home_screen.dart';
 import 'package:arina/screens/onboarding/login.dart';
 import 'package:arina/screens/onboarding/sign_up.dart';
+import 'package:arina/screens/profile/about_screen.dart';
+import 'package:arina/screens/profile/contact_screen.dart';
 import 'package:arina/screens/profile/profile_screen.dart';
 import 'package:arina/screens/saved/saved_screen.dart';
 import 'package:arina/screens/splash/splash_screen.dart';
@@ -22,9 +24,10 @@ class RouteProvider extends ChangeNotifier {
     _router = GoRouter(
       refreshListenable: fireAuthProvider,
       navigatorKey: navigatorKey,
+      initialLocation: "/",
       routes: [
         GoRoute(
-          name: "10thHomes",
+          name: "HomeRadar",
           path: "/",
           builder: (context, state) => fireAuthProvider.currentUser != null
               ? const HomeScreen()
@@ -43,9 +46,21 @@ class RouteProvider extends ChangeNotifier {
           builder: (context, state) => const SavedScreen(),
         ),
         GoRoute(
-          path: "/profile",
-          builder: (context, state) => const ProfileScreen(),
-        ),
+            name: "profile",
+            path: "/profile",
+            builder: (context, state) => const ProfileScreen(),
+            routes: [
+              GoRoute(
+                name: "about",
+                path: "about",
+                builder: (context, state) => const AboutScreen(),
+              ),
+              GoRoute(
+                name: "contact",
+                path: "contact",
+                builder: (context, state) => const ContactScreen(),
+              ),
+            ]),
         GoRoute(
             path: "/splash", builder: (context, state) => const SplashScreen()),
         GoRoute(path: "/signup", builder: (context, state) => const SignUp()),
