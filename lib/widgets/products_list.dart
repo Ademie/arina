@@ -1,6 +1,6 @@
-// import 'package:arina/models/product_model.dart';
 import 'package:arina/providers/saved_provider.dart';
 import 'package:arina/screens/products/product_details.dart';
+import 'package:arina/shared/cached_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -52,24 +52,21 @@ class ProductGridView extends StatelessWidget {
               return Stack(
                 children: [
                   GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProductDetails(
-                                    propertyID: propertyIDs[index],
-                                    author: authorIDs[index],
-                                  )),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    mylist[index]["imagesURL"][0].toString()),
-                                fit: BoxFit.cover)),
-                      )),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProductDetails(
+                                  propertyID: propertyIDs[index],
+                                  author: authorIDs[index],
+                                )),
+                      );
+                    },
+                    child: CachedImage(
+                      mylist: mylist,
+                      index: index,
+                    ),
+                  ),
                   Positioned(
                     right: 10,
                     top: 10,
@@ -145,3 +142,4 @@ class ProductGridView extends StatelessWidget {
         });
   }
 }
+
