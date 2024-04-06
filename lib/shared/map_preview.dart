@@ -6,7 +6,12 @@ import 'package:latlong2/latlong.dart';
 class MapPreview extends StatelessWidget {
   const MapPreview({
     super.key,
+    required this.latitude,
+    required this.longitude,
   });
+
+  final double latitude;
+  final double longitude;
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +20,8 @@ class MapPreview extends StatelessWidget {
       height: 400,
       padding: const EdgeInsets.all(25),
       child: FlutterMap(
-        options: const MapOptions(
-          initialCenter: LatLng(7.30295288579095, 5.13890892669223),
+        options: MapOptions(
+          initialCenter: LatLng(latitude, longitude),
           initialZoom: 12.0,
         ),
         children: [
@@ -25,10 +30,10 @@ class MapPreview extends StatelessWidget {
             userAgentPackageName: 'com.example.app',
             tileProvider: CachedTileProvider(),
           ),
-          const MarkerLayer(markers: [
+          MarkerLayer(markers: [
             Marker(
-              point: LatLng(7.30295288579095, 5.13890892669223),
-              child: Icon(
+              point: LatLng(latitude, longitude),
+              child: const Icon(
                 Icons.location_on,
                 color: Colors.black,
                 size: 50.0,
@@ -42,14 +47,21 @@ class MapPreview extends StatelessWidget {
 }
 
 class MapDialog extends StatelessWidget {
-  const MapDialog({super.key});
+  const MapDialog({
+    super.key,
+    required this.latitude,
+    required this.longitude,
+  });
+
+  final double latitude;
+  final double longitude;
 
   @override
   Widget build(BuildContext context) {
     return Dialog.fullscreen(
       child: FlutterMap(
-        options: const MapOptions(
-          initialCenter: LatLng(7.30295288579095, 5.13890892669223),
+        options: MapOptions(
+          initialCenter: LatLng(latitude, longitude),
         ),
         children: [
           TileLayer(
@@ -57,10 +69,10 @@ class MapDialog extends StatelessWidget {
             userAgentPackageName: 'com.example.app',
             tileProvider: CachedTileProvider(),
           ),
-          const MarkerLayer(markers: [
+          MarkerLayer(markers: [
             Marker(
-              point: LatLng(7.30295288579095, 5.13890892669223),
-              child: Icon(
+              point: LatLng(latitude, longitude),
+              child: const Icon(
                 Icons.location_on,
                 color: Colors.black,
                 size: 50.0,

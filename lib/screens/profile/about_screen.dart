@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:arina/constants/constants.dart';
 import 'package:arina/models/profile_model.dart';
+import 'package:arina/shared/cached_image.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -199,10 +200,14 @@ class _AboutScreenState extends State<AboutScreen> {
                                     children: [
                                       firePicture!.isNotEmpty &&
                                               imageFile.path == ""
-                                          ? CircleAvatar(
-                                              radius: 50,
-                                              backgroundImage:
-                                                  NetworkImage(firePicture!))
+                                          ? SizedBox(
+                                              width: 100,
+                                              height: 100,
+                                              child: CachedImage(
+                                                imageUrl: firePicture!,
+                                                borderRadius:
+                                                    BorderRadius.circular(100),
+                                              ))
                                           : CircleAvatar(
                                               radius: 50,
                                               backgroundImage: imageFile.path !=

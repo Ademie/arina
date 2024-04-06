@@ -33,6 +33,10 @@ class OwnerProvider extends ChangeNotifier {
     if (ownerData != null) {
       _firstName = ownerData.firstName;
       _lastName = ownerData.lastName;
+      _picture = ownerData.picture;
+      _phone = ownerData.phone;
+      _email = ownerData.email;
+      _address = ownerData.address;
       notifyListeners();
     } else {
       log("No such document.");

@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'package:arina/constants/constants.dart';
 import 'package:arina/models/upload_model.dart';
+import 'package:arina/providers/address_provider.dart';
 import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/screens/upload/upload_image.dart';
 import 'package:arina/shared/address_picker.dart';
@@ -12,6 +13,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -129,7 +131,9 @@ class _UploadFormState extends State<UploadForm> {
                 )
               : const Text(''),
 
-          const AddressPicker(),
+          AddressPicker(
+            
+          ),
           buildForm("Description", _description,
               keyboardType: TextInputType.multiline, maxLines: 5),
           buildForm("Duration", _duration, keyboardType: TextInputType.number),
@@ -139,44 +143,50 @@ class _UploadFormState extends State<UploadForm> {
               keyboardType: TextInputType.number),
           buildForm("Total", _total, readOnly: true),
           Consumer<FireAuthProvider>(builder: (context, auth, _) {
-            return ArinaButton(
-              text: "List Property",
-              isLoading: uploadToFire,
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  if (imageFiles.isEmpty) {
-                    setState(() {
-                      noImages = true;
-                    });
-                  } else if (imageFiles.isNotEmpty) {
-                    setState(() {
-                      noImages = false;
-                    });
-                    _uploadImages().then((value) {
-                      try {
-                        firestore.collection("properties").add(
-                              UploadModel(
-                                propertyID: propertyID.v4().toString(),
-                                title: _title.text,
-                                propAddress: _address.text,
-                                description: _description.text,
-                                duration: _duration.text,
-                                rent: _rent.text,
-                                security: _security.text,
-                                service: _service.text,
-                                total: _total.text,
-                                imagesURL: propImages,
-                                author: currentUserID,
-                              ).toFirestore(),
-                            );
-                        context.pop();
-                      } catch (e) {
-                        showSnack(context, "An error occured $e");
+            return Consumer<AddressProvider>(
+              builder: (context, addressProvider, _) {
+                return ArinaButton(
+                  text: "List Property",
+                  isLoading: uploadToFire,
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      if (imageFiles.isEmpty) {
+                        setState(() {
+                          noImages = true;
+                        });
+                      } else if (imageFiles.isNotEmpty) {
+                        setState(() {
+                          noImages = false;
+                        });
+                        _uploadImages().then((value) {
+                          try {
+                            firestore.collection("properties").add(
+                                  UploadModel(
+                                    propertyID: propertyID.v4().toString(),
+                                    title: _title.text,
+                                    description: _description.text,
+                                    duration: _duration.text,
+                                    rent: _rent.text,
+                                    security: _security.text,
+                                    service: _service.text,
+                                    total: _total.text,
+                                    imagesURL: propImages,
+                                    author: currentUserID,
+                                    latitude: addressProvider.latitude!,
+                                    longitude: addressProvider.longitude!,
+                                    addrDescription: addressProvider.description.toString(),
+                                  ).toFirestore(),
+                                );
+                            context.pop();
+                          } catch (e) {
+                            showSnack(context, "An error occured $e");
+                          }
+                        });
                       }
-                    });
-                  }
-                }
-              },
+                    }
+                  },
+                );
+              }
             );
           })
         ])),

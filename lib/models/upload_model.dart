@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UploadModel {
   String title;
-  String propAddress;
   String description;
   String duration;
   String rent;
@@ -12,10 +11,12 @@ class UploadModel {
   String author;
   String propertyID;
   List<String> imagesURL;
+  double latitude;
+  double longitude;
+  String addrDescription;
 
   UploadModel({
     required this.title,
-    required this.propAddress,
     required this.description,
     required this.duration,
     required this.rent,
@@ -25,6 +26,9 @@ class UploadModel {
     required this.imagesURL,
     required this.author,
     required this.propertyID,
+    required this.latitude,
+    required this.longitude,
+    required this.addrDescription
   });
 
   factory UploadModel.fromFirestore(
@@ -33,23 +37,25 @@ class UploadModel {
   ) {
     final data = snapshot.data();
     return UploadModel(
-        title: data?["title"],
-        propAddress: data?["propAddress"],
-        description: data?["description"],
-        duration: data?["duration"],
-        rent: data?["rent"],
-        security: data?["security"],
-        service: data?["service"],
-        total: data?["total"],
-        imagesURL: data?["imagesURL"],
-        author: data?["author"],
-        propertyID: data?["propertyID"]);
+      title: data?["title"],
+      description: data?["description"],
+      duration: data?["duration"],
+      rent: data?["rent"],
+      security: data?["security"],
+      service: data?["service"],
+      total: data?["total"],
+      imagesURL: data?["imagesURL"],
+      author: data?["author"],
+      propertyID: data?["propertyID"],
+      latitude: data?["latitude"],
+      longitude: data?["longitude"],
+      addrDescription: data?["addrDescription"]
+    );
   }
 
   Map<String, dynamic> toFirestore() {
     return {
       if (title.isNotEmpty) "title": title,
-      if (propAddress.isNotEmpty) "propAddress": propAddress,
       if (description.isNotEmpty) "description": description,
       if (duration.isNotEmpty) "duration": duration,
       if (rent.isNotEmpty) "rent": rent,
@@ -59,6 +65,9 @@ class UploadModel {
       if (imagesURL.isNotEmpty) "imagesURL": imagesURL,
       if (author.isNotEmpty) "author": author,
       if (propertyID.isNotEmpty) "propertyID": propertyID,
+      if (!latitude.isNaN) "latitude": latitude,
+      if (!longitude.isNaN) "longitude": longitude,
+      if (addrDescription.isNotEmpty) "addrDescription": addrDescription
     };
   }
 }

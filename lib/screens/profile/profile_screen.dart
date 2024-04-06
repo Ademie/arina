@@ -3,6 +3,7 @@ import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/providers/profile_provider.dart';
 import 'package:arina/routes/bottom_nav.dart';
 import 'package:arina/shared/app_scaffold.dart';
+import 'package:arina/shared/cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
@@ -16,8 +17,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  
-
   @override
   Widget build(BuildContext context) {
     Provider.of<ProfileProvider>(context, listen: false).fetchProfile();
@@ -28,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 20, top: 25, bottom: 25),
+              padding: const EdgeInsets.only(left: 50, top: 25, bottom: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,10 +39,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             radius: 50,
                             backgroundImage:
                                 AssetImage('assets/images/person/man2.jpg'))
-                        : CircleAvatar(
-                            radius: 50,
-                            backgroundImage:
-                                NetworkImage(profileProvider.picture)),
+                        : SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: CachedImage(
+                              imageUrl: profileProvider.picture,
+                              borderRadius: BorderRadius.circular(100),
+                            )),
                   ),
                   Flexible(
                     flex: 2,
