@@ -129,6 +129,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0+1"
+  dio:
+    dependency: transitive
+    description:
+      name: dio
+      sha256: "0978e9a3e45305a80a7210dbeaf79d6ee8bee33f70c8e542dc654c952070217f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.4.2+1"
   easy_date_timeline:
     dependency: "direct main"
     description:
@@ -310,6 +318,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.0"
+  flutter_map_cached_tile_provider:
+    dependency: "direct main"
+    description:
+      name: flutter_map_cached_tile_provider
+      sha256: "37b145aa5a7ca141ebfe8a0bba3871b8ba85215ad4b5719fd031dad110f4d1a3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -344,6 +360,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "13.2.1"
+  google_places_autocomplete_text_field:
+    dependency: "direct main"
+    description:
+      name: google_places_autocomplete_text_field
+      sha256: "86615529ffdef8901d6c4f9b23f2526884dcb69d28e411beceb8093f5a23911c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.3"
   http:
     dependency: transitive
     description:

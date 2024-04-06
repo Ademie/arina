@@ -1,5 +1,3 @@
-
-
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
@@ -7,6 +5,7 @@ import 'package:arina/constants/constants.dart';
 import 'package:arina/models/upload_model.dart';
 import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/screens/upload/upload_image.dart';
+import 'package:arina/shared/address_picker.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -37,8 +36,6 @@ class _UploadFormState extends State<UploadForm> {
   final TextEditingController _security = TextEditingController();
   final TextEditingController _service = TextEditingController();
   final TextEditingController _total = TextEditingController();
-
-  
 
   bool uploading = false;
   bool uploadToFire = false;
@@ -120,7 +117,7 @@ class _UploadFormState extends State<UploadForm> {
         key: _formKey,
         child: SliverList(
             delegate: SliverChildListDelegate.fixed([
-          buildForm("Title", _title),
+          buildForm("Title", _title, textInputAction: TextInputAction.done),
           // IMAGES
           const Text('Add Image', style: flargeText),
           uploadImage(_pickImages, imageFiles, uploading),
@@ -131,9 +128,10 @@ class _UploadFormState extends State<UploadForm> {
                       color: Color.fromARGB(255, 199, 39, 27), fontSize: 12),
                 )
               : const Text(''),
-          buildForm("Address", _address),
+
+          const AddressPicker(),
           buildForm("Description", _description,
-              keyboardType: TextInputType.multiline),
+              keyboardType: TextInputType.multiline, maxLines: 5),
           buildForm("Duration", _duration, keyboardType: TextInputType.number),
           buildForm("Rent", _rent, keyboardType: TextInputType.number),
           buildForm("Security", _security, keyboardType: TextInputType.number),
@@ -203,6 +201,8 @@ Widget buildForm(
   bool readOnly = false,
   onChanged,
   keyboardType,
+  maxLines,
+  textInputAction,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,6 +213,8 @@ Widget buildForm(
         controller: controller,
         onChanged: onChanged,
         keyboardType: keyboardType,
+        textInputAction: textInputAction,
+        maxLines: maxLines,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "Please enter some text";

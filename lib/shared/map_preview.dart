@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_cached_tile_provider/flutter_map_cached_tile_provider.dart';
 import 'package:latlong2/latlong.dart';
 
 class MapPreview extends StatelessWidget {
@@ -22,13 +23,14 @@ class MapPreview extends StatelessWidget {
           TileLayer(
             urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
             userAgentPackageName: 'com.example.app',
+            tileProvider: CachedTileProvider(),
           ),
           const MarkerLayer(markers: [
             Marker(
               point: LatLng(7.30295288579095, 5.13890892669223),
               child: Icon(
                 Icons.location_on,
-                color: Colors.red,
+                color: Colors.black,
                 size: 50.0,
               ),
             )
@@ -53,13 +55,14 @@ class MapDialog extends StatelessWidget {
           TileLayer(
             urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
             userAgentPackageName: 'com.example.app',
+            tileProvider: CachedTileProvider(),
           ),
           const MarkerLayer(markers: [
             Marker(
               point: LatLng(7.30295288579095, 5.13890892669223),
               child: Icon(
                 Icons.location_on,
-                color: Colors.red,
+                color: Colors.black,
                 size: 50.0,
               ),
             )

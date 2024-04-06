@@ -63,8 +63,7 @@ class ProductGridView extends StatelessWidget {
                       );
                     },
                     child: CachedImage(
-                      mylist: mylist,
-                      index: index,
+                      imageUrl: mylist[index]["imagesURL"][0],
                     ),
                   ),
                   Positioned(
@@ -74,7 +73,7 @@ class ProductGridView extends StatelessWidget {
                         height: 40,
                         width: 40,
                         decoration: ShapeDecoration(
-                          color: const Color(0x665F5F5F),
+                          color: const Color.fromARGB(255, 247, 244, 244),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6)),
                         ),
@@ -103,7 +102,7 @@ class ProductGridView extends StatelessWidget {
                         height: 70,
                         padding: const EdgeInsets.only(left: 5),
                         decoration: const BoxDecoration(
-                          color: Color.fromARGB(121, 95, 95, 95),
+                          color: Color.fromARGB(130, 9, 9, 9),
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(10),
                               bottomRight: Radius.circular(10)),
@@ -113,7 +112,7 @@ class ProductGridView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              mylist[index]["title"].toString(),
+                              mylist[index]["title"],
                               style: const TextStyle(
                                 color: Color.fromARGB(255, 253, 253, 253),
                                 fontSize: 16,
@@ -142,4 +141,3 @@ class ProductGridView extends StatelessWidget {
         });
   }
 }
-

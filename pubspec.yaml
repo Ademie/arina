@@ -31,6 +31,8 @@ dependencies:
   latlong2: any
   cached_network_image: ^3.3.1
   flutter_cache_manager: ^3.3.1
+  flutter_map_cached_tile_provider: ^0.0.2
+  google_places_autocomplete_text_field: ^0.1.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

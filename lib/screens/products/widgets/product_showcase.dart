@@ -1,105 +1,21 @@
+import 'package:arina/constants/constants.dart';
+import 'package:arina/screens/products/widgets/image_dialog.dart';
+import 'package:arina/shared/cached_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
-
-class ImageDialog extends StatefulWidget {
-  const ImageDialog({super.key, this.otherImages, this.mainImageURL});
-
-  final List<dynamic>? otherImages;
-  final String? mainImageURL;
-
-  @override
-  State<ImageDialog> createState() => _ImageDialogState();
-}
-
-int index = 1;
-
-class _ImageDialogState extends State<ImageDialog> {
-  @override
-  Widget build(BuildContext context) {
-    return Dialog.fullscreen(
-        backgroundColor: const Color.fromARGB(0, 255, 255, 255),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Expanded(child: Container()),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                    setState(() {
-                      index = 1;
-                    });
-                  },
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    margin: const EdgeInsets.only(right: 10),
-                    padding: const EdgeInsets.all(10),
-                    decoration: ShapeDecoration(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                      shadows: const [
-                        BoxShadow(
-                          color: Color(0x338A959E),
-                          blurRadius: 40,
-                          offset: Offset(0, 4),
-                          spreadRadius: 0,
-                        )
-                      ],
-                    ),
-                    child: SvgPicture.asset('assets/svg/cancel.svg'),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 450,
-              child: PageView.builder(
-                  itemCount: widget.otherImages?.length,
-                  onPageChanged: (value) {
-                    setState(() {
-                      index = value + 1;
-                    });
-                  },
-                  pageSnapping: true,
-                  itemBuilder: (context, position) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                              image:
-                                  NetworkImage(widget.otherImages?[position]),
-                              fit: BoxFit.cover)),
-                    );
-                  }),
-            ),
-            Container(
-              padding: const EdgeInsets.all(7),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10), color: Colors.white),
-              child: Text(
-                '$index/${widget.otherImages?.length}',
-                style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black),
-              ),
-            )
-          ],
-        ));
-  }
-}
+import 'package:ionicons/ionicons.dart';
 
 class ProductShowcase extends StatelessWidget {
   const ProductShowcase({
     super.key,
     required this.mainImageURL,
     this.otherImages,
+    required this.address,
   });
   final String mainImageURL;
   final List<dynamic>? otherImages;
+  final String address;
 
   @override
   Widget build(BuildContext context) {
@@ -122,13 +38,14 @@ class ProductShowcase extends StatelessWidget {
             margin: const EdgeInsets.only(
               left: 52,
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
+              boxShadow: [boxshadow],
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
+            ),
+            child: CachedImage(
+              imageUrl: mainImageURL,
               borderRadius:
                   const BorderRadius.only(bottomLeft: Radius.circular(50)),
-              image: DecorationImage(
-                image: NetworkImage(mainImageURL),
-                fit: BoxFit.fill,
-              ),
             ),
           ),
         ),
@@ -144,7 +61,7 @@ class ProductShowcase extends StatelessWidget {
                 height: 42,
                 padding: const EdgeInsets.all(10),
                 decoration: ShapeDecoration(
-                  color: Colors.white,
+                  color: Colors.black,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6)),
                   shadows: const [
@@ -159,86 +76,6 @@ class ProductShowcase extends StatelessWidget {
                 child: SvgPicture.asset('assets/svg/back-arrow.svg')),
           ),
         ),
-        // ROUND RECTANGLE AR
-        Positioned(
-            left: 22,
-            top: 120,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Container()),
-                );
-              },
-              child: Container(
-                width: 64,
-                height: 120,
-                decoration: ShapeDecoration(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  shadows: const [
-                    BoxShadow(
-                      color: Color(0x338A959E),
-                      blurRadius: 40,
-                      offset: Offset(0, 4),
-                      spreadRadius: 0,
-                    )
-                  ],
-                ),
-                child: SizedBox(
-                  width: 34,
-                  height: 34,
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        left: 15,
-                        top: 20,
-                        child: Container(
-                          width: 34,
-                          height: 34,
-                          decoration: const ShapeDecoration(
-                            color: Color(0xFF909090),
-                            shape: OvalBorder(),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 20,
-                        top: 25,
-                        child: SvgPicture.asset("assets/svg/ar.svg"),
-                      ),
-                      Positioned(
-                        left: 32,
-                        top: 55,
-                        child: Container(
-                          height: 35,
-                          width: 1,
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFFBDBDBD),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2)),
-                          ),
-                        ),
-                      ),
-                      const Positioned(
-                        left: 22,
-                        top: 90,
-                        child: Text(
-                          'A R',
-                          style: TextStyle(
-                            color: Color(0xFF303030),
-                            fontFamily: 'Gelasio',
-                            height: 0,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            )),
         // BOTTOM OVERLAY
         Positioned(
             left: 52,
@@ -249,7 +86,7 @@ class ProductShowcase extends StatelessWidget {
               decoration: const BoxDecoration(
                 borderRadius:
                     BorderRadius.only(bottomLeft: Radius.circular(50)),
-                color: Color.fromARGB(51, 82, 88, 92),
+                color: Color.fromARGB(130, 9, 9, 9),
               ),
             )),
         // BOTTOM INFO
@@ -268,62 +105,34 @@ class ProductShowcase extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        width: 37,
-                        height: 37,
-                        margin: const EdgeInsets.only(right: 10),
-                        padding: const EdgeInsets.all(10),
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6)),
-                          shadows: const [
-                            BoxShadow(
-                              color: Color(0x338A959E),
-                              blurRadius: 40,
-                              offset: Offset(0, 4),
-                              spreadRadius: 0,
-                            )
-                          ],
-                        ),
-                        child: SvgPicture.asset('assets/svg/bedd.svg'),
-                      ),
-                      const Text(
-                        '6 Bedroom',
-                        style: TextStyle(
+                          width: 37,
+                          height: 37,
+                          margin: const EdgeInsets.only(right: 10),
+                          decoration: ShapeDecoration(
                             color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 37,
-                        height: 37,
-                        margin: const EdgeInsets.only(right: 10),
-                        padding: const EdgeInsets.all(10),
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6)),
-                          shadows: const [
-                            BoxShadow(
-                              color: Color(0x338A959E),
-                              blurRadius: 40,
-                              offset: Offset(0, 4),
-                              spreadRadius: 0,
-                            )
-                          ],
-                        ),
-                        child: SvgPicture.asset('assets/svg/bathroom.svg'),
-                      ),
-                      const Text(
-                        '3 Bathroom',
-                        style: TextStyle(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6)),
+                            shadows: const [
+                              BoxShadow(
+                                color: Color(0x338A959E),
+                                blurRadius: 40,
+                                offset: Offset(0, 4),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: const Icon(Ionicons.location)),
+                      SizedBox(
+                        width: 250,
+                        child: Text(
+                          address,
+                          style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                             height: 0,
+                          ),
+                        ),
                       )
                     ],
                   ),

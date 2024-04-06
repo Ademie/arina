@@ -6,12 +6,12 @@ import 'package:ionicons/ionicons.dart';
 class CachedImage extends StatefulWidget {
   const CachedImage({
     super.key,
-    required this.mylist,
-    required this.index,
+    required this.imageUrl,
+    this.borderRadius,
   });
 
-  final List mylist;
-  final int index;
+  final String imageUrl;
+  final BorderRadius? borderRadius;
 
   @override
   State<CachedImage> createState() => _CachedImageState();
@@ -19,18 +19,15 @@ class CachedImage extends StatefulWidget {
 
 class _CachedImageState extends State<CachedImage> {
   static final customCacheManager = CacheManager(
-    Config(
-      "customKey",
-      stalePeriod: const Duration(days: 5),
-      maxNrOfCacheObjects: 400
-    ),
+    Config("customKey",
+        stalePeriod: const Duration(days: 5), maxNrOfCacheObjects: 400),
   );
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       key: UniqueKey(),
       cacheManager: customCacheManager,
-      imageUrl: widget.mylist[widget.index]["imagesURL"][0],
+      imageUrl: widget.imageUrl,
       placeholder: (context, url) => Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -41,7 +38,7 @@ class _CachedImageState extends State<CachedImage> {
       errorWidget: (context, url, error) => const Icon(Icons.error),
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: widget.borderRadius ?? BorderRadius.circular(10),
           image: DecorationImage(
             image: imageProvider,
             fit: BoxFit.cover,

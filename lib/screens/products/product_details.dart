@@ -76,7 +76,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                   expandedHeight: 350,
                   flexibleSpace: FlexibleSpaceBar(
                     background: ProductShowcase(
-                        mainImageURL: imageURL, otherImages: otherImages),
+                      mainImageURL: imageURL,
+                      otherImages: otherImages,
+                      address: address,
+                    ),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -93,16 +96,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                               fontSize: 26,
                               fontFamily: 'Gelasio',
                               fontWeight: FontWeight.w500,
-                              height: 0,
-                            ),
-                          ),
-                          Text(
-                            address,
-                            // '14, James Kowope Street, Akure Ondo, Nigeria',
-                            style: const TextStyle(
-                              color: Color.fromARGB(197, 48, 48, 48),
-                              fontSize: 14,
-                              fontFamily: 'Gelasio',
                               height: 0,
                             ),
                           ),
@@ -208,7 +201,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       height: 300,
                       child: Stack(
                         children: [
-                          // MapPreview(),
+                         const MapPreview(),
                           Positioned(
                               top: 0,
                               bottom: 0,
