@@ -65,8 +65,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           final double latitude = data?["latitude"] ?? 0.0;
           final double longitude = data?["longitude"] ?? 0.0;
 
-          List<dynamic> otherImages = data?["imagesURL"] as List<dynamic>;
-
+          var otherImages = data?["imagesURL"];
           return Scaffold(
             body: CustomScrollView(
               slivers: <Widget>[

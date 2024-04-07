@@ -17,8 +17,6 @@ class SavedProvider extends ChangeNotifier {
   List<dynamic> _fireHomes = [];
   List<dynamic> get fireHomes => List.of(_fireHomes);
 
-  
-
   final ref = FirebaseFirestore.instance
       .collection("users")
       .doc(fireAuthProvider.currentUser?.uid)

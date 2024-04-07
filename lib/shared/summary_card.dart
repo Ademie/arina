@@ -1,3 +1,4 @@
+import 'package:arina/shared/cached_image.dart';
 import 'package:flutter/material.dart';
 
 class SummaryCard extends StatelessWidget {
@@ -49,6 +50,7 @@ class SummaryCard extends StatelessWidget {
                                   "assets/images/thumbnails/blue_house.jpeg"),
                               fit: BoxFit.cover),
                     ),
+                    // child: CachedImage(imageUrl: imageURL!),
                   ),
 
                   // SUMMARY TEXT
