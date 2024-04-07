@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
-
-import 'package:arina/constants/constants.dart';
 import 'package:arina/models/profile_model.dart';
+import 'package:arina/providers/auth_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +22,8 @@ class ProfileProvider extends ChangeNotifier {
 
   StreamSubscription<DocumentSnapshot<ProfileModel>>? _subscription;
 
+  FireAuthProvider fireAuthProvider = FireAuthProvider();
+
   ProfileProvider() {
     fetchProfile();
   }
@@ -31,7 +32,7 @@ class ProfileProvider extends ChangeNotifier {
     try {
       final ref = FirebaseFirestore.instance
           .collection("users")
-          .doc(currentUserID)
+          .doc(fireAuthProvider.currentUser!.uid)
           .withConverter(
             fromFirestore: ProfileModel.fromFirestore,
             toFirestore: (ProfileModel profileModel, _) =>

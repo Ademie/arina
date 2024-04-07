@@ -1,4 +1,5 @@
 import 'package:arina/constants/constants.dart';
+import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _ContactScreenState extends State<ContactScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FireAuthProvider fireAuthProvider = FireAuthProvider();
 
   @override
   void dispose() {
@@ -36,7 +38,7 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userRef = firestore.collection("users").doc(currentUserID).get();
+    final userRef = firestore.collection("users").doc(fireAuthProvider.currentUser?.uid).get();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -161,7 +163,7 @@ class _ContactScreenState extends State<ContactScreen> {
             }
             if (_formKey.currentState!.validate() && hasAnyFieldChanged) {
               try {
-                firestore.collection("users").doc(currentUserID).update({
+                firestore.collection("users").doc(fireAuthProvider.currentUser?.uid).update({
                   'phone': _phone!.text,
                   'homePhone': _homePhone!.text,
                   'address': _address!.text,

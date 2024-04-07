@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:arina/constants/constants.dart';
 import 'package:arina/models/profile_model.dart';
+import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/shared/cached_image.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -43,6 +44,8 @@ class _AboutScreenState extends State<AboutScreen> {
   final ImagePicker picker = ImagePicker();
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
+  FireAuthProvider fireAuthProvider = FireAuthProvider();
+
   Future<void> _pickImage(source) async {
     final pickedFile = await picker.pickImage(
       source: source,
@@ -61,7 +64,7 @@ class _AboutScreenState extends State<AboutScreen> {
     });
     try {
       UploadTask uploadTask = _storage
-          .ref("users/$currentUserID/image")
+          .ref("users/${fireAuthProvider.currentUser!.uid}/image")
           .putFile(File(imageFile.path));
 
       await uploadTask.whenComplete(() {
@@ -70,7 +73,10 @@ class _AboutScreenState extends State<AboutScreen> {
         });
       });
       localPicture = await uploadTask.snapshot.ref.getDownloadURL();
-      firestore.collection("users").doc(currentUserID).update(
+      firestore
+          .collection("users")
+          .doc(fireAuthProvider.currentUser!.uid)
+          .update(
             ProfileModel(
               firstName: _firstName!.text,
               lastName: _lastName!.text,
@@ -97,7 +103,10 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userRef = firestore.collection("users").doc(currentUserID).get();
+    final userRef = firestore
+        .collection("users")
+        .doc(fireAuthProvider.currentUser!.uid)
+        .get();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -341,7 +350,7 @@ class _AboutScreenState extends State<AboutScreen> {
                 if (imageFile.path != "") {
                   _uploadImage();
                 } else {
-                  firestore.collection("users").doc(currentUserID).update(
+                  firestore.collection("users").doc(fireAuthProvider.currentUser!.uid).update(
                         ProfileModel(
                           firstName: _firstName!.text,
                           lastName: _lastName!.text,

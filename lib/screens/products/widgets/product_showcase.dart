@@ -2,7 +2,6 @@ import 'package:arina/constants/constants.dart';
 import 'package:arina/screens/products/widgets/image_dialog.dart';
 import 'package:arina/shared/cached_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
 

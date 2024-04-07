@@ -1,7 +1,9 @@
-import 'package:arina/constants/constants.dart';
 import 'package:arina/models/profile_model.dart';
+import 'package:arina/providers/auth_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+FireAuthProvider fireAuthProvider = FireAuthProvider();
 
 class SavedProvider extends ChangeNotifier {
   bool isSaved(Map<String, dynamic> home) {
@@ -15,9 +17,11 @@ class SavedProvider extends ChangeNotifier {
   List<dynamic> _fireHomes = [];
   List<dynamic> get fireHomes => List.of(_fireHomes);
 
+  
+
   final ref = FirebaseFirestore.instance
       .collection("users")
-      .doc(currentUserID)
+      .doc(fireAuthProvider.currentUser?.uid)
       .withConverter(
         fromFirestore: ProfileModel.fromFirestore,
         toFirestore: (ProfileModel profileModel, _) =>
