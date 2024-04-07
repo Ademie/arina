@@ -1,7 +1,7 @@
+import 'package:arina/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// Reusable widget for each category item
 class CategoryItem extends StatelessWidget {
   final String svgAsset;
   final String label;
@@ -19,15 +19,17 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => SearchScreen(query: svgAsset)));
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 44,
-            height: 44,
-           
+            width: 50,
+            height: 50,
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.symmetric(horizontal: 12.5),
             decoration: ShapeDecoration(

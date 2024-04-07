@@ -49,35 +49,15 @@ class OwnerDetails extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                      color: Colors.black,
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(5))),
-                  child:
-                      SvgPicture.asset('assets/svg/call.svg'),
-                ),
-              ),
-              const SizedBox(width: 20),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                      color: Colors.black,
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(5))),
-                  child: SvgPicture.asset(
-                      'assets/svg/message.svg'),
-                ),
-              ),
-            ],
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(50))),
+              child: SvgPicture.asset('assets/svg/verified.svg'),
+            ),
           ),
         ],
       ),

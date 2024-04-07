@@ -30,17 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: const [
-                  CategoryItem(
-                    svgAsset: 'star',
-                    label: 'Popular',
-                    labelColor: Color(0xFF232323),
-                    containerColor: Color(0xFF303030),
-                  ),
-                  CategoryItem(svgAsset: 'sofa', label: 'New'),
-                  CategoryItem(svgAsset: 'chair', label: 'Rent'),
-                  CategoryItem(svgAsset: 'table', label: 'For Sale'),
-                  CategoryItem(svgAsset: 'sofa', label: 'Shortlets'),
-                  CategoryItem(svgAsset: 'bed', label: 'Resorts'),
+                  CategoryItem(svgAsset: 'apartment', label: 'Apartment'),
+                  CategoryItem(svgAsset: 'duplex', label: 'Duplex'),
+                  CategoryItem(svgAsset: 'bungalow', label: 'Bungalow'),
+                  CategoryItem(svgAsset: 'villa', label: 'Villa'),
+                  CategoryItem(svgAsset: 'penthouse', label: 'Pent House'),
                 ],
               ),
             ),

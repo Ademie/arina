@@ -37,20 +37,13 @@ class SummaryCard extends StatelessWidget {
                     height: 400,
                     width: 170,
                     margin: const EdgeInsets.only(right: 20),
-                    decoration: BoxDecoration(
+                    child: CachedImage(
+                      imageUrl: imageURL!,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(10),
                         bottomLeft: Radius.circular(10),
                       ),
-                      image: imageURL != null
-                          ? DecorationImage(
-                              image: NetworkImage(imageURL!), fit: BoxFit.cover)
-                          : DecorationImage(
-                              image: AssetImage(imageURL ??
-                                  "assets/images/thumbnails/blue_house.jpeg"),
-                              fit: BoxFit.cover),
                     ),
-                    // child: CachedImage(imageUrl: imageURL!),
                   ),
 
                   // SUMMARY TEXT

@@ -47,8 +47,8 @@ class AppScaffold extends StatelessWidget {
                 iconSize: 30,
                 color: Colors.grey,
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const SearchScreen()));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (_) => const SearchScreen()));
                 },
                 icon: IconButton(
                     iconSize: 30,
