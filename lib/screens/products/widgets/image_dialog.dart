@@ -18,6 +18,7 @@ class _ImageDialogState extends State<ImageDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog.fullscreen(
+      
         backgroundColor: const Color.fromARGB(0, 255, 255, 255),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

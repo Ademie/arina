@@ -29,7 +29,8 @@ class _SavedScreenState extends State<SavedScreen> {
                 itemBuilder: (context, index) {
                   return SummaryCard(
                     title: savedHome.homes[index]["title"] ?? "",
-                    propAddress: savedHome.homes[index]["propAddress"] ?? "",
+                    propAddress:
+                        savedHome.homes[index]["addrDescription"] ?? "",
                     imageURL:
                         savedHome.homes[index]["imagesURL"]?[0].toString() ??
                             "",
@@ -51,11 +52,10 @@ class _SavedScreenState extends State<SavedScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProductDetails(
-                                propertyID:
-                                    savedHome.homes[index]["propertyID"] ?? "",
-                                author:
-                                    savedHome.homes[index]["author"] ?? "")),
+                          builder: (context) => ProductDetails(
+                              propertyID: savedHome.homes[index]["propertyID"],
+                              author: savedHome.homes[index]["author"]),
+                        ),
                       );
                     },
                   );

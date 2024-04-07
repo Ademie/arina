@@ -53,17 +53,17 @@ class _ProductDetailsState extends State<ProductDetails> {
           }
 
           final data = snapshot.data!.data();
-          final String title = data?["title"];
-          final String address = data?["addrDescription"];
-          final String description = data?["description"];
-          final String imageURL = data?["imagesURL"][0];
-          final String duration = data?["duration"];
-          final String rent = data?["rent"];
-          final String security = data?["security"];
-          final String service = data?["service"];
-          final String total = data?["total"];
-          final double latitude = data?["latitude"];
-          final double longitude = data?["longitude"];
+          final String title = data?["title"] ?? "";
+          final String address = data?["addrDescription"] ?? "";
+          final String description = data?["description"] ?? "";
+          final String imageURL = data?["imagesURL"][0] ?? "";
+          final String duration = data?["duration"] ?? "";
+          final String rent = data?["rent"] ?? "";
+          final String security = data?["security"] ?? "";
+          final String service = data?["service"] ?? "";
+          final String total = data?["total"] ?? "";
+          final double latitude = data?["latitude"] ?? 0.0;
+          final double longitude = data?["longitude"] ?? 0.0;
 
           List<dynamic> otherImages = data?["imagesURL"] as List<dynamic>;
 

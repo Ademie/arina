@@ -9,27 +9,26 @@ class UploadModel {
   String service;
   String total;
   String author;
-  String propertyID;
+  String? propertyID;
   List<String> imagesURL;
   double latitude;
   double longitude;
   String addrDescription;
 
-  UploadModel({
-    required this.title,
-    required this.description,
-    required this.duration,
-    required this.rent,
-    required this.security,
-    required this.service,
-    required this.total,
-    required this.imagesURL,
-    required this.author,
-    required this.propertyID,
-    required this.latitude,
-    required this.longitude,
-    required this.addrDescription
-  });
+  UploadModel(
+      {required this.title,
+      required this.description,
+      required this.duration,
+      required this.rent,
+      required this.security,
+      required this.service,
+      required this.total,
+      required this.imagesURL,
+      required this.author,
+      this.propertyID,
+      required this.latitude,
+      required this.longitude,
+      required this.addrDescription});
 
   factory UploadModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -37,20 +36,19 @@ class UploadModel {
   ) {
     final data = snapshot.data();
     return UploadModel(
-      title: data?["title"],
-      description: data?["description"],
-      duration: data?["duration"],
-      rent: data?["rent"],
-      security: data?["security"],
-      service: data?["service"],
-      total: data?["total"],
-      imagesURL: data?["imagesURL"],
-      author: data?["author"],
-      propertyID: data?["propertyID"],
-      latitude: data?["latitude"],
-      longitude: data?["longitude"],
-      addrDescription: data?["addrDescription"]
-    );
+        title: data?["title"],
+        description: data?["description"],
+        duration: data?["duration"],
+        rent: data?["rent"],
+        security: data?["security"],
+        service: data?["service"],
+        total: data?["total"],
+        imagesURL: data?["imagesURL"],
+        author: data?["author"],
+        propertyID: data?["propertyID"],
+        latitude: data?["latitude"],
+        longitude: data?["longitude"],
+        addrDescription: data?["addrDescription"]);
   }
 
   Map<String, dynamic> toFirestore() {
@@ -64,7 +62,7 @@ class UploadModel {
       if (total.isNotEmpty) "total": total,
       if (imagesURL.isNotEmpty) "imagesURL": imagesURL,
       if (author.isNotEmpty) "author": author,
-      if (propertyID.isNotEmpty) "propertyID": propertyID,
+      "propertyID": propertyID ?? "",
       if (!latitude.isNaN) "latitude": latitude,
       if (!longitude.isNaN) "longitude": longitude,
       if (addrDescription.isNotEmpty) "addrDescription": addrDescription

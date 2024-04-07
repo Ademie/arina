@@ -49,6 +49,7 @@ class ProductGridView extends StatelessWidget {
                 authorIDs.add(documentSnapshot.get("author"));
                 return data;
               }).toList();
+              print(propertyIDs[index]);
               return Stack(
                 children: [
                   GestureDetector(

@@ -26,13 +26,13 @@ class _UploadScreenState extends State<UploadScreen> {
               children: [
                 const Center(
                   child: Text(
-                    "You must complete KYC to list a property",
+                    "Note: this is an MVP, users' will be required",
                     style: nsmallText,
                   ),
                 ),
                 const Center(
                   child: Text(
-                    "please do so if you haven't",
+                    "to complete KYC in the future before listing property",
                     style: nsmallText,
                   ),
                 ),

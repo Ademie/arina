@@ -130,7 +130,7 @@ class _UploadFormState extends State<UploadForm> {
                 )
               : const Text(''),
 
-          const AddressPicker(),
+          AddressPicker(textEditingController: _address),
           buildForm("Description", _description,
               keyboardType: TextInputType.multiline, maxLines: 5),
           buildForm("Duration", _duration, keyboardType: TextInputType.number),
@@ -139,12 +139,12 @@ class _UploadFormState extends State<UploadForm> {
           buildForm("Service Charge", _service,
               keyboardType: TextInputType.number),
           buildForm("Total", _total, readOnly: true),
+
           Consumer<FireAuthProvider>(builder: (context, auth, _) {
             return Consumer<AddressProvider>(
                 builder: (context, addressProvider, _) {
               return ArinaButton(
                 text: "List Property",
-                isLoading: uploadToFire,
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     if (imageFiles.isEmpty) {
@@ -155,11 +155,31 @@ class _UploadFormState extends State<UploadForm> {
                       setState(() {
                         noImages = false;
                       });
-                      _uploadImages().then((value) {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return const AlertDialog(
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircularProgressIndicator(
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                      _uploadImages().then((value) async {
                         try {
-                          firestore.collection("properties").add(
+                          DocumentReference docRef = await firestore
+                              .collection("properties")
+                              .add(
                                 UploadModel(
-                                  propertyID: propertyID.v4().toString(),
+                                  propertyID: "",
                                   title: _title.text,
                                   description: _description.text,
                                   duration: _duration.text,
@@ -175,6 +195,8 @@ class _UploadFormState extends State<UploadForm> {
                                       addressProvider.description.toString(),
                                 ).toFirestore(),
                               );
+                          await docRef.update({"propertyID": docRef.id});
+                          context.pop();
                           context.pop();
                         } catch (e) {
                           showSnack(context, "An error occured $e");
