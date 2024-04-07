@@ -5,16 +5,17 @@ import 'package:arina/constants/constants.dart';
 import 'package:arina/models/upload_model.dart';
 import 'package:arina/providers/address_provider.dart';
 import 'package:arina/providers/auth_provider.dart';
+import 'package:arina/screens/upload/build_form.dart';
 import 'package:arina/screens/upload/upload_image.dart';
 import 'package:arina/shared/address_picker.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 
 class UploadForm extends StatefulWidget {
   const UploadForm({
@@ -42,13 +43,23 @@ class _UploadFormState extends State<UploadForm> {
   bool uploadToFire = false;
   bool noImages = false;
   final _formKey = GlobalKey<FormState>();
-  Uuid propertyID = const Uuid();
+  
 
   List<String> propImages = [];
 
   List<XFile> imageFiles = [];
   final picker = ImagePicker();
   final FirebaseStorage _storage = FirebaseStorage.instance;
+
+  final List<String> items = [
+    'Apartment',
+    "Duplex",
+    'Bungalow',
+    'Villa',
+    'Pent House',
+  ];
+
+  String? selectedValue;
 
   Future<void> _pickImages() async {
     final pickedFiles = await picker.pickMultiImage();
@@ -129,7 +140,56 @@ class _UploadFormState extends State<UploadForm> {
                       color: Color.fromARGB(255, 199, 39, 27), fontSize: 12),
                 )
               : const Text(''),
+          
 
+
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(),
+              borderRadius: BorderRadius.circular(5)
+            ),
+            child: DropdownButtonHideUnderline(
+              
+              child: DropdownButton2<String>(
+                isExpanded: true,
+                hint: Text(
+                  'Select Type',
+                  style: 
+                  
+                  TextStyle(
+                    fontSize: 16,
+                    color: Theme.of(context).hintColor,
+                  ),
+                ),
+                items: items
+                    .map((String item) => DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(
+                            item,
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ))
+                    .toList(),
+                value: selectedValue,
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedValue = value;
+                  });
+                },
+                buttonStyleData: const ButtonStyleData(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  height: 40,
+                  width: 140,
+                ),
+                menuItemStyleData: const MenuItemStyleData(
+                  height: 40,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 25,),
           AddressPicker(textEditingController: _address),
           buildForm("Description", _description,
               keyboardType: TextInputType.multiline, maxLines: 5),
@@ -180,6 +240,7 @@ class _UploadFormState extends State<UploadForm> {
                               .add(
                                 UploadModel(
                                   propertyID: "",
+                                  type: selectedValue.toString(),
                                   title: _title.text,
                                   description: _description.text,
                                   duration: _duration.text,
@@ -222,36 +283,4 @@ class _UploadFormState extends State<UploadForm> {
 
     _total.text = total.toString();
   }
-}
-
-Widget buildForm(
-  String label,
-  TextEditingController controller, {
-  bool readOnly = false,
-  onChanged,
-  keyboardType,
-  maxLines,
-  textInputAction,
-}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(label, style: flargeText),
-      TextFormField(
-        readOnly: readOnly,
-        controller: controller,
-        onChanged: onChanged,
-        keyboardType: keyboardType,
-        textInputAction: textInputAction,
-        maxLines: maxLines,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Please enter some text";
-          }
-          return null;
-        },
-      ),
-      const SizedBox(height: 25),
-    ],
-  );
 }

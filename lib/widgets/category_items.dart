@@ -21,7 +21,7 @@ class CategoryItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (_) => SearchScreen(query: svgAsset)));
+            MaterialPageRoute(builder: (_) => SearchScreen(query: label)));
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

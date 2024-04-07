@@ -1,3 +1,4 @@
+import 'package:arina/screens/notifications/notification_screen.dart';
 import 'package:arina/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -44,20 +45,17 @@ class AppScaffold extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 21),
               child: IconButton(
-                iconSize: 30,
-                color: Colors.grey,
-                onPressed: () {
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (_) => const SearchScreen()));
-                },
-                icon: IconButton(
-                    iconSize: 30,
-                    color: Colors.grey,
-                    onPressed: () {},
-                    icon: const Icon(
-                      Ionicons.notifications_outline,
-                    )),
-              ),
+                  iconSize: 30,
+                  color: Colors.grey,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const NotificationScreen()));
+                  },
+                  icon: const Icon(
+                    Ionicons.notifications_outline,
+                  )),
             )
           ]),
       body: body,
