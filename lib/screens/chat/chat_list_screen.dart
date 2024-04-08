@@ -18,6 +18,11 @@ class MessageListScreen extends StatefulWidget {
 }
 
 class _MessageListScreenState extends State<MessageListScreen> {
+  String toTitleCase(String text) {
+    if (text.isEmpty) return '';
+    return text[0].toUpperCase() + text.substring(1).toLowerCase();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,33 +59,47 @@ class _MessageListScreenState extends State<MessageListScreen> {
               final userFirstName = latestMessage["userFirstName"];
               final userLastName = latestMessage["userLastName"];
               final userPicture = latestMessage["userPicture"];
-              return ListTile(
-                leading: SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: userPicture != null && userPicture != ""
-                        ? CachedImage(
-                            imageUrl: userPicture ?? "",
-                            borderRadius: BorderRadius.circular(100),
-                          )
-                        : const CircleAvatar(
-                            radius: 50,
-                            backgroundImage:
-                                AssetImage('assets/images/person/man2.jpg'))),
-                title: Text("$userFirstName $userLastName"),
-                subtitle: Text(latestMessage['message']),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ChatScreen(
-                        author: latestMessage['ownerId'],
-                        propertyID: latestMessage['propertyId'],
-                        userID: userId,
-                      ),
+              return Stack(
+                children: [
+                  ListTile(
+                    leading: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: userPicture != null && userPicture != ""
+                            ? CachedImage(
+                                imageUrl: userPicture ?? "",
+                                borderRadius: BorderRadius.circular(100),
+                              )
+                            : const CircleAvatar(
+                                radius: 50,
+                                backgroundImage: AssetImage(
+                                    'assets/images/person/man2.jpg'))),
+                    title: Text(
+                        "${toTitleCase(userFirstName)} ${toTitleCase(userLastName)}"),
+                    subtitle: Text(latestMessage['message']),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChatScreen(
+                            author: latestMessage['ownerId'],
+                            propertyID: latestMessage['propertyId'],
+                            userID: userId,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 80,
+                    right: 0,
+                    child: Container(
+                      height: 1,
+                      color: Colors.grey[300],
                     ),
-                  );
-                },
+                  ),
+                ],
               );
             },
           );
