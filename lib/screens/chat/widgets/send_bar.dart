@@ -1,9 +1,12 @@
 import 'dart:developer';
 
 import 'package:arina/models/message_model.dart';
+import 'package:arina/providers/profile_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 
 class SendBar extends StatelessWidget {
   const SendBar({
@@ -49,38 +52,77 @@ class SendBar extends StatelessWidget {
             ),
             Expanded(
               flex: 1,
-              child: IconButton(
-                onPressed: () async {
-                  String messageText = messageController.text.trim();
-
-                  if (messageText.isNotEmpty) {
-                    try {
-                      FirebaseFirestore.instance
-                          .collection('chats')
-                          .doc(propertyID)
-                          .collection(ownerID)
-                          .doc(userID)
-                          .collection("message")
-                          .add(
-                            MessageModel(
-                              message: messageText,
-                              senderId: userID,
-                              receiverId: ownerID,
-                              timestamp: Timestamp.now(),
-                            ).toFirestore(),
-                          )
-                          .then((_) => messageController.clear());
-                    } catch (e) {
-                      log("error sending message $e");
-                    }
-                  }
-                },
-                icon: const Icon(Ionicons.send),
-              ),
+              child: Consumer<ProfileProvider>(
+                  builder: (context, profileProvider, _) {
+                return IconButton(
+                  onPressed: () {
+                    _sendMessage();
+                  },
+                  icon: const Icon(Ionicons.send),
+                );
+              }),
             )
           ],
         ),
       ),
     );
+  }
+
+  void _sendMessage() {
+    String messageText = messageController.text.trim();
+    if (messageText.isEmpty) return;
+
+    String currentUserID = FirebaseAuth.instance.currentUser!.uid;
+
+    Future<void> sendMessage(String senderFirstName, String senderLastName,
+        String senderPicture) async {
+      try {
+        await FirebaseFirestore.instance.collection('chats').add(
+              MessageModel(
+                message: messageText,
+                ownerId: ownerID,
+                userId: userID,
+                propertyId: propertyID,
+                userFirstName: senderFirstName,
+                userLastName: senderLastName,
+                userPicture: senderPicture,
+                senderId: currentUserID,
+                timestamp: Timestamp.now(),
+              ).toFirestore(),
+            );
+        messageController.clear();
+      } catch (error) {
+        log('Error sending message: $error');
+      }
+    }
+
+    // Fetch user details and send message
+    if (currentUserID == ownerID) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .get()
+          .then((userData) {
+        String userFirstName = userData['firstName'];
+        String userLastName = userData['lastName'];
+        String userPicture = userData['picture'];
+        sendMessage(userFirstName, userLastName, userPicture);
+      }).catchError((error) {
+        log('Error retrieving user details: $error');
+      });
+    } else {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserID)
+          .get()
+          .then((userData) {
+        String userFirstName = userData['firstName'];
+        String userLastName = userData['lastName'];
+        String userPicture = userData['picture'];
+        sendMessage(userFirstName, userLastName, userPicture);
+      }).catchError((error) {
+        log('Error retrieving user details: $error');
+      });
+    }
   }
 }

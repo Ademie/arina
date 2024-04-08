@@ -1,5 +1,6 @@
 import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/providers/saved_provider.dart';
+import 'package:arina/screens/chat/chat_list_screen.dart';
 import 'package:arina/screens/inspection/inspect_screen.dart';
 import 'package:arina/screens/products/product_details.dart';
 import 'package:arina/widgets/arina_button.dart';
@@ -72,10 +73,15 @@ class ProductDetailsBottom extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => InspectScreen(
+                                builder: (context) => MessageListScreen(
                                       propertyID: widget.propertyID,
                                       author: widget.author,
-                                    )));
+                                    )
+                                //  InspectScreen(
+                                //   propertyID: widget.propertyID,
+                                //   author: widget.author,
+                                // ),
+                                ));
                       },
                       width: 220,
                       height: 60,

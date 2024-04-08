@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChatBody extends StatelessWidget {
@@ -18,13 +19,15 @@ class ChatBody extends StatelessWidget {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: getMessages,
         builder: (context, snapshot) {
-          if (!snapshot.hasData || snapshot.data == null) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (snapshot.data!.docs.isEmpty) {
-            return SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.65,
+          }
+          if (snapshot.hasError) {
+            print(snapshot.error);
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
             );
           }
 
@@ -38,25 +41,28 @@ class ChatBody extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 14),
                     child: Align(
-                      alignment: (messages[index]["senderId"] == ownerID
+                      alignment: (messages[index]["senderId"] ==
+                              FirebaseAuth.instance.currentUser!.uid
                           ? Alignment.topLeft
                           : Alignment.topRight),
                       child: Container(
                         constraints: const BoxConstraints(maxWidth: 250),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: (messages[index]["senderId"] == ownerID
-                              ? Colors.grey.shade200
-                              : const Color(0xFF303030)),
+                          color: (messages[index]["senderId"] ==
+                                  FirebaseAuth.instance.currentUser!.uid
+                              ? const Color(0xFF303030)
+                              : Colors.grey.shade200),
                         ),
                         padding: const EdgeInsets.all(16),
                         child: Text(
                           messages[index]["message"],
                           style: TextStyle(
                             fontSize: 15,
-                            color: (messages[index]["senderId"] == ownerID
-                                ? const Color(0xFF303030)
-                                : Colors.grey.shade200),
+                            color: (messages[index]["senderId"] ==
+                                    FirebaseAuth.instance.currentUser!.uid
+                                ? Colors.grey.shade200
+                                : const Color(0xFF303030)),
                           ),
                         ),
                       ),

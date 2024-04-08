@@ -21,10 +21,15 @@ class OwnerDetails extends StatelessWidget {
           SizedBox(
               width: 50,
               height: 50,
-              child: CachedImage(
-                imageUrl: ownerProvider.picture,
-                borderRadius: BorderRadius.circular(100),
-              )),
+              child: ownerProvider.picture != ""
+                  ? CachedImage(
+                      imageUrl: ownerProvider.picture,
+                      borderRadius: BorderRadius.circular(100),
+                    )
+                  : const CircleAvatar(
+                      radius: 50,
+                      backgroundImage:
+                          AssetImage('assets/images/person/man2.jpg'))),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

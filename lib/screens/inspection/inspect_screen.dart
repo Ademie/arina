@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:arina/screens/chat/chat_screen.dart';
-import 'package:arina/screens/chat/conv_screen.dart';
 import 'package:arina/shared/summary_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
@@ -210,12 +209,7 @@ class _InspectScreenState extends State<InspectScreen> {
                             author: widget.author,
                             propertyID: widget.propertyID,
                             userID: FirebaseAuth.instance.currentUser!.uid,
-                          )
-                      // ChatsScreen(
-                      //     propertyId: widget.propertyID,
-                      //     ownerId: widget.author,
-                      //     userId: FirebaseAuth.instance.currentUser!.uid),
-                      ));
+                          )));
             }
           },
           icon: const Icon(

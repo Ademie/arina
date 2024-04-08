@@ -30,6 +30,7 @@ class _MainAppState extends State<MainApp> {
   late final SavedProvider savedProvider;
   late final OwnerProvider ownerProvider;
   late final ProfileProvider profileProvider;
+  
   late final AddressProvider addressProvider;
   late final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
@@ -40,6 +41,7 @@ class _MainAppState extends State<MainApp> {
     savedProvider = SavedProvider();
     ownerProvider = OwnerProvider();
     profileProvider = ProfileProvider();
+    
     addressProvider = AddressProvider();
     routeProvider = RouteProvider(fireAuthProvider, navigatorKey);
     super.initState();
@@ -66,6 +68,7 @@ class _MainAppState extends State<MainApp> {
         ChangeNotifierProvider<ProfileProvider>(
           create: (context) => profileProvider,
         ),
+     
         ChangeNotifierProvider<SavedProvider>(
           create: (context) => savedProvider,
         ),
@@ -77,7 +80,6 @@ class _MainAppState extends State<MainApp> {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           routerConfig: routeProvider.routerConfig,
-          
         );
       },
     );

@@ -27,17 +27,12 @@ class _ChatScreenState extends State<ChatScreen> {
     TextEditingController messageController = TextEditingController();
     final firestore = FirebaseFirestore.instance;
 
-    // final getMessages = firestore
-    //     .collection("messages")
-    //     .orderBy('timestamp', descending: false)
-    //     .snapshots();
     final getMessages = FirebaseFirestore.instance
         .collection('chats')
-        .doc(widget.propertyID)
-        .collection(widget.author)
-        .doc(widget.userID)
-        .collection("message")
-        .orderBy('timestamp', descending: true)
+        .where('propertyId', isEqualTo: widget.propertyID)
+        .where('ownerId', isEqualTo: widget.author)
+        .where('userId', isEqualTo: widget.userID)
+        .orderBy('timestamp', descending: false)
         .snapshots();
 
     return Consumer<OwnerProvider>(builder: (context, ownerProvider, _) {

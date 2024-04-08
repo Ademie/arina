@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:arina/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -49,6 +50,7 @@ class FireAuthProvider extends ChangeNotifier {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-credential') {
         errorMessage = "Email or password is incorrect";
+        
         isLoading = false;
         notifyListeners();
       }
