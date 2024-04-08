@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MessageModel {
-  String messageContent;
-  String messageType;
+  String message;
+  String senderId;
+  String receiverId;
   Timestamp timestamp;
 
   MessageModel({
-    required this.messageContent,
-    required this.messageType,
+    required this.message,
+    required this.senderId,
+    required this.receiverId,
     required this.timestamp,
   });
 
@@ -17,16 +19,19 @@ class MessageModel {
   ) {
     final data = snapshot.data();
     return MessageModel(
-        messageContent: data?["messageContent"],
-        messageType: data?["messageType"],
-        timestamp: data?["timestamp"]);
+      message: data?["message"],
+      senderId: data?["senderId"],
+      receiverId: data?["receiverId"],
+      timestamp: data?["timestamp"],
+    );
   }
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (messageContent.isNotEmpty) "messageContent": messageContent,
-      if (messageType.isNotEmpty) "messageType": messageType,
-      "timestamp": timestamp
+      if (message.isNotEmpty) "message": message,
+      if (senderId.isNotEmpty) "senderId": senderId,
+      if (receiverId.isNotEmpty) "receiverId": receiverId,
+      "timestamp": timestamp,
     };
   }
 }

@@ -8,12 +8,18 @@ import 'package:ionicons/ionicons.dart';
 class SendBar extends StatelessWidget {
   const SendBar({
     super.key,
-    required this.messageContent,
+    required this.messageController,
     required this.firestore,
+    required this.propertyID,
+    required this.ownerID,
+    required this.userID,
   });
 
-  final TextEditingController messageContent;
+  final TextEditingController messageController;
   final FirebaseFirestore firestore;
+  final String propertyID;
+  final String ownerID;
+  final String userID;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +43,7 @@ class SendBar extends StatelessWidget {
                 child: TextFormField(
                   decoration:
                       const InputDecoration.collapsed(hintText: 'Message'),
-                  controller: messageContent,
+                  controller: messageController,
                 ),
               ),
             ),
@@ -45,17 +51,28 @@ class SendBar extends StatelessWidget {
               flex: 1,
               child: IconButton(
                 onPressed: () async {
-                  try {
-                    firestore.collection("messages").add(
-                          MessageModel(
-                            messageContent: messageContent.text,
-                            messageType: "receiver",
-                            timestamp: Timestamp.now(),
-                          ).toFirestore(),
-                        );
-                    messageContent.text = "";
-                  } catch (e) {
-                    log("An error occured $e");
+                  String messageText = messageController.text.trim();
+
+                  if (messageText.isNotEmpty) {
+                    try {
+                      FirebaseFirestore.instance
+                          .collection('chats')
+                          .doc(propertyID)
+                          .collection(ownerID)
+                          .doc(userID)
+                          .collection("message")
+                          .add(
+                            MessageModel(
+                              message: messageText,
+                              senderId: userID,
+                              receiverId: ownerID,
+                              timestamp: Timestamp.now(),
+                            ).toFirestore(),
+                          )
+                          .then((_) => messageController.clear());
+                    } catch (e) {
+                      log("error sending message $e");
+                    }
                   }
                 },
                 icon: const Icon(Ionicons.send),

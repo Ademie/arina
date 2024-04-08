@@ -29,6 +29,11 @@ class _ProductDetailsState extends State<ProductDetails> {
     ownerProvider.fetchOwner(widget.author);
     super.initState();
   }
+  @override
+  void dispose(){
+    ownerProvider.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

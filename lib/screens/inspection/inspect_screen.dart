@@ -1,16 +1,23 @@
 import 'dart:developer';
 import 'package:arina/screens/chat/chat_screen.dart';
+import 'package:arina/screens/chat/conv_screen.dart';
 import 'package:arina/shared/summary_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:ionicons/ionicons.dart';
 
 class InspectScreen extends StatefulWidget {
-  const InspectScreen({super.key, required this.propertyID});
+  const InspectScreen({
+    super.key,
+    required this.propertyID,
+    required this.author,
+  });
 
   final String propertyID;
+  final String author;
 
   @override
   State<InspectScreen> createState() => _InspectScreenState();
@@ -196,8 +203,19 @@ class _InspectScreenState extends State<InspectScreen> {
         child: ElevatedButton.icon(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const ChatScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChatScreen(
+                            author: widget.author,
+                            propertyID: widget.propertyID,
+                            userID: FirebaseAuth.instance.currentUser!.uid,
+                          )
+                      // ChatsScreen(
+                      //     propertyId: widget.propertyID,
+                      //     ownerId: widget.author,
+                      //     userId: FirebaseAuth.instance.currentUser!.uid),
+                      ));
             }
           },
           icon: const Icon(
@@ -255,7 +273,7 @@ class TopWidget extends StatelessWidget {
               }
               final data = snapshot.data!.data();
               final title = data?["title"];
-              final address = data?["propAddress"];
+              final address = data?["addrDescription"];
               final imageURL = data?["imagesURL"][0];
               final total = data?["total"];
               return SummaryCard(
