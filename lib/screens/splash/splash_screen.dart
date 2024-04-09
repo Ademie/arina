@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
             height: 100,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/png/bath.png"),
+                image: AssetImage("assets/png/homeradarblack.png"),
                 fit: BoxFit.fill,
               ),
             ),
@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
           left: 0,
           bottom: 0,
           child: Image.asset(
-            "assets/png/bath.png",
+            "assets/png/homeradarblack.png",
             height: 50,
             width: 50,
           ),
@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
           left: 120,
           bottom: 0,
           child: Image.asset(
-            "assets/png/bath.png",
+            "assets/png/homeradarblack.png",
             height: 50,
             width: 50,
           ),
