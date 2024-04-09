@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:arina/constants/constants.dart';
 import 'package:arina/models/profile_model.dart';
 import 'package:arina/providers/auth_provider.dart';
