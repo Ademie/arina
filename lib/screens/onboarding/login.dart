@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:arina/constants/constants.dart';
 import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/screens/onboarding/components/forms_header.dart';
+import 'package:arina/screens/onboarding/forget_password.dart';
 import 'package:arina/screens/onboarding/sign_up.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:flutter/material.dart';
@@ -162,7 +165,12 @@ class _LogInState extends State<LogIn> {
                             ),
                             Center(
                               child: TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                ForgotPasswordScreen()));
+                                  },
                                   child: const Text(
                                     'Forgot Password',
                                     textAlign: TextAlign.center,
@@ -179,23 +187,35 @@ class _LogInState extends State<LogIn> {
                             ),
                             // BUTTON
                             Consumer<FireAuthProvider>(
-                                builder: (context, auth, child) {
-                              return ArinaButton(
-                                text: 'Log in',
-                                isLoading: auth.isLoading,
-                                onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    if (await auth.login(
+                              builder: (BuildContext context, auth, child) {
+                                return ArinaButton(
+                                  text: 'Log in',
+                                  isLoading: auth.isLoading,
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      bool success = await auth.login(
                                         email: _email.text,
-                                        password: _password.text)) {
-                                      context.go("/");
-                                    } else {
-                                      showSnack(context, auth.errorMessage);
+                                        password: _password.text,
+                                      );
+                                      if (success) {
+                                        if (auth.currentUser!.emailVerified) {
+                                          context.go("/home");
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                                content: Text(
+                                                    "Please verify your email before logging in.")),
+                                          );
+                                        }
+                                      } else {
+                                        showSnack(context, auth.errorMessage);
+                                      }
                                     }
-                                  }
-                                },
-                              );
-                            }),
+                                  },
+                                );
+                              },
+                            ),
 
                             const SizedBox(
                               height: 30,

@@ -233,6 +233,7 @@ class _SignUpState extends State<SignUp> {
                             ),
 
                             // BUTTON
+
                             Consumer<FireAuthProvider>(
                               builder: (BuildContext context, auth, child) {
                                 return ArinaButton(
@@ -240,32 +241,27 @@ class _SignUpState extends State<SignUp> {
                                   isLoading: auth.isLoading,
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      if (await auth.register(
-                                          email: _email.text,
-                                          password: _password.text)) {
-                                        context.go("/home");
+                                      bool success = await auth.register(
+                                        email: _email.text,
+                                        password: _password.text,
+                                      );
+                                      if (success) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                              content: Text(
+                                            "Verification email sent. Check your inbox or spam folder",
+                                          )),
+                                        );
                                       } else {
                                         showSnack(context, auth.errorMessage);
-                                      }
-                                      try {
-                                        firestore
-                                            .collection("users")
-                                            .doc(auth.currentUser!.uid)
-                                            .set(
-                                              ProfileModel(
-                                                firstName: _firstName.text,
-                                                lastName: _lastName.text,
-                                                email: _email.text,
-                                              ).toFirestore(),
-                                            );
-                                      } catch (e) {
-                                        log(e.toString());
                                       }
                                     }
                                   },
                                 );
                               },
                             ),
+
                             const SizedBox(
                               height: 30,
                             ),

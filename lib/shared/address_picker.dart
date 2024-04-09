@@ -7,11 +7,11 @@ import 'package:google_places_autocomplete_text_field/model/prediction.dart';
 import 'package:provider/provider.dart';
 
 class AddressPicker extends StatefulWidget {
-  AddressPicker({
+  const AddressPicker({
     super.key,
     required this.textEditingController,
   });
-  TextEditingController textEditingController;
+  final TextEditingController textEditingController;
 
   @override
   State<AddressPicker> createState() => _AddressPickerState();

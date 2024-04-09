@@ -1,4 +1,4 @@
-import 'package:arina/shared/cached_image.dart';
+import 'package:arina/screens/chat/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'chat_screen.dart';
@@ -62,18 +62,11 @@ class _MessageListScreenState extends State<MessageListScreen> {
               return Stack(
                 children: [
                   ListTile(
-                    leading: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: userPicture != null && userPicture != ""
-                            ? CachedImage(
-                                imageUrl: userPicture ?? "",
-                                borderRadius: BorderRadius.circular(100),
-                              )
-                            : const CircleAvatar(
-                                radius: 50,
-                                backgroundImage: AssetImage(
-                                    'assets/images/person/man2.jpg'))),
+                    leading: UserAvatar(
+                      picture: userPicture ?? "",
+                      width: 50,
+                      height: 50,
+                    ),
                     title: Text(
                         "${toTitleCase(userFirstName)} ${toTitleCase(userLastName)}"),
                     subtitle: Text(latestMessage['message']),
@@ -84,6 +77,9 @@ class _MessageListScreenState extends State<MessageListScreen> {
                           builder: (context) => ChatScreen(
                             author: latestMessage['ownerId'],
                             propertyID: latestMessage['propertyId'],
+                            userFirstName: userFirstName,
+                            userLastName: userLastName,
+                            userPicture: userPicture,
                             userID: userId,
                           ),
                         ),
