@@ -82,184 +82,209 @@ class _LogInState extends State<LogIn> {
                         left: 30,
                         top: 35,
                       ),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Email',
-                              style: TextStyle(
-                                color: Color(0xFF909090),
-                                fontSize: 14,
-                                fontFamily: 'Nunito Sans',
-                                fontWeight: FontWeight.w400,
+                      child: Consumer<FireAuthProvider>(
+                          builder: (context, auth, _) {
+                        return Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Email',
+                                style: TextStyle(
+                                  color: Color(0xFF909090),
+                                  fontSize: 14,
+                                  fontFamily: 'Nunito Sans',
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            ),
-                            TextFormField(
-                              controller: _email,
-                            ),
-                            const SizedBox(
-                              height: 35,
-                            ),
-                            const Text(
-                              'Password',
-                              style: TextStyle(
-                                color: Color(0xFF909090),
-                                fontSize: 14,
-                                fontFamily: 'Nunito Sans',
-                                fontWeight: FontWeight.w400,
+                              TextFormField(
+                                controller: _email,
                               ),
-                            ),
-                            SizedBox(
-                              width: 500,
-                              height: 40,
-                              child: Stack(
-                                children: [
-                                  SizedBox(
-                                    width: 400,
-                                    height: 40,
-                                    child: TextFormField(
-                                      obscureText: _obscurePassword,
-                                      autocorrect: false,
-                                      enableSuggestions: false,
-                                      controller: _password,
-                                      validator: (value) {
-                                        if (value!.length < 6) {
-                                          return 'Password must contain at least 6 characters';
-                                        } else if (!value
-                                            .contains(RegExp(r'[A-Z]'))) {
-                                          return 'Password must contain at least one uppercase letter';
-                                        } else if (!value
-                                            .contains(RegExp(r'[a-z]'))) {
-                                          return 'Password must contain at least one lowercase letter';
-                                        } else if (!value
-                                            .contains(RegExp(r'[0-9]'))) {
-                                          return 'Password must contain at least one digit';
-                                        } else if (!value.contains(RegExp(
-                                            r'(?=.*?[!@#\$&*~]).{8,}$'))) {
-                                          return 'Password must contain at least one special character';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 10,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          _obscurePassword = !_obscurePassword;
-                                        });
-                                      },
-                                      icon: Icon(_obscurePassword == true
-                                          ? Ionicons.eye
-                                          : Ionicons.eye_off),
-                                    ),
-                                  )
-                                ],
+                              const SizedBox(
+                                height: 35,
                               ),
-                            ),
-                            const SizedBox(
-                              height: 35,
-                            ),
-                            Center(
-                              child: TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                ForgotPasswordScreen()));
-                                  },
-                                  child: const Text(
-                                    'Forgot Password',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Color(0xFF909090),
-                                      fontSize: 18,
-                                      fontFamily: 'Nunito Sans',
-                                      fontWeight: FontWeight.w600,
+                              const Text(
+                                'Password',
+                                style: TextStyle(
+                                  color: Color(0xFF909090),
+                                  fontSize: 14,
+                                  fontFamily: 'Nunito Sans',
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 500,
+                                height: 40,
+                                child: Stack(
+                                  children: [
+                                    SizedBox(
+                                      width: 400,
+                                      height: 40,
+                                      child: TextFormField(
+                                        obscureText: _obscurePassword,
+                                        autocorrect: false,
+                                        enableSuggestions: false,
+                                        controller: _password,
+                                        validator: (value) {
+                                          if (value!.length < 6) {
+                                            return 'Password must contain at least 6 characters';
+                                          } else if (!value
+                                              .contains(RegExp(r'[A-Z]'))) {
+                                            return 'Password must contain at least one uppercase letter';
+                                          } else if (!value
+                                              .contains(RegExp(r'[a-z]'))) {
+                                            return 'Password must contain at least one lowercase letter';
+                                          } else if (!value
+                                              .contains(RegExp(r'[0-9]'))) {
+                                            return 'Password must contain at least one digit';
+                                          } else if (!value.contains(RegExp(
+                                              r'(?=.*?[!@#\$&*~]).{8,}$'))) {
+                                            return 'Password must contain at least one special character';
+                                          }
+                                          return null;
+                                        },
+                                      ),
                                     ),
-                                  )),
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            // BUTTON
-                            Consumer<FireAuthProvider>(
-                              builder: (BuildContext context, auth, child) {
-                                return ArinaButton(
-                                  text: 'Log in',
-                                  isLoading: auth.isLoading,
-                                  onPressed: () async {
-                                    if (_formKey.currentState!.validate()) {
-                                      bool success = await auth.login(
-                                        email: _email.text,
-                                        password: _password.text,
-                                      );
-                                      if (success) {
-                                        if (auth.currentUser!.emailVerified) {
-                                          context.go("/home");
-                                        } else {
+                                    Positioned(
+                                      right: 10,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _obscurePassword =
+                                                !_obscurePassword;
+                                          });
+                                        },
+                                        icon: Icon(_obscurePassword == true
+                                            ? Ionicons.eye
+                                            : Ionicons.eye_off),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 35,
+                              ),
+                              Center(
+                                child: TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  ForgotPasswordScreen()));
+                                    },
+                                    child: const Text(
+                                      'Forgot Password',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color(0xFF909090),
+                                        fontSize: 18,
+                                        fontFamily: 'Nunito Sans',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    )),
+                              ),
+                              auth.currentUser != null &&
+                                      !auth.currentUser!.emailVerified
+                                  ? Center(
+                                      child: TextButton(
+                                        onPressed: () {
+                                          auth.currentUser!
+                                              .sendEmailVerification();
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             const SnackBar(
-                                                content: Text(
-                                                    "Please verify your email before logging in.")),
+                                                content: Center(
+                                              child: Text(
+                                                  "Verification email sent."),
+                                            )),
                                           );
-                                        }
-                                      } else {
-                                        showSnack(context, auth.errorMessage);
-                                      }
-                                    }
-                                  },
-                                );
-                              },
-                            ),
-
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Don\'t have an account? ',
-                                  style: TextStyle(
-                                    color: Color(0xFF808080),
-                                    fontSize: 14,
-                                    fontFamily: 'Nunito Sans',
-                                    fontWeight: FontWeight.w600,
-                                    height: 0,
-                                  ),
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const SignUp()),
-                                      );
-                                    },
-                                    child: const Text(
-                                      'SIGN UP',
-                                      style: TextStyle(
-                                        color: Color(0xFF303030),
-                                        fontSize: 14,
-                                        fontFamily: 'Nunito Sans',
-                                        fontWeight: FontWeight.w700,
-                                        height: 0,
+                                        },
+                                        child: const Text(
+                                            "Resend email verification"),
                                       ),
-                                    )),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 37,
-                            ),
-                          ],
-                        ),
-                      ),
+                                    )
+                                  : const SizedBox(),
+                              const SizedBox(
+                                height: 40,
+                              ),
+                              // BUTTON
+                              Consumer<FireAuthProvider>(
+                                builder: (BuildContext context, auth, child) {
+                                  return ArinaButton(
+                                    text: 'Log in',
+                                    isLoading: auth.isLoading,
+                                    onPressed: () async {
+                                      if (_formKey.currentState!.validate()) {
+                                        bool success = await auth.login(
+                                          email: _email.text,
+                                          password: _password.text,
+                                        );
+                                        if (success) {
+                                          if (auth.currentUser!.emailVerified) {
+                                            context.go("/home");
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                  content: Text(
+                                                      "Please verify your email before logging in.")),
+                                            );
+                                          }
+                                        } else {
+                                          showSnack(context, auth.errorMessage);
+                                        }
+                                      }
+                                    },
+                                  );
+                                },
+                              ),
+
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Don\'t have an account? ',
+                                    style: TextStyle(
+                                      color: Color(0xFF808080),
+                                      fontSize: 14,
+                                      fontFamily: 'Nunito Sans',
+                                      fontWeight: FontWeight.w600,
+                                      height: 0,
+                                    ),
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const SignUp()),
+                                        );
+                                      },
+                                      child: const Text(
+                                        'SIGN UP',
+                                        style: TextStyle(
+                                          color: Color(0xFF303030),
+                                          fontSize: 14,
+                                          fontFamily: 'Nunito Sans',
+                                          fontWeight: FontWeight.w700,
+                                          height: 0,
+                                        ),
+                                      )),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 37,
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
                     ),
                   ),
                 ),

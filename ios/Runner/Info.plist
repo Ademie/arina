@@ -3,16 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Arina wants to open Gallery</string>
+	<string>Home Radar wants to open Gallery</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Arina wants to open Camera</string>
+	<string>Home Radar wants to open Camera</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Arina wants to use Microphone</string>
+	<string>Home Radar wants to use Microphone</string>
 
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Arina</string>
+	<string>Home Radar</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -20,7 +20,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>arina</string>
+	<string>Home Radar</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

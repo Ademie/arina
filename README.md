@@ -22,3 +22,5 @@ post_install do |installer|
     end
   end
 end
+
+Android adaptive icon generator

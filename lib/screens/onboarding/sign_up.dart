@@ -1,12 +1,16 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:arina/constants/constants.dart';
+import 'package:arina/models/profile_model.dart';
 
 import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/screens/onboarding/components/forms_header.dart';
 import 'package:arina/screens/onboarding/login.dart';
 import 'package:arina/widgets/arina_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -243,6 +247,21 @@ class _SignUpState extends State<SignUp> {
                                         password: _password.text,
                                       );
                                       if (success) {
+                                        try {
+                                          firestore
+                                              .collection("users")
+                                              .doc(auth.currentUser!.uid)
+                                              .set(
+                                                ProfileModel(
+                                                  firstName: _firstName.text,
+                                                  lastName: _lastName.text,
+                                                  email: _email.text,
+                                                ).toFirestore(),
+                                              );
+                                        } catch (e) {
+                                          log(e.toString());
+                                        }
+                                        context.go("/login");
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           const SnackBar(

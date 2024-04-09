@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      title: "ARINA",
+      title: "HOME RADAR",
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(

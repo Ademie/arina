@@ -30,7 +30,8 @@ class RouteProvider extends ChangeNotifier {
         GoRoute(
           name: "HomeRadar",
           path: "/",
-          builder: (context, state) => fireAuthProvider.currentUser != null
+          builder: (context, state) => fireAuthProvider.currentUser != null &&
+                  fireAuthProvider.currentUser!.emailVerified
               ? const HomeScreen()
               : const SplashScreen(),
         ),
