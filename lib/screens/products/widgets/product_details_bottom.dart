@@ -1,9 +1,11 @@
 import 'package:arina/providers/auth_provider.dart';
 import 'package:arina/providers/saved_provider.dart';
 import 'package:arina/screens/chat/chat_list_screen.dart';
+import 'package:arina/screens/chat/chat_screen.dart';
 import 'package:arina/screens/inspection/inspect_screen.dart';
 import 'package:arina/screens/products/product_details.dart';
 import 'package:arina/widgets/arina_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
@@ -21,7 +23,7 @@ class ProductDetailsBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FireAuthProvider>(builder: (context, fireAuthProvider, _) {
+    return Consumer<FireAuthProvider>(builder: (context, auth, _) {
       return Consumer<SavedProvider>(builder: (context, saveHome, _) {
         bool isSavedProduct = data != null && saveHome.isSaved(data!);
 
@@ -32,7 +34,7 @@ class ProductDetailsBottom extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              widget.author == fireAuthProvider.currentUser!.uid
+              widget.author == auth.currentUser!.uid
                   ? GestureDetector(
                       onTap: () {
                         // saveHome.add(data!);
@@ -66,7 +68,7 @@ class ProductDetailsBottom extends StatelessWidget {
                             : SvgPicture.asset("assets/svg/marker.svg"),
                       ),
                     ),
-              widget.author == fireAuthProvider.currentUser!.uid
+              widget.author == auth.currentUser!.uid
                   ? ArinaButton(
                       text: 'Check Messages',
                       onPressed: () {
@@ -76,30 +78,55 @@ class ProductDetailsBottom extends StatelessWidget {
                                 builder: (context) => MessageListScreen(
                                       propertyID: widget.propertyID,
                                       author: widget.author,
-                                    )
-                                //  InspectScreen(
-                                //   propertyID: widget.propertyID,
-                                //   author: widget.author,
-                                // ),
-                                ));
-                      },
-                      width: 220,
-                      height: 60,
-                    )
-                  : ArinaButton(
-                      text: 'Book Inspection',
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => InspectScreen(
-                                      propertyID: widget.propertyID,
-                                      author: widget.author,
                                     )));
                       },
                       width: 220,
                       height: 60,
                     )
+                  : FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                      future: FirebaseFirestore.instance
+                          .collection('chats')
+                          .doc(
+                              "${widget.propertyID} ${widget.author} ${auth.currentUser!.uid}")
+                          .get(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData || snapshot.hasError) {
+                          return const Text("An error occured");
+                        }
+                        final data = snapshot.data!.data();
+                        String firstMessage = data?["firstMessage"] ?? "";
+                        if (firstMessage.isNotEmpty && data != null) {
+                          return ArinaButton(
+                            text: 'Continue Chat',
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChatScreen(
+                                            author: widget.author,
+                                            propertyID: widget.propertyID,
+                                            userID: auth.currentUser!.uid,
+                                          )));
+                            },
+                            width: 220,
+                            height: 60,
+                          );
+                        }
+                        return ArinaButton(
+                          text: 'Book Inspection',
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => InspectScreen(
+                                          propertyID: widget.propertyID,
+                                          author: widget.author,
+                                        )));
+                          },
+                          width: 220,
+                          height: 60,
+                        );
+                      })
             ],
           ),
         );

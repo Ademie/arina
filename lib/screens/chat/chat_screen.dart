@@ -3,6 +3,7 @@ import 'package:arina/screens/chat/widgets/chat_body.dart';
 import 'package:arina/screens/chat/widgets/send_bar.dart';
 import 'package:arina/screens/chat/widgets/user_avatar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -77,20 +78,34 @@ class _ChatScreenState extends State<ChatScreen> {
         body: Form(
           child: Column(
             children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
-                margin:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: const Color(0xFF303030),
-                ),
-                child: Text(
-                  ownerProvider.firstName,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
+              FutureBuilder(
+                  future: FirebaseFirestore.instance
+                      .collection('chats')
+                      .doc(
+                          "${widget.propertyID} ${widget.author} ${FirebaseAuth.instance.currentUser!.uid}")
+                      .get(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData || snapshot.hasError) {
+                      return const Text("An error occured");
+                    }
+                    final data = snapshot.data!.data();
+                    String firstMessage = data?["firstMessage"];
+
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 14),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 14),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xFF303030),
+                      ),
+                      child: Text(
+                        firstMessage,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    );
+                  }),
               Flexible(
                 child: ChatBody(
                   getMessages: getMessages,
