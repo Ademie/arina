@@ -41,7 +41,6 @@ class _MainAppState extends State<MainApp> {
     savedProvider = SavedProvider();
     ownerProvider = OwnerProvider();
     profileProvider = ProfileProvider();
-
     addressProvider = AddressProvider();
     routeProvider = RouteProvider(fireAuthProvider, navigatorKey);
     super.initState();
@@ -76,15 +75,9 @@ class _MainAppState extends State<MainApp> {
         ),
       ],
       builder: (context, child) {
-        return PopScope(
-          onPopInvoked: (didPop) {
-            FocusScope.of(context).unfocus();
-          },
-          child: MaterialApp.router(
-            theme: ThemeData(primaryColor: Colors.black),
-            debugShowCheckedModeBanner: false,
-            routerConfig: routeProvider.routerConfig,
-          ),
+        return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routerConfig: routeProvider.routerConfig,
         );
       },
     );

@@ -6,6 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// 172.20.10.8
+
 class ChatScreen extends StatefulWidget {
   const ChatScreen({
     super.key,
@@ -44,24 +46,34 @@ class _ChatScreenState extends State<ChatScreen> {
 
     return Consumer<OwnerProvider>(builder: (context, ownerProvider, _) {
       ownerProvider.fetchOwner(widget.author);
+      String ownerFirstName = ownerProvider.firstName;
+      String ownerLastName = ownerProvider.lastName;
+      String ownerPicture = ownerProvider.picture;
+      String userFirstName = widget.userFirstName ?? "";
+      String userLastName = widget.userLastName ?? "";
+      String userPicture = widget.userPicture ?? "";
+
       return Scaffold(
         resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          title: widget.author != widget.userID
-              ? Text("${widget.userFirstName} ${widget.userLastName}")
-              : Text("${ownerProvider.firstName} ${ownerProvider.lastName}"),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 25.0),
-              child: widget.author != widget.userID
-                  ? UserAvatar(picture: widget.userPicture ?? "")
-                  : UserAvatar(
-                      picture: ownerProvider.picture,
-                    ),
-            ),
-          ],
-          scrolledUnderElevation: 0,
-        ),
+        appBar: widget.author == widget.userID
+            ? AppBar(
+                title: Text("$userFirstName $userLastName"),
+                actions: [
+                  Padding(
+                      padding: const EdgeInsets.only(right: 25.0),
+                      child: UserAvatar(picture: userPicture)),
+                ],
+                scrolledUnderElevation: 0,
+              )
+            : AppBar(
+                title: Text("$ownerFirstName $ownerLastName"),
+                actions: [
+                  Padding(
+                      padding: const EdgeInsets.only(right: 25.0),
+                      child: UserAvatar(picture: ownerPicture)),
+                ],
+                scrolledUnderElevation: 0,
+              ),
         body: Form(
           child: Column(
             children: [
@@ -74,8 +86,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   borderRadius: BorderRadius.circular(20),
                   color: const Color(0xFF303030),
                 ),
-                child: const Text(
-                  'Thank you for your interest in this listing. Your inspection date has been scheduled for the 10th of March, more information is been sent to your mail. You can ask any questions you want from the sender but please DO NOT make any payment till you confirm the PROPERTY.',
+                child: Text(
+                  ownerProvider.firstName,
                   style: TextStyle(color: Colors.white),
                 ),
               ),
