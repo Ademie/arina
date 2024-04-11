@@ -1,4 +1,4 @@
-package morningstar.arina
+package morningstar.homeradar
 
 import io.flutter.embedding.android.FlutterActivity
 

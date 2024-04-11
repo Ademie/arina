@@ -1,4 +1,4 @@
-import 'package:arina/constants/constants.dart';
+import 'package:homeradar/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 Widget buildForm(
@@ -9,12 +9,22 @@ Widget buildForm(
   keyboardType,
   maxLines,
   textInputAction,
+  hint,
+  labelText,
+  prefixText,
+  suffixText,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(label, style: flargeText),
       TextFormField(
+        decoration: InputDecoration(
+          hintText: hint,
+          prefixText: prefixText,
+          labelText: labelText,
+          suffixText: suffixText,
+        ),
         readOnly: readOnly,
         controller: controller,
         onChanged: onChanged,

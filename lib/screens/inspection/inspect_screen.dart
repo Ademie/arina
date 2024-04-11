@@ -1,6 +1,6 @@
 import 'dart:developer';
-import 'package:arina/screens/chat/chat_screen.dart';
-import 'package:arina/shared/summary_card.dart';
+import 'package:homeradar/screens/chat/chat_screen.dart';
+import 'package:homeradar/shared/summary_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -300,7 +300,7 @@ class TopWidget extends StatelessWidget {
                 title: title,
                 propAddress: address,
                 imageURL: imageURL,
-                rent: "\$$total/year",
+                rent: "\$$total/total",
               );
             }));
   }

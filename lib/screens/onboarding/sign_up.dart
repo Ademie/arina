@@ -2,13 +2,13 @@
 
 import 'dart:developer';
 
-import 'package:arina/constants/constants.dart';
-import 'package:arina/models/profile_model.dart';
+import 'package:homeradar/constants/constants.dart';
+import 'package:homeradar/models/profile_model.dart';
 
-import 'package:arina/providers/auth_provider.dart';
-import 'package:arina/screens/onboarding/components/forms_header.dart';
-import 'package:arina/screens/onboarding/login.dart';
-import 'package:arina/widgets/arina_button.dart';
+import 'package:homeradar/providers/auth_provider.dart';
+import 'package:homeradar/screens/onboarding/components/forms_header.dart';
+import 'package:homeradar/screens/onboarding/login.dart';
+import 'package:homeradar/widgets/homeradar_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
@@ -237,7 +237,7 @@ class _SignUpState extends State<SignUp> {
 
                             Consumer<FireAuthProvider>(
                               builder: (BuildContext context, auth, child) {
-                                return ArinaButton(
+                                return HomeRadarButton(
                                   text: 'Sign Up',
                                   isLoading: auth.isLoading,
                                   onPressed: () async {

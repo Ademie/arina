@@ -1,8 +1,8 @@
-import 'package:arina/constants/constants.dart';
-import 'package:arina/routes/bottom_nav.dart';
-import 'package:arina/screens/upload/upload_form.dart';
-import 'package:arina/shared/app_scaffold.dart';
-import 'package:arina/widgets/arina_button.dart';
+import 'package:homeradar/constants/constants.dart';
+import 'package:homeradar/routes/bottom_nav.dart';
+import 'package:homeradar/screens/upload/upload_form.dart';
+import 'package:homeradar/shared/app_scaffold.dart';
+import 'package:homeradar/widgets/homeradar_button.dart';
 import 'package:flutter/material.dart';
 
 class UploadScreen extends StatefulWidget {
@@ -40,7 +40,7 @@ class _UploadScreenState extends State<UploadScreen> {
                   height: 25,
                 ),
                 Center(
-                    child: ArinaButton(
+                    child: HomeRadarButton(
                   text: 'List Property',
                   onPressed: () {
                     showModalBottomSheet(

@@ -1,10 +1,10 @@
-import 'package:arina/firebase_options.dart';
-import 'package:arina/providers/address_provider.dart';
-import 'package:arina/providers/auth_provider.dart';
-import 'package:arina/providers/owner_provider.dart';
-import 'package:arina/providers/profile_provider.dart';
-import 'package:arina/providers/route_provider.dart';
-import 'package:arina/providers/saved_provider.dart';
+import 'package:homeradar/firebase_options.dart';
+import 'package:homeradar/providers/address_provider.dart';
+import 'package:homeradar/providers/auth_provider.dart';
+import 'package:homeradar/providers/owner_provider.dart';
+import 'package:homeradar/providers/profile_provider.dart';
+import 'package:homeradar/providers/route_provider.dart';
+import 'package:homeradar/providers/saved_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';

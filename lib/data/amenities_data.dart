@@ -1,4 +1,4 @@
-import 'package:arina/models/amenities_model.dart';
+import 'package:homeradar/models/amenities_model.dart';
 
 final List<AmenitiesModel> amenitiess = [
   AmenitiesModel(

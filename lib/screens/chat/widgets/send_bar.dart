@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:arina/models/message_model.dart';
-import 'package:arina/providers/profile_provider.dart';
+import 'package:homeradar/models/message_model.dart';
+import 'package:homeradar/providers/profile_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

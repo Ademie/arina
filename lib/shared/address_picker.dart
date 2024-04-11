@@ -1,6 +1,6 @@
-import 'package:arina/constants/api_keys.dart';
-import 'package:arina/constants/constants.dart';
-import 'package:arina/providers/address_provider.dart';
+import 'package:homeradar/constants/api_keys.dart';
+import 'package:homeradar/constants/constants.dart';
+import 'package:homeradar/providers/address_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_places_autocomplete_text_field/google_places_autocomplete_text_field.dart';
 import 'package:google_places_autocomplete_text_field/model/prediction.dart';
@@ -29,6 +29,9 @@ class _AddressPickerState extends State<AddressPicker> {
               countries: const ["us"],
               textEditingController: widget.textEditingController,
               googleAPIKey: googleMap,
+              decoration: const InputDecoration(
+                hintText: "10 summerville road"
+              ),
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter some text';

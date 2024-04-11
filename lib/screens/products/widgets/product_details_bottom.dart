@@ -1,10 +1,10 @@
-import 'package:arina/providers/auth_provider.dart';
-import 'package:arina/providers/saved_provider.dart';
-import 'package:arina/screens/chat/chat_list_screen.dart';
-import 'package:arina/screens/chat/chat_screen.dart';
-import 'package:arina/screens/inspection/inspect_screen.dart';
-import 'package:arina/screens/products/product_details.dart';
-import 'package:arina/widgets/arina_button.dart';
+import 'package:homeradar/providers/auth_provider.dart';
+import 'package:homeradar/providers/saved_provider.dart';
+import 'package:homeradar/screens/chat/chat_list_screen.dart';
+import 'package:homeradar/screens/chat/chat_screen.dart';
+import 'package:homeradar/screens/inspection/inspect_screen.dart';
+import 'package:homeradar/screens/products/product_details.dart';
+import 'package:homeradar/widgets/homeradar_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -69,7 +69,7 @@ class ProductDetailsBottom extends StatelessWidget {
                       ),
                     ),
               widget.author == auth.currentUser!.uid
-                  ? ArinaButton(
+                  ? HomeRadarButton(
                       text: 'Check Messages',
                       onPressed: () {
                         Navigator.push(
@@ -96,7 +96,7 @@ class ProductDetailsBottom extends StatelessWidget {
                         final data = snapshot.data!.data();
                         String firstMessage = data?["firstMessage"] ?? "";
                         if (firstMessage.isNotEmpty && data != null) {
-                          return ArinaButton(
+                          return HomeRadarButton(
                             text: 'Continue Chat',
                             onPressed: () {
                               Navigator.push(
@@ -112,7 +112,7 @@ class ProductDetailsBottom extends StatelessWidget {
                             height: 60,
                           );
                         }
-                        return ArinaButton(
+                        return HomeRadarButton(
                           text: 'Book Inspection',
                           onPressed: () {
                             Navigator.push(

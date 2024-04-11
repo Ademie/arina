@@ -1,10 +1,11 @@
-import 'package:arina/providers/owner_provider.dart';
-import 'package:arina/screens/products/widgets/amenities.dart';
-import 'package:arina/screens/products/widgets/owner_details.dart';
-import 'package:arina/screens/products/widgets/price_summary.dart';
-import 'package:arina/screens/products/widgets/product_details_bottom.dart';
-import 'package:arina/shared/gmap_preview.dart';
-import 'package:arina/screens/products/widgets/product_showcase.dart';
+import 'package:homeradar/providers/owner_provider.dart';
+import 'package:homeradar/screens/products/widgets/amenities.dart';
+import 'package:homeradar/screens/products/widgets/owner_details.dart';
+import 'package:homeradar/screens/products/widgets/price_summary.dart';
+import 'package:homeradar/screens/products/widgets/product_details_bottom.dart';
+import 'package:homeradar/shared/gmap_preview.dart';
+import 'package:homeradar/screens/products/widgets/product_showcase.dart';
+import 'package:homeradar/shared/map_preview.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -29,8 +30,9 @@ class _ProductDetailsState extends State<ProductDetails> {
     ownerProvider.fetchOwner(widget.author);
     super.initState();
   }
+
   @override
-  void dispose(){
+  void dispose() {
     ownerProvider.dispose();
     super.dispose();
   }
@@ -137,7 +139,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       height: 300,
                       child: Stack(
                         children: [
-                          GMapPreview(latitude: latitude, longitude: longitude),
+                          // GMapPreview(latitude: latitude, longitude: longitude),
+                          MapPreview(latitude: latitude, longitude: longitude),
                           Positioned(
                               top: 0,
                               bottom: 0,
@@ -145,10 +148,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 onTap: () async {
                                   await showDialog(
                                     context: context,
-                                    builder: (_) => GMapDialog(
+                                    builder: (_) => MapDialog(
                                       latitude: latitude,
                                       longitude: longitude,
                                     ),
+                                    // GMapDialog(
+                                    //   latitude: latitude,
+                                    //   longitude: longitude,
+                                    // ),
                                   );
                                 },
                                 child: Container(

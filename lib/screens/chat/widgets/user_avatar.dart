@@ -1,4 +1,4 @@
-import 'package:arina/shared/cached_image.dart';
+import 'package:homeradar/shared/cached_image.dart';
 import 'package:flutter/material.dart';
 
 class UserAvatar extends StatelessWidget {

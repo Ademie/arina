@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_cached_tile_provider/flutter_map_cached_tile_provider.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:latlong2/latlong.dart';
 
 class MapPreview extends StatelessWidget {
@@ -59,26 +60,46 @@ class MapDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog.fullscreen(
-      child: FlutterMap(
-        options: MapOptions(
-          initialCenter: LatLng(latitude, longitude),
-        ),
+      child: Stack(
         children: [
-          TileLayer(
-            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            userAgentPackageName: 'com.example.app',
-            tileProvider: CachedTileProvider(),
-          ),
-          MarkerLayer(markers: [
-            Marker(
-              point: LatLng(latitude, longitude),
-              child: const Icon(
-                Icons.location_on,
-                color: Colors.black,
-                size: 50.0,
+          FlutterMap(
+            options: MapOptions(
+              initialCenter: LatLng(latitude, longitude),
+            ),
+            children: [
+              TileLayer(
+                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                userAgentPackageName: 'com.example.app',
+                tileProvider: CachedTileProvider(),
               ),
-            )
-          ])
+              MarkerLayer(markers: [
+                Marker(
+                  point: LatLng(latitude, longitude),
+                  child: const Icon(
+                    Icons.location_on,
+                    color: Colors.black,
+                    size: 50.0,
+                  ),
+                )
+              ])
+            ],
+          ),
+          Positioned(
+            top: 16.0,
+            left: 16.0,
+            child: Transform.scale(
+              scale: 0.9,
+              child: FloatingActionButton(
+                backgroundColor: Colors.white,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Icon(
+                  Ionicons.arrow_back,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

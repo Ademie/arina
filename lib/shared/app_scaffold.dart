@@ -1,5 +1,5 @@
-import 'package:arina/screens/notifications/notification_screen.dart';
-import 'package:arina/screens/search/search_screen.dart';
+import 'package:homeradar/screens/notifications/notification_screen.dart';
+import 'package:homeradar/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 

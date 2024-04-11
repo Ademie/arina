@@ -42,7 +42,7 @@ class PriceSummary extends StatelessWidget {
                   title: Text('Rent'),
                 ),
               ),
-              Text("₦$rent")
+              Text("\$$rent")
             ],
           ),
           Row(
@@ -53,7 +53,7 @@ class PriceSummary extends StatelessWidget {
                   title: Text('Security'),
                 ),
               ),
-              Text("₦$security")
+              Text("\$$security")
             ],
           ),
           Row(
@@ -64,7 +64,7 @@ class PriceSummary extends StatelessWidget {
                   title: Text('Service Charge'),
                 ),
               ),
-              Text("₦$service")
+              Text("\$$service")
             ],
           ),
           Row(
@@ -75,7 +75,7 @@ class PriceSummary extends StatelessWidget {
                   title: Text('Total Package'),
                 ),
               ),
-              Text("₦$total")
+              Text("\$$total")
             ],
           ),
         ],

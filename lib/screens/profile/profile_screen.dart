@@ -1,9 +1,9 @@
-import 'package:arina/constants/constants.dart';
-import 'package:arina/providers/auth_provider.dart';
-import 'package:arina/providers/profile_provider.dart';
-import 'package:arina/routes/bottom_nav.dart';
-import 'package:arina/shared/app_scaffold.dart';
-import 'package:arina/shared/cached_image.dart';
+import 'package:homeradar/constants/constants.dart';
+import 'package:homeradar/providers/auth_provider.dart';
+import 'package:homeradar/providers/profile_provider.dart';
+import 'package:homeradar/routes/bottom_nav.dart';
+import 'package:homeradar/shared/app_scaffold.dart';
+import 'package:homeradar/shared/cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';

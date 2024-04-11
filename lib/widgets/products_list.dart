@@ -1,6 +1,6 @@
-import 'package:arina/providers/saved_provider.dart';
-import 'package:arina/screens/products/product_details.dart';
-import 'package:arina/shared/cached_image.dart';
+import 'package:homeradar/providers/saved_provider.dart';
+import 'package:homeradar/screens/products/product_details.dart';
+import 'package:homeradar/shared/cached_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -122,7 +122,7 @@ class ProductGridView extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '₦${mylist[index]["rent"]}',
+                              '\$${mylist[index]["rent"]}',
                               style: const TextStyle(
                                 color: Color.fromARGB(255, 250, 250, 250),
                                 fontSize: 14,

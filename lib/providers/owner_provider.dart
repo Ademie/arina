@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:arina/models/profile_model.dart';
+import 'package:homeradar/models/profile_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

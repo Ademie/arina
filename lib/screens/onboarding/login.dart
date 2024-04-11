@@ -1,11 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:arina/constants/constants.dart';
-import 'package:arina/providers/auth_provider.dart';
-import 'package:arina/screens/onboarding/components/forms_header.dart';
-import 'package:arina/screens/onboarding/forget_password.dart';
-import 'package:arina/screens/onboarding/sign_up.dart';
-import 'package:arina/widgets/arina_button.dart';
+import 'package:homeradar/constants/constants.dart';
+import 'package:homeradar/providers/auth_provider.dart';
+import 'package:homeradar/screens/onboarding/components/forms_header.dart';
+import 'package:homeradar/screens/onboarding/forget_password.dart';
+import 'package:homeradar/screens/onboarding/sign_up.dart';
+import 'package:homeradar/widgets/homeradar_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
@@ -212,7 +212,7 @@ class _LogInState extends State<LogIn> {
                               // BUTTON
                               Consumer<FireAuthProvider>(
                                 builder: (BuildContext context, auth, child) {
-                                  return ArinaButton(
+                                  return HomeRadarButton(
                                     text: 'Log in',
                                     isLoading: auth.isLoading,
                                     onPressed: () async {

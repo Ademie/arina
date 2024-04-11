@@ -1,6 +1,6 @@
-import 'package:arina/constants/constants.dart';
-import 'package:arina/providers/auth_provider.dart';
-import 'package:arina/widgets/arina_button.dart';
+import 'package:homeradar/constants/constants.dart';
+import 'package:homeradar/providers/auth_provider.dart';
+import 'package:homeradar/widgets/homeradar_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -150,7 +150,7 @@ class _ContactScreenState extends State<ContactScreen> {
       ),
       bottomSheet: Padding(
         padding: const EdgeInsets.all(25),
-        child: ArinaButton(
+        child: HomeRadarButton(
           text: "Submit",
           width: 400,
           onPressed: () {

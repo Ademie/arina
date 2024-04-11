@@ -1,5 +1,5 @@
-import 'package:arina/providers/owner_provider.dart';
-import 'package:arina/shared/cached_image.dart';
+import 'package:homeradar/providers/owner_provider.dart';
+import 'package:homeradar/shared/cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

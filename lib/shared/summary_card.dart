@@ -1,4 +1,4 @@
-import 'package:arina/shared/cached_image.dart';
+import 'package:homeradar/shared/cached_image.dart';
 import 'package:flutter/material.dart';
 
 class SummaryCard extends StatelessWidget {
@@ -79,7 +79,7 @@ class SummaryCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          rent ?? "₦300000/Year",
+                          rent ?? "\$300000/Year",
                           softWrap: true,
                           maxLines: 3,
                           style: const TextStyle(

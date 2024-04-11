@@ -1,14 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
-import 'package:arina/constants/constants.dart';
-import 'package:arina/models/upload_model.dart';
-import 'package:arina/providers/address_provider.dart';
-import 'package:arina/providers/auth_provider.dart';
-import 'package:arina/screens/upload/build_form.dart';
-import 'package:arina/screens/upload/upload_image.dart';
-import 'package:arina/shared/address_picker.dart';
-import 'package:arina/widgets/arina_button.dart';
+import 'package:homeradar/constants/constants.dart';
+import 'package:homeradar/models/upload_model.dart';
+import 'package:homeradar/providers/address_provider.dart';
+import 'package:homeradar/providers/auth_provider.dart';
+import 'package:homeradar/screens/upload/build_form.dart';
+import 'package:homeradar/screens/upload/upload_image.dart';
+import 'package:homeradar/shared/address_picker.dart';
+import 'package:homeradar/widgets/homeradar_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -43,7 +43,6 @@ class _UploadFormState extends State<UploadForm> {
   bool uploadToFire = false;
   bool noImages = false;
   final _formKey = GlobalKey<FormState>();
-  
 
   List<String> propImages = [];
 
@@ -129,7 +128,7 @@ class _UploadFormState extends State<UploadForm> {
         key: _formKey,
         child: SliverList(
             delegate: SliverChildListDelegate.fixed([
-          buildForm("Title", _title, textInputAction: TextInputAction.done),
+          buildForm("Title", _title, textInputAction: TextInputAction.done, hint: "Summerville Apartment"),
           // IMAGES
           const Text('Add Image', style: flargeText),
           uploadImage(_pickImages, imageFiles, uploading),
@@ -140,23 +139,16 @@ class _UploadFormState extends State<UploadForm> {
                       color: Color.fromARGB(255, 199, 39, 27), fontSize: 12),
                 )
               : const Text(''),
-          
-
 
           Container(
             decoration: BoxDecoration(
-              border: Border.all(),
-              borderRadius: BorderRadius.circular(5)
-            ),
+                border: Border.all(), borderRadius: BorderRadius.circular(5)),
             child: DropdownButtonHideUnderline(
-              
               child: DropdownButton2<String>(
                 isExpanded: true,
                 hint: Text(
                   'Select Type',
-                  style: 
-                  
-                  TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     color: Theme.of(context).hintColor,
                   ),
@@ -189,21 +181,54 @@ class _UploadFormState extends State<UploadForm> {
               ),
             ),
           ),
-          const SizedBox(height: 25,),
+          const SizedBox(
+            height: 25,
+          ),
           AddressPicker(textEditingController: _address),
-          buildForm("Description", _description,
-              keyboardType: TextInputType.multiline, maxLines: 5),
-          buildForm("Duration", _duration, keyboardType: TextInputType.number),
-          buildForm("Rent", _rent, keyboardType: TextInputType.number),
-          buildForm("Security", _security, keyboardType: TextInputType.number),
-          buildForm("Service Charge", _service,
-              keyboardType: TextInputType.number),
-          buildForm("Total", _total, readOnly: true),
+          buildForm(
+            "Description",
+            _description,
+            keyboardType: TextInputType.multiline,
+            maxLines: 5,
+            hint: "The property is a 3 bedroom..."
+          ),
+          buildForm("Duration", _duration,
+              keyboardType: TextInputType.number,
+              hint: "12 Months",
+              suffixText: "Months"),
+          buildForm(
+            "Rent",
+            _rent,
+            keyboardType: TextInputType.number,
+            prefixText: "\$",
+            labelText: "\$"
+          ),
+          buildForm(
+            "Security",
+            _security,
+            keyboardType: TextInputType.number,
+            prefixText: "\$",
+            labelText: "\$"
+          ),
+          buildForm(
+            "Service Charge",
+            _service,
+            keyboardType: TextInputType.number,
+            prefixText: "\$",
+            labelText: "\$"
+          ),
+          buildForm(
+            "Total",
+            _total,
+            readOnly: true,
+            prefixText: "\$",
+            labelText: "\$"
+          ),
 
           Consumer<FireAuthProvider>(builder: (context, auth, _) {
             return Consumer<AddressProvider>(
                 builder: (context, addressProvider, _) {
-              return ArinaButton(
+              return HomeRadarButton(
                 text: "List Property",
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {

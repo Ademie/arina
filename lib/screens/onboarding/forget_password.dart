@@ -1,4 +1,4 @@
-import 'package:arina/widgets/arina_button.dart';
+import 'package:homeradar/widgets/homeradar_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +31,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Center(
-              child: ArinaButton(
+              child: HomeRadarButton(
                 onPressed: () async {
                   await FirebaseAuth.instance
                       .sendPasswordResetEmail(email: _emailController.text);

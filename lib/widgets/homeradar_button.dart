@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ArinaButton extends StatelessWidget {
-  const ArinaButton({
+class HomeRadarButton extends StatelessWidget {
+  const HomeRadarButton({
     super.key,
     this.text,
     this.onPressed,

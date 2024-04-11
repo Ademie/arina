@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyAiO4X3V4fhoXzwMROVFGfox_48XcQilhg</string>
+	<string>AIzaSyCh6LI6eOFIFzHpqHRQJ9EbLqIfql3GWYE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>578425176222</string>
+	<string>564494589557</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>morningstar.arina</string>
+	<string>morningstar.homeradar</string>
 	<key>PROJECT_ID</key>
-	<string>thhomes-63a29</string>
+	<string>homeradar-dd457</string>
 	<key>STORAGE_BUCKET</key>
-	<string>thhomes-63a29.appspot.com</string>
+	<string>homeradar-dd457.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:578425176222:ios:e02070f8d14802ffe7bb8f</string>
+	<string>1:564494589557:ios:c90f70e76699fae84a223c</string>
 </dict>
 </plist>

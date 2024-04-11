@@ -1,5 +1,5 @@
-import 'package:arina/models/profile_model.dart';
-import 'package:arina/providers/auth_provider.dart';
+import 'package:homeradar/models/profile_model.dart';
+import 'package:homeradar/providers/auth_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

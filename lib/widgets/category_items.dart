@@ -1,4 +1,4 @@
-import 'package:arina/screens/search/search_screen.dart';
+import 'package:homeradar/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

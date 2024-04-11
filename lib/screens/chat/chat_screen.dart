@@ -1,7 +1,7 @@
-import 'package:arina/providers/owner_provider.dart';
-import 'package:arina/screens/chat/widgets/chat_body.dart';
-import 'package:arina/screens/chat/widgets/send_bar.dart';
-import 'package:arina/screens/chat/widgets/user_avatar.dart';
+import 'package:homeradar/providers/owner_provider.dart';
+import 'package:homeradar/screens/chat/widgets/chat_body.dart';
+import 'package:homeradar/screens/chat/widgets/send_bar.dart';
+import 'package:homeradar/screens/chat/widgets/user_avatar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

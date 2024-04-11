@@ -1,7 +1,7 @@
-import 'package:arina/routes/bottom_nav.dart';
-import 'package:arina/shared/app_scaffold.dart';
-import 'package:arina/widgets/category_items.dart';
-import 'package:arina/widgets/products_list.dart';
+import 'package:homeradar/routes/bottom_nav.dart';
+import 'package:homeradar/shared/app_scaffold.dart';
+import 'package:homeradar/widgets/category_items.dart';
+import 'package:homeradar/widgets/products_list.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

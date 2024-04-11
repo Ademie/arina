@@ -1,4 +1,4 @@
-import 'package:arina/constants/constants.dart';
+import 'package:homeradar/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

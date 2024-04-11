@@ -1,5 +1,5 @@
-import 'package:arina/screens/products/product_details.dart';
-import 'package:arina/shared/summary_card.dart';
+import 'package:homeradar/screens/products/product_details.dart';
+import 'package:homeradar/shared/summary_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -132,7 +132,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 return SummaryCard(
                   title: searchResults[index]["title"],
                   imageURL: searchResults[index]["imagesURL"][0].toString(),
-                  rent: '₦${searchResults[index]["rent"]}/year',
+                  rent: '\$${searchResults[index]["rent"]}/year',
                   goTo: () {
                     Navigator.push(
                       context,

@@ -1,10 +1,10 @@
-import 'package:arina/constants/constants.dart';
-import 'package:arina/providers/saved_provider.dart';
-import 'package:arina/routes/bottom_nav.dart';
-import 'package:arina/screens/products/product_details.dart';
-import 'package:arina/shared/app_scaffold.dart';
-import 'package:arina/shared/summary_card.dart';
-import 'package:arina/widgets/arina_button.dart';
+import 'package:homeradar/constants/constants.dart';
+import 'package:homeradar/providers/saved_provider.dart';
+import 'package:homeradar/routes/bottom_nav.dart';
+import 'package:homeradar/screens/products/product_details.dart';
+import 'package:homeradar/shared/app_scaffold.dart';
+import 'package:homeradar/shared/summary_card.dart';
+import 'package:homeradar/widgets/homeradar_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
@@ -45,7 +45,7 @@ class _SavedScreenState extends State<SavedScreen> {
                           height: 25,
                         ),
                         Center(
-                            child: ArinaButton(
+                            child: HomeRadarButton(
                           text: 'Browse Homes',
                           onPressed: () {
                             context.go("/home");
@@ -67,7 +67,7 @@ class _SavedScreenState extends State<SavedScreen> {
                     imageURL:
                         savedHome.homes[index]["imagesURL"]?[0].toString() ??
                             "",
-                    rent: '\$${savedHome.homes[index]["rent"] ?? ""}/year',
+                    rent: '\$${savedHome.homes[index]["rent"] ?? ""}/rent',
                     remove: true,
                     removeProd: Positioned(
                         top: 0,

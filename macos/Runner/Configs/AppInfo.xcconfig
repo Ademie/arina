@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = arina
+PRODUCT_NAME = homeradar
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = morningstar.arina
+PRODUCT_BUNDLE_IDENTIFIER = morningstar.homeradar
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.
