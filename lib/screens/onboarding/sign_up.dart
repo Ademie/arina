@@ -6,6 +6,7 @@ import 'package:homeradar/constants/constants.dart';
 import 'package:homeradar/models/profile_model.dart';
 
 import 'package:homeradar/providers/auth_provider.dart';
+import 'package:homeradar/screens/onboarding/components/build_form.dart';
 import 'package:homeradar/screens/onboarding/components/forms_header.dart';
 import 'package:homeradar/screens/onboarding/login.dart';
 import 'package:homeradar/widgets/homeradar_button.dart';
@@ -95,17 +96,9 @@ class _SignUpState extends State<SignUp> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'First Name',
-                              style: TextStyle(
-                                color: Color(0xFF909090),
-                                fontSize: 14,
-                                fontFamily: 'Nunito Sans',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            TextFormField(
+                            BuildForm(
                               controller: _firstName,
+                              label: "First Name",
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "Please enter some text";
@@ -115,20 +108,9 @@ class _SignUpState extends State<SignUp> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 35,
-                            ),
-                            const Text(
-                              'Last Name',
-                              style: TextStyle(
-                                color: Color(0xFF909090),
-                                fontSize: 14,
-                                fontFamily: 'Nunito Sans',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            TextFormField(
+                            BuildForm(
                               controller: _lastName,
+                              label: "Last Name",
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "Please enter some text";
@@ -138,20 +120,9 @@ class _SignUpState extends State<SignUp> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 35,
-                            ),
-                            const Text(
-                              'Email',
-                              style: TextStyle(
-                                color: Color(0xFF909090),
-                                fontSize: 14,
-                                fontFamily: 'Nunito Sans',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            TextFormField(
+                            BuildForm(
                               controller: _email,
+                              label: "Email",
                               validator: (value) {
                                 bool isEmailValid(String email) {
                                   String emailPattern =
@@ -167,9 +138,7 @@ class _SignUpState extends State<SignUp> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 35,
-                            ),
+
                             // PASSWORD
                             const Text(
                               'Password',
@@ -182,12 +151,12 @@ class _SignUpState extends State<SignUp> {
                             ),
                             SizedBox(
                               width: 500,
-                              height: 40,
+                              height: 60,
                               child: Stack(
                                 children: [
                                   SizedBox(
                                     width: 400,
-                                    height: 40,
+                                    height: 60,
                                     child: TextFormField(
                                       obscureText: _obscurePassword,
                                       controller: _password,
@@ -332,3 +301,4 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
+

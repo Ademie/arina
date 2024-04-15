@@ -27,8 +27,8 @@ class HomeRadarButton extends StatelessWidget {
         elevation: 10,
       ),
       child: SizedBox(
-          width: width ?? 260,
-          height: height ?? 50,
+          // width: width ?? 260,
+          // height: height ?? 50,
           child: Center(
               child: isLoading
                   ? const CircularProgressIndicator(
